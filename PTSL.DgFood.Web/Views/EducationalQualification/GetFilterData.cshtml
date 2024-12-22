@@ -1,0 +1,27 @@
+﻿@model ICollection<PTSL.DgFood.Web.Model.EducationalQualificationListVM>
+@{
+    Layout = null;
+}
+
+<tbody id="EducationalQualificationList">
+    @if (Model != null)
+    {
+        int i = 1;
+        foreach (var data in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@data.NameOfTheInstitute</td>
+                <td>@data.PrincipalSubject</td>
+                <td style="text-align:center">@data.GpaOrCGPA</td>
+                <td>@data.Distinction</td>
+                <td style="width:220px;float:left;">
+                    <a href="/EmployeeInformation/EditEducationalQualification?eid=@data.Id&empid=@data.EmpoloyeeInformationId" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-info icon-left btn-sm" data-toggle="modal" data-target=".EducationalQualification-details-modal" onclick="javascript: setEducationalQualificationModalData(@data.Id)"><i class="fa fa-eye"></i></a>
+                    <button onclick="showDeleteConfirmEducationalQualificationMessage(@data.Id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            i++;
+        }
+    }
+</tbody>

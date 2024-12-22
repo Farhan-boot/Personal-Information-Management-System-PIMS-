@@ -1,0 +1,331 @@
+﻿@model  PTSL.DgFood.Web.Model.EntityViewModels.EmployeeManagementEntity.TrainingInformationManagementMasterVM
+@{
+    ViewBag.Title = "Index";
+    var RoleName = Session["RoleName"].ToString();
+
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-12">
+                    <h4>Training Management</h4>
+                </div>
+
+            </div>
+            @using (Html.BeginForm("Edit", "TrainingInformationManagementMaster", FormMethod.Post, new { id = "EmployeeInformationForm", enctype = "multipart/form-data" }))
+            {
+                <div class="card-body">
+                    <div class="row">
+
+                        <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+                        <input type="hidden" name="CreatedAt" id="CreatedAt" value="@Model.CreatedAt" />
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="inputNationalID">Training Name </label>
+                                @Html.DropDownList("TrainingManagementTypeId", (SelectList)ViewBag.TrainingManagementTypesId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                                @Html.HiddenFor(x => x.TrainingManagementTypeId)
+                            </div>
+                            <div class="form-group col-md-6">
+                                <div>
+                                    @{
+                                        var total = Model?.TrainingInformationManagementLists.Count();
+                                        var male = Model?.TrainingInformationManagementLists?.Where(x => x?.EmployeeInformationDto.GenderId == PTSL.DgFood.Web.Helper.Enum.Gender.Male).Count();
+                                        var female = Model?.TrainingInformationManagementLists?.Where(x => x?.EmployeeInformationDto?.GenderId == PTSL.DgFood.Web.Helper.Enum.Gender.Female).Count();
+                                    }
+                                    @{
+                            
+                                        var malePer = ((male / total) * 100);
+                                        var femalePer = ((female / total) * 100); 
+                                    }
+
+                                    <table>
+                                        <tbody>
+                                            @*<tr>
+                                                <td><b>Total:</b> @total %</td>
+                                            </tr>*@
+                                            <tr>
+                                                <td><b>Male:</b> @malePer % </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Female:</b> @femalePer % </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="EmployeeTable" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    @*<th>SL</th>*@
+                                    <th style="width:10%">Emp Id</th>
+                                    <th style="width:20%">Name</th>
+                                    <th style="width:10%">DOB</th>
+                                    <th style="width:10%">Designation</th>
+                                    <th style="width:10%">Grade</th>
+                                    <th style="width:10%">By Prom/ Recruit</th>
+                                    <th style="width:10%">Original Posting Place</th>
+                                    <th style="width:10%">Mobile No.</th>
+                                    <th style="width: 130px;">Action</th>
+                                </tr>
+                            </thead>
+                            @*@{
+                                int i = 0;
+                            }*@
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var data in Model.TrainingInformationManagementLists)
+                                    {
+                                        string Designation = "";
+                                        string ByPromo = "";
+                                        string OriginalPosting = "";
+                                        if (data != null)
+                                        {
+                                            var PromotionDesignation = data.EmployeeInformationDto?.PromotionPartcularsList?.OrderByDescending(x => x.Id);
+                                            if (PromotionDesignation != null && PromotionDesignation.Count() > 0)
+                                            {
+                                                if (PromotionDesignation.FirstOrDefault().DesignationDTO != null)
+                                                {
+                                                    Designation = PromotionDesignation.FirstOrDefault().DesignationDTO.DesignationName;
+                                                }
+                                            }
+                                            var designationData = data.EmployeeInformationDto?.OfficialInformationList?.OrderByDescending(x => x.Id);
+
+                                            if (designationData != null && designationData.Count() > 0)
+                                            {
+                                                if (Designation == "" && designationData.FirstOrDefault().PresentDesignationDTO != null)
+                                                {
+                                                    Designation = designationData.FirstOrDefault().PresentDesignationDTO.DesignationName;
+                                                }
+                                                //ByPromo = designationData.FirstOrDefault().RecruitPromoId.ToString();
+                                                //ByPromo = designationData.FirstOrDefault().RecruitPromoId != 0 ? EnumHelper.GetEnumDisplayName((RecruitPromo)(int)designationData.FirstOrDefault().RecruitPromoId).ToString() : "";
+                                                ByPromo = designationData.FirstOrDefault().RecruitPromoId != 0 ? designationData.FirstOrDefault().RecruitPromoDTO.RecruitPromoEnglish : "";
+
+                                                OriginalPosting = designationData.FirstOrDefault().PostingDTO.PostingName;
+                                            }
+
+
+                                            string Grade = "";
+                                            var PromotionGrade = data.EmployeeInformationDto?.PromotionPartcularsList?.OrderByDescending(x => x.Id);
+                                            if (PromotionGrade != null && PromotionGrade.Count() > 0)
+                                            {
+                                                Grade = PromotionGrade.FirstOrDefault().RankDTO.RankName;
+                                            }
+                                            var gradeData = data.EmployeeInformationDto?.OfficialInformationList?.OrderByDescending(x => x.Id);
+
+                                            if (gradeData != null && gradeData.Count() > 0 && Grade == "" && gradeData.FirstOrDefault().PresentRankDTO != null)
+                                            {
+                                                Grade = gradeData.FirstOrDefault().PresentRankDTO.RankName;
+                                            }
+
+
+                                            <tr>
+
+                                                <td>@data.EmployeeInformationDto.Id</td>
+                                                <td>@data.EmployeeInformationDto.NameEnglish</td>
+                                                <td>@data.EmployeeInformationDto.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                                                <td>@Designation</td>
+                                                <td>@Grade</td>
+                                                <td>@ByPromo</td>
+                                                <td>@OriginalPosting</td>
+                                                <td>@data.EmployeeInformationDto.MobileNumber</td>
+                                              
+                                                <td style="float:left;width: 180px;">
+                                                    <a href="#" onclick="showDeleteConfirmMessage(@data.Id)" class="btn btn-danger">Delete</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                        //i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <button class="btn btn-primary pull-right">Update</button>
+
+                    <div style="height:100px;"></div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var TrainingInformationManagementMasterVM = {};
+    var EmployeeIds = [];
+    $(document).ready(function () {
+        $("#checkAll").change(function () {
+            if ($(this).prop('checked') == true) {
+                EmployeeIds = [];
+                var terf = document.getElementById('EmployeeTable');
+                var firstChilds = terf.querySelectorAll("td:first-child");
+                //var allName = [];
+                for (i = 0; i < firstChilds.length; ++i) {
+                    EmployeeIds.push(firstChilds[i].innerHTML);
+                }
+
+                console.log(EmployeeIds);
+
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            }
+            else {
+                EmployeeIds = [];
+                console.log(EmployeeIds);
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            }
+        });
+
+        $("#Status").change(function () {
+            if ($(this).prop('checked') == true) {
+                $("#Status").val("true");
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            }
+            else {
+                $("#Status").val("false");
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            }
+        });
+
+    });
+
+
+    function SetEmployeeData(id) {
+        $('#TrainingDetailModal_' + id).modal('show');
+    }
+    function setTrainingManagementData(id) {
+        $('#TrainingDetailModal_' + id).modal('hide');
+    }
+    $("#RankId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDesignation = $("#DesignationId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetDesignationDropdownByRankId",
+            data: { "id": selectedItem },
+            success: function (data) {
+                console.log(data);
+                ddlDesignation.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDesignation.append($('<option></option>').val(option.Id).html(option.DesignationName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+    function PromotionForm(id) {
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: '/PromotionManagement/PromotionFormPartial',
+            contentType: "application/json; charset=utf-8",
+            data: { "id": id },
+            datatype: "json",
+            success: function (data) {
+                $('#ModalContent').html(data);
+                $('#PromotionformModal').modal(options);
+                $('#PromotionformModal').modal('show');
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            }
+        });
+    }
+
+    function SaveFormData() {
+        debugger;
+        var TrainingManagementTypeId = $("#TrainingManagementTypeId").val();
+        var Institute = $("#Institute").val();
+        var Location = $("#Location").val();
+        if (TrainingManagementTypeId == "" || TrainingManagementTypeId == null) {
+            swal("Please select Training Name");
+        }
+        else {
+            TrainingInformationManagementMasterVM.TrainingManagementTypeId = TrainingManagementTypeId;
+            TrainingInformationManagementMasterVM.Institute = Institute;
+            TrainingInformationManagementMasterVM.Location = Location;
+            TrainingInformationManagementMasterVM.EmployeeInformationIds = EmployeeIds;
+
+            var dataObject = TrainingInformationManagementMasterVM;
+
+            $.ajax({
+                type: "POST",
+                url: "/TrainingInformationManagementMaster/Create",
+                data: JSON.stringify(dataObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response == true) {
+                        // swal("Data Saved Successfully !");
+                        location.href = "/TrainingInformationManagementMaster/Index";
+                    }
+                    else {
+                        swal("Data Saved Faild !");
+                    }
+                },
+                failure: function (response) {
+                    swal("Data Saved Faild !");
+                },
+                error: function (response) {
+                    swal("Data Saved Faild !");
+                }
+            });
+
+
+        }
+    }
+
+    function showDeleteConfirmMessage(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            var data = { 'id': id };
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: "/TrainingInformationManagement/Delete",
+                data: data,
+                datatype: "json",
+                success: function (result) {
+                    console.log(result);
+                    var message = result.Message;
+                    var executionState = result.executionState;
+                    if (executionState != null) {
+                        if (executionState != 10) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        }
+                        else {
+                            swal("Deleted Faild!", message, "success");
+                        }
+
+                        $(".confirm").on('click', function () {
+                            window.location.reload();
+                        });
+                    }
+                },
+                error: function (xmlhttprequest, textstatus, errorthrown) {
+                    swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+                }
+            });
+        });
+    }
+</script>

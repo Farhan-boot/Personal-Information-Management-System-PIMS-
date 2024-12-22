@@ -1,0 +1,29 @@
+﻿@model ICollection<PTSL.DgFood.Web.Model.PostingRecordsListVM>
+@{
+    Layout = null;
+}
+
+<tbody id="PostingRecordsList">
+    @if (Model != null)
+        {
+            int i = 1;
+            foreach (var data in Model)
+            {
+            <tr>
+                <td>@i</td>
+                <td>@data.Rank</td>
+                <td>@data.Designation</td>
+                <td>@data.PostResponsibility</td>
+                <td>@data.PostingPlace</td>
+                <td style="width:220px;float:left;">
+                    <a href="/EmployeeInformation/EditPostingRecords?pid=@data.Id&empid=@data.EmpoloyeeInformationId" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-info icon-left btn-sm" data-toggle="modal" data-target=".PostingRecords-details-modal" onclick="javascript: setPostingRecordsModalData(@data.Id)"><i class="fa fa-eye"></i></a>
+
+                    @*<a href="/SpouseInformation/Details?id=@data.Id" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>*@
+                    <button onclick="showDeleteConfirmPostingRecordsMessage(@data.Id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            i++;
+        }
+    }
+</tbody>

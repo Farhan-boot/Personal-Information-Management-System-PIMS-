@@ -1,0 +1,27 @@
+﻿@model ICollection<PTSL.DgFood.Web.Model.LanguageInfoListVM>
+@{
+    Layout = null;
+}
+
+<tbody id="LanguageInformationList">
+    @if (Model != null)
+        {
+            int i = 1;
+            foreach (var data in Model)
+            {
+            <tr>
+                <td>@i</td>
+                <td>data.Language</td>
+                <td>@data.Listening</td>
+                <td>@data.Reading</td>
+                <td>@data.Writing</td>
+                <td style="width:220px;float:left;">
+                    <a href="/EmployeeInformation/EditLanguageInformation?languageid=@data.Id&empid=@data.EmpoloyeeInformationId" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-info icon-left btn-sm" data-toggle="modal" data-target=".language-details-modal" onclick="javascript: setLanguageModalData(@data.Id)"><i class="fa fa-eye"></i></a>
+                    <button onclick="showDeleteConfirmLanguageInformationMessage(@data.Id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            i++;
+        }
+    }
+</tbody>

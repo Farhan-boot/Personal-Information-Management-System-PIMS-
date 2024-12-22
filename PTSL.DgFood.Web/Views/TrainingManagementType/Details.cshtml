@@ -1,0 +1,66 @@
+﻿@model PTSL.DgFood.Web.Model.TrainingManagementTypeVM
+@using PTSL.DgFood.Web.Helper.Enum
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Training Management Type Details</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="form-horizontal">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:50px;">Training/Workshop Plan: <b>@Model.TrainingPlan</b></td>
+                    <td style="width:50px;">Training/Workshop Plan Type: <b>@Model.TrainingPlanType</b></td>
+                </tr>
+                <tr>
+                    <td style="width:50px;">Training/Workshop Title: <b>@Model.TrainingTitle</b></td>
+                    <td style="width:50px;">Training/Workshop Batch: <b>@Model.TrainingBatch</b></td>
+                </tr>
+                <tr>
+                    <td style="width:50px;">Duration: <b>@Model.TrainingSubject</b></td>
+                    <td style="width:50px;">Duration: <b>@Model.TrainingObjective</b></td>
+                </tr>
+                <tr>
+                    <td style="width:50px;">Training Batch: <b>@Model.TrainingBatch</b></td>
+                    <td style="width:50px;">Duration: <b>@Model.DurationHour</b></td>
+                </tr>
+                <tr>
+                    <td style="width:50px;">From Date: <b>@(Convert.ToDateTime(Model.FromDate).ToString("dd-MM-yyyy"))</b></td>
+                    <td style="width:50px;">To Date: <b>@(Convert.ToDateTime(Model.ToDate).ToString("dd-MM-yyyy"))</b></td>
+                </tr>
+                <tr>
+                    <td style="width:50px;">Training/Workshop Type: <b>@(Model.TrainingLocationType == TrainingLocationType.Local ? "Local" : "Foreign")</b></td>
+                    <td style="width:50px;">Institute: <b>@Model.Institute</b></td>
+                </tr>
+                <tr>
+                    <td style="width:50px;">Special Training Type: <b>@Model.SpecialTrainingType</b></td>
+                </tr>
+
+
+                @if (Model.CountryTrainingManagementTypeMaps != null)
+                {
+                    <tr>
+                        @foreach (var country in Model.CountryTrainingManagementTypeMaps)
+                        {
+                            <td style="width:50px;">Country: <b>@country.Country.GetEnumDisplayName()</b></td>
+                        }
+                    </tr>
+                }
+                <tr>
+                    <td style="width:50px;">Institute: <b>@Model.Institute</b></td>
+                    <td style="width:50px;">Location: <b>@Model.Vanue</b></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/TrainingManagementType/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

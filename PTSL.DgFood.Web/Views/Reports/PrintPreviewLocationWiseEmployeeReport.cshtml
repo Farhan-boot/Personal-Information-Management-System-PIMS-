@@ -1,0 +1,213 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.EmployeeInformationListVM>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+    var fromDate = Convert.ToDateTime(ViewBag.PromotionFromDate).ToString("dd-MM-yyyy");
+    var toDate = Convert.ToDateTime(ViewBag.PromotionToDate).ToString("dd-MM-yyyy");
+}
+<style>
+    @@media print {
+        #printPageButton {
+            display: none;
+        }
+
+        #printBackButton {
+            display: none;
+        }
+    }
+
+    @@media print {
+        @@page {
+            size: landscape
+        }
+    }
+</style>
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/assets/css/Print.css" rel="stylesheet" />
+<section class="content-header"></section>
+<style>
+    th {
+        text-align: center !important;
+    }
+
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 0px !important;
+    }
+</style>
+<div class="row landscape-content">
+    <div class="col-12">
+        <div class="card" id="printEmployeeInfo" style="display:block;">
+
+            <div class="card-header">
+                <div class="col-md-11">
+                    <h2 style="text-align:center">Directorate General of Food</h2>
+                    <h4 style="text-align:center">
+                        Employee Lists
+                    </h4>
+                    <div class="row">
+                        @if (ViewBag.DivisionName != null && ViewBag.DivisionName != "")
+                        {
+                            <div class="col-md-4">
+                                <h6 style="text-align:center">
+                                    Division: @ViewBag.DivisionName
+                                </h6>
+                            </div>
+                        }
+                        @if (ViewBag.DistrictName != null && ViewBag.DistrictName != "")
+                        {
+                            <div class="col-md-4">
+                                <h6 style="text-align:center">
+                                    District: @ViewBag.DistrictName
+                                </h6>
+                            </div>
+                        }
+                        @if (ViewBag.PoliceStationName != null && ViewBag.PoliceStationName != "")
+                        {
+                            <div class="col-md-4">
+                                <h6 style="text-align:center">
+                                    Police Station: @ViewBag.PoliceStationName
+                                </h6>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div id="col-md-1">
+                    <button class="btn btn-info printPageButton" id="printPageButton" onClick="Print('printEmployeeInfo');" style="float: left; margin-top: 20px;">Print</button>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="card-body" style="margin-left: 30px; margin-right: 30px;">
+                <div class="table-responsive">
+                    <table id="example10" class="table-bordered table-striped table-responsive" style="table-layout:fixed;" border="1">
+                        <thead>
+                            <tr>
+                                <th style="width:5%;text-align:center">SL</th>
+                                <th>Emp Id</th>
+                                <th>Name</th>
+                                <th>DOB</th>
+                                <th>Designation</th>
+                                <th>Grade</th>
+                                <th>By Prom/ Recruit</th>
+                                <th>Original Posting Place</th>
+                                <th>Attachment Posting</th>
+                                <th>First Joining Date</th>
+                                <th>Promotion Date</th>
+                                <th>Mobile No.</th>
+                                <th>Emp.Status</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var data4 in Model.GroupBy(x => x.DivisionId))
+                            {
+                                <tr>
+                                    <td style="text-align:center" colspan="13"><b>Division: @(data4.FirstOrDefault().DivisionId != null? data4.FirstOrDefault().DivisionName : "")</b></td>
+                                     
+                                </tr>
+
+                                foreach (var data3 in data4.GroupBy(x => x.DistrictId))
+                                {
+                                    <tr>
+                                        <td style="text-align:center" colspan="13"><b>District: @(data3.FirstOrDefault().DistrictId != null ? data3.FirstOrDefault().DistrictName : "")</b></td>
+                                         
+                                    </tr>
+                                    foreach (var data2 in data3.GroupBy(x => x.PoliceStationId))
+                                    {
+                                        var psid = data2.FirstOrDefault().PoliceStationId;
+                                        <tr>
+                                            <td style="text-align:center" colspan="13"><b>Police Station: @(psid != null ? @data2.FirstOrDefault().PoliceStationName : "")</b></td>
+                                             
+                                        </tr>
+                                        foreach (var data in data2)
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>@data.Id</td>
+                                                <td>@data.NameEnglish</td>
+                                                <td>@(data.DateOfBirth != null ? Convert.ToDateTime(data.DateOfBirth).ToString("dd-MM-yyyy") : "")</td>
+                                                <td>
+                                                    @data.DesignationName
+                                                </td>
+                                                <td>
+                                                   @data.RankName
+                                                </td>
+                                                <td>@data.RecruitPromo</td>
+                                                <td>@data.PostingPlace</td>
+                                                <td> 
+                                                    @data.AttachmentPosting
+                                                </td>
+                                                 
+                                                <td>
+                                                    @(data.FirstJoiningDate != null ? Convert.ToDateTime(data.FirstJoiningDate).ToString("dd-MM-yyyy") : "")
+                                                </td>
+                                                <td>
+                                                    @(data.PRLDate != null ? Convert.ToDateTime(data.PRLDate).ToString("dd-MM-yyyy") : "")
+                                                </td>
+
+                                                <td>@data.MobileNumber</td>
+                                                <td>@data.EmployeeStatusName</td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            <div></div>
+            @Html.ActionLink("Back To Report Home", "Index", "", new { @class = "btn btn-warning", style = "margin-top:50px; margin-left:20px;", id = "printBackButton" })
+        </div>
+    </div>
+</div>
+<script>
+    function printDiv() {
+
+        var printContents = document.getElementById("printEmployeeInfo").innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        var printButton = document.getElementById("printPageButton");
+
+        //Set the button visibility to 'hidden'
+        printButton.style.visibility = 'hidden';
+        //window.focus();
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+    function Print1(PrintReport) {
+        var printContents = document.getElementById(PrintReport).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+    function Print(PrintReport) {
+        var css = '@@page { size: landscape; }',
+    head = document.head || document.getElementsByTagName('head')[0],
+    style = document.createElement('style');
+
+style.type = 'text/css';
+style.media = 'print';
+
+if (style.styleSheet){
+  style.styleSheet.cssText = css;
+} else {
+  style.appendChild(document.createTextNode(css));
+}
+
+head.appendChild(style);
+
+window.print();
+    };
+
+</script>

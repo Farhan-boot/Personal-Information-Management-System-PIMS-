@@ -1,0 +1,26 @@
+﻿@model PTSL.BdArmy.Web.Model.ModuleVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Module Details</h4>
+    </div>
+
+    <div class="card-body">
+        <table style="width:100%">
+            <tr>
+                <td style="width:50px;">Module Name: <b>@Model.ModuleName</b></td>
+                <td style="width:50px;">Module Icon: <b>@Model.ModuleIcon</b></td>
+                <td style="width:50px;">Menue Order: <b>@Model.MenueOrder</b></td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Module/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

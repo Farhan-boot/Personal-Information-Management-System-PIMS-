@@ -1,0 +1,27 @@
+﻿@model ICollection<PTSL.DgFood.Web.Model.TrainingInfoListVM>
+@{
+    Layout = null;
+}
+
+<tbody id="TrainingInformationList">
+    @if (Model != null)
+    {
+        int i = 1;
+        foreach (var data in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@data.InstituteName</td>
+                <td>@data.CourseTitle</td>
+                <td style="text-align:center">@data.PeriodFrom.ToString("dd-MM-yyyy")</td>
+                <td>@data.PeriodTo.ToString("dd-MM-yyyy")</td>
+                <td style="width:220px;float:left;">
+                    <a href="/EmployeeInformation/EditTrainingInformation?tid=@data.Id&empid=@data.EmpoloyeeInformationId" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-info icon-left btn-sm" data-toggle="modal" data-target=".TrainingInformation-details-modal" onclick="javascript: setTrainingInformationModalData(@data.Id)"><i class="fa fa-eye"></i></a>
+                    <button onclick="showDeleteConfirmTrainingMessage(@data.Id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            i++;
+        }
+    }
+</tbody>

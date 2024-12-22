@@ -1,0 +1,25 @@
+﻿@model ICollection<PTSL.DgFood.Web.Model.ChildrenInformationListVM>
+@{ 
+    Layout = null;
+}
+<tbody id="childListBody">
+    @if (Model != null)
+    {
+        int i = 1;
+        foreach (var data in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@data.NameInBangla</td>
+                <td>@data.NameInEnglish</td>
+                <td>@data.DOB.ToString("dd-MM-yyyy")</td>
+                <td style="width:220px;float:left;">
+                    <a href="/EmployeeInformation/EditChildrenInformation?childrenid=@data.Id&empid=@data.EmpoloyeeInformationId" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-info icon-left btn-sm" data-toggle="modal" data-target=".child-details-modal" onclick="javascript: setChildModalData(@data.Id)"><i class="fa fa-eye"></i></a>
+                    <button onclick="showDeleteConfirmChildMessage(@data.Id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            i++;
+        }
+    }
+</tbody>

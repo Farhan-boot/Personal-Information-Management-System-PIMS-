@@ -1,0 +1,188 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.EmployeeInformationVM>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-10">
+                    <h4>Employee Information</h4>
+                </div>
+                <div class="col-md-2">
+                    <a href="/EmployeeInformation/Create" class="badge badge-success badge-shadow pull-right">Create New</a>
+                </div>
+            </div>
+            @using (Html.BeginForm("IndexByFilter", "EmployeeInformation", FormMethod.Post, new { id = "EmployeeInformationForm", enctype = "multipart/form-data" }))
+            {
+                <div class="card-header">
+
+                    <div class="col-md-6">
+                        <label for="inputRank">Employee Status <span style="color:red;">*</span></label>
+                        @Html.DropDownList("EmployeeStatusId", (SelectList)ViewBag.EmployeeStatusId, "Choose..", new { @class = "form-control", @required = "required" })
+
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary submit-btn pull-right" style="margin-top:35px">Search</button>
+                    </div>
+                   
+                </div>
+            }
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="tableExport" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    @*<th>SL</th>*@
+                                    <th>Emp Id</th>
+                                    <th>Name</th>
+                                    <th>DOB</th>
+                                    <th>Designation</th>
+                                    <th>Grade</th>
+                                    <th>By Prom/ Recruit</th>
+                                    <th>Original Posting Place</th>
+                                    @*<th>Attachment Posting</th>*@
+                                    @*<th>Home District</th>*@
+                                    @*<th>First Joining Date</th>*@
+                                    @*<th>PRL Date</th>*@
+                                    <th>Mobile No.</th>
+                                    @*<th>Emp.Status</th>*@
+                                    <th style="width: 130px;">Action</th>
+                                </tr>
+                            </thead>
+                            @{
+                                int i = 1;
+                            }
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var data in Model)
+                                    {
+                                        <tr>
+                                            @*<td>@i</td>*@
+                                            <td>@data.Id</td>
+                                            <td>@data.NameEnglish</td>
+                                            <td>@data.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                                            <td>
+                                                @{
+                                                    string Designation = "";
+                                                    string ByPromo = "";
+                                                    string OriginalPosting = "";
+                                                    DateTime promotionDate = new DateTime();
+                                                    var PromotionDesignation = data?.PromotionPartcularsList?.OrderByDescending(x => x.Id);
+                                                    if (PromotionDesignation != null && PromotionDesignation.Count() > 0)
+                                                    {
+                                                        promotionDate = (DateTime)PromotionDesignation.FirstOrDefault().PromotionDate;
+                                                        Designation = PromotionDesignation.FirstOrDefault().DesignationDTO != null ? PromotionDesignation.FirstOrDefault().DesignationDTO.DesignationName : "";
+                                                    }
+                                                    var PostingDesignation = data?.PostingRecordsList?.OrderByDescending(x => x.Id);
+                                                    if (PostingDesignation != null && PostingDesignation.Count() > 0)
+                                                    {
+                                                        if (PostingDesignation.FirstOrDefault().DesignationDTO != null)
+                                                        {
+                                                            if (promotionDate < PostingDesignation.FirstOrDefault().PeriodFrom)
+                                                            {
+                                                                Designation = PostingDesignation.FirstOrDefault().DesignationDTO.DesignationName;
+                                                            }
+                                                        }
+                                                    }
+                                                    var designationData = data?.OfficialInformation?.OrderByDescending(x => x.Id);
+
+                                                    if (designationData != null && designationData.Count() > 0)
+                                                    {
+                                                        if (Designation == "")
+                                                        {
+                                                            Designation = designationData.FirstOrDefault().PresentDesignationDTO != null ? designationData.FirstOrDefault().PresentDesignationDTO.DesignationName : "";
+                                                        }
+                                                        //ByPromo = designationData.FirstOrDefault().RecruitPromoId.ToString();
+                                                        ByPromo = designationData.FirstOrDefault().RecruitPromoId != 0 ? PTSL.DgFood.Web.EnumHelper.GetEnumDisplayName((PTSL.DgFood.Web.Helper.Enum.RecruitPromoEnum)(int)designationData.FirstOrDefault().RecruitPromoId).ToString() : "";
+
+                                                        OriginalPosting = designationData.FirstOrDefault().PostingDTO != null ? designationData.FirstOrDefault().PostingDTO.PostingName : "";
+                                                    }
+                                                }
+                                                @Designation
+                                            </td>
+                                            <td>
+                                                @{
+                                                    string Grade = "";
+                                                    var PromotionGrade = data?.PromotionPartcularsList?.OrderByDescending(x => x.Id);
+                                                    if (PromotionGrade != null && PromotionGrade.Count() > 0)
+                                                    {
+                                                        Grade = PromotionGrade.FirstOrDefault().RankDTO != null ? PromotionGrade.FirstOrDefault().RankDTO.RankName : "";
+                                                    }
+                                                    var PostingGrade = data?.PostingRecordsList?.OrderByDescending(x => x.Id);
+                                                    if (PostingGrade != null && PostingGrade.Count() > 0)
+                                                    {
+                                                        if (PostingGrade.FirstOrDefault().DesignationDTO != null)
+                                                        {
+                                                            if (promotionDate < PostingGrade.FirstOrDefault().PeriodFrom)
+                                                            {
+                                                                Grade = PostingGrade.FirstOrDefault().RankDTO.RankName;
+                                                            }
+                                                        }
+                                                    }
+                                                    var gradeData = data?.OfficialInformation?.OrderByDescending(x => x.Id);
+
+                                                    if (gradeData != null && gradeData.Count() > 0 && Grade == "")
+                                                    {
+                                                        Grade = gradeData.FirstOrDefault().PresentRankDTO != null ? gradeData.FirstOrDefault().PresentRankDTO.RankName : "";
+                                                    }
+                                                }
+                                                @Grade
+                                            </td>
+                                            <td>@ByPromo</td>
+                                            <td>@OriginalPosting</td>
+                                            <td>@data.MobileNumber</td>
+                                            <td style="float:left;width: 130px;">
+                                                <a href="/EmployeeInformation/Edit?id=@data.Id" class="btn btn-primary btn-sm">Edit</a>
+                                                <a href="/EmployeeInformation/Report?id=@data.Id" class="btn btn-info btn-sm">Report</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<script>
+    function showDeleteConfirmMessage(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+                var data = { 'id': id };
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: "/District/Delete",
+                    data: data,
+                    datatype: "json",
+                    success: function (result) {
+                        console.log(result);
+                        var message = result.Message;
+                        var executionState = result.executionState;
+                        if (executionState != null) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            $(".confirm").on('click', function () {
+                                window.location.reload();
+                            });
+                        }
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrown) {
+                        swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+                    }
+                });
+        });
+    }
+</script>

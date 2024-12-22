@@ -1,0 +1,712 @@
+﻿@model PTSL.DgFood.Web.Model.EntityViewModels.EmployeeManagementEntity.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+
+    string GONumber = "";
+    string GoDate = "";
+    string CadreDate = "";
+    string EmployeeStatus = "";
+    string OfficialRemarks = "";
+}
+@{
+    var PromotionPartcularsLastRow = Model.PromotionPartcularLists.LastOrDefault();
+    if (PromotionPartcularsLastRow != null)
+    {
+        GONumber = PromotionPartcularsLastRow.GONumber;
+        GoDate = PromotionPartcularsLastRow.GODate != null ? Convert.ToDateTime(PromotionPartcularsLastRow.GODate).ToString("dd-MM-yyyy") : "";
+    }
+    var OfficialInformationLastRow = Model.OfficialInformationLists.LastOrDefault();
+    if (OfficialInformationLastRow != null)
+    {
+        CadreDate = OfficialInformationLastRow.CadreDate != null ? Convert.ToDateTime(OfficialInformationLastRow.CadreDate).ToString("dd-MM-yyyy") : "";
+
+        OfficialRemarks = OfficialInformationLastRow.Remarks;
+    }
+
+
+
+    //Present Posting Information start
+
+    string PresentRank = "";
+    string PresentClass = "";
+    string PresentDesignatin = "";
+    string PresentJoiningDate = "";
+    string PresentOfficeType = "";
+    string PresentPostingPlace = "";
+    string PresentPrlDate = "";
+    string PresentSection = "";
+    string PresentDeputation = "";
+    string PresentDeputationPosting = "";
+    if (OfficialInformationLastRow != null)
+    {
+        PresentJoiningDate = OfficialInformationLastRow.PresentJoinDate != null ? Convert.ToDateTime(OfficialInformationLastRow.PresentJoinDate).ToString("dd-MM-yyyy") : "";
+        PresentRank = OfficialInformationLastRow.PresentRankDTO != null ? OfficialInformationLastRow.PresentRankDTO.RankName : "";
+        PresentClass = OfficialInformationLastRow.PresentDesignationClassDTO != null ? OfficialInformationLastRow.PresentDesignationClassDTO.DesignationClassName : "";
+        PresentDesignatin = OfficialInformationLastRow.PresentDesignationDTO != null ? OfficialInformationLastRow.PresentDesignationDTO.DesignationName : "";
+        PresentOfficeType = OfficialInformationLastRow.PostingTypeDTO != null ? OfficialInformationLastRow.PostingTypeDTO.PostingTypeName : "";
+        PresentPostingPlace = OfficialInformationLastRow.PostingDTO != null ? OfficialInformationLastRow.PostingDTO.PostingName : "";
+        PresentPrlDate = OfficialInformationLastRow.PRLDate != null ? Convert.ToDateTime(OfficialInformationLastRow.PRLDate).ToString("dd-MM-yyyy") : "";
+        PresentSection = OfficialInformationLastRow.Section != null ? OfficialInformationLastRow.Section : "";
+        PresentDeputation = OfficialInformationLastRow.CrntDesgDTO != null ? OfficialInformationLastRow.CrntDesgDTO.DesignationName : "";
+        PresentDeputationPosting = OfficialInformationLastRow.DeppostingDTO != null ? OfficialInformationLastRow.DeppostingDTO.PostingName : "";
+    }
+
+    //Present Posting Information End
+
+    //1st joining data start
+
+    string JoiningRank = "";
+    string JoiningClass = "";
+    string JoiningDesignatin = "";
+    string JoiningDate = "";
+    string JoiningOfficeType = "";
+    string JoiningPostingPlace = "";
+    string JoiningSection = "";
+    if (OfficialInformationLastRow != null)
+    {
+        JoiningDate = OfficialInformationLastRow.FirstJoiningDate != null ? Convert.ToDateTime(OfficialInformationLastRow.FirstJoiningDate).ToString("dd-MM-yyyy") : "";
+        JoiningRank = OfficialInformationLastRow.JoiningRankDTO != null ? OfficialInformationLastRow.JoiningRankDTO.RankName : "";
+        JoiningClass = OfficialInformationLastRow.JoiningDesignationClassDTO != null ? OfficialInformationLastRow.JoiningDesignationClassDTO.DesignationClassName : "";
+        JoiningDesignatin = OfficialInformationLastRow.JoiningDesgDTO != null ? OfficialInformationLastRow.JoiningDesgDTO.DesignationName : "";
+        JoiningOfficeType = OfficialInformationLastRow.JoinPostingTypeDTO != null ? OfficialInformationLastRow.JoinPostingTypeDTO.PostingTypeName : "";
+        JoiningPostingPlace = OfficialInformationLastRow.JoinPostingDTO != null ? OfficialInformationLastRow.JoinPostingDTO.PostingName : "";
+        JoiningSection = OfficialInformationLastRow.SectionAt != null ? OfficialInformationLastRow.SectionAt : "";
+    }
+
+    //1st joining data start
+
+
+    //Present Address Start
+    string presentAddressInBangla = "";
+    string presentAddressInEnglish = "";
+    string presentAddressDivision = "";
+    string presentAddressDistrict = "";
+    string presentAddressPoliceStation = "";
+    string presentAddressOtherThana = "";
+    string presentAddressPoInBangla = "";
+    string presentAddressPoInEnglish = "";
+    string presentAddressTelephone = "";
+
+    var presentAddressLastRow = Model.PresentAddressLists.LastOrDefault();
+    if (presentAddressLastRow != null)
+    {
+        presentAddressInBangla = presentAddressLastRow.VillageHouseNoAndRoadInBangla;
+        presentAddressInEnglish = presentAddressLastRow.VillageHouseNoAndRoadInEnglish;
+        presentAddressDivision = presentAddressLastRow.DivisionDTO.DivisionName;
+        presentAddressDistrict = presentAddressLastRow.DistrictDTO.DistrictName;
+        presentAddressPoliceStation = presentAddressLastRow.PoliceStationDTO.PoliceStationName;
+        presentAddressOtherThana = presentAddressLastRow.OtherThana;
+        presentAddressPoInBangla = presentAddressLastRow.PostOfficeInBangla;
+        presentAddressPoInEnglish = presentAddressLastRow.PostOfficeInEnglish;
+        presentAddressTelephone = presentAddressLastRow.TelephoneNo;
+    }
+    //Present Address End
+
+    //Permanent Address Start
+    string permanentAddressInBangla = "";
+    string permanentAddressInEnglish = "";
+    string permanentAddressDivision = "";
+    string permanentAddressDistrict = "";
+    string permanentAddressPoliceStation = "";
+    string permanentAddressOtherThana = "";
+    string permanentAddressPoInBangla = "";
+    string permanentAddressPoInEnglish = "";
+    string permanentAddressTelephone = "";
+
+    var permanentAddressLastRow = Model.PermanentAddressLists.LastOrDefault();
+    if (permanentAddressLastRow != null)
+    {
+        permanentAddressInBangla = permanentAddressLastRow.VillageHouseNoAndRoadInBangla;
+        permanentAddressInEnglish = permanentAddressLastRow.VillageHouseNoAndRoadInEnglish;
+        permanentAddressDivision = permanentAddressLastRow.DivisionDTO.DivisionName;
+        permanentAddressDistrict = permanentAddressLastRow.DistrictDTO.DistrictName;
+        permanentAddressPoliceStation = permanentAddressLastRow.PoliceStationDTO.PoliceStationName;
+        permanentAddressOtherThana = permanentAddressLastRow.OtherThana;
+        permanentAddressPoInBangla = permanentAddressLastRow.PostOfficeInBangla;
+        permanentAddressPoInEnglish = permanentAddressLastRow.PostOfficeInEnglish;
+        permanentAddressTelephone = permanentAddressLastRow.TelephoneNo;
+    }
+    //Permanent Address End
+
+    //Present Address End
+
+    //Spouse Start
+    string spouseInfoNameInBangla = "";
+    string spouseInfoNameInEnglish = "";
+    string spouseInfoDivision = "";
+    string spouseInfoDistrict = "";
+    string spouseInfoOccupation = "";
+    string spouseInfoDesignation = "";
+    string spouseInfoLocation = "";
+
+    var spouseInfoLastRow = Model.SpouseInformationLists.LastOrDefault();
+    if (spouseInfoLastRow != null)
+    {
+        spouseInfoNameInBangla = spouseInfoLastRow.NameInBangla;
+        spouseInfoNameInEnglish = spouseInfoLastRow.NameInEnglish;
+        spouseInfoDivision = spouseInfoLastRow.DivisionDTO.DivisionName;
+        spouseInfoDistrict = spouseInfoLastRow.DistrictDTO.DistrictName;
+        spouseInfoOccupation = spouseInfoLastRow.Occupation;
+        spouseInfoDesignation = spouseInfoLastRow.Designation;
+        spouseInfoLocation = spouseInfoLastRow.Location;
+    }
+    //Spouse End
+
+
+}
+
+<style>
+    @@media print {
+        .no-print, .no-print * {
+            display: none !important;
+        }
+    }
+</style>
+<div class="card">
+    <div id="printEmployeeInfo" style="display:block;">
+        <div class="card-header">
+            <div class="col-md-11">
+                <h2 style="text-align:center">Directorate General of Food</h2>
+                <h4 style="text-align:center">
+                    Personal Data Sheet
+                </h4>
+            </div>
+            <div class="col-md-1 no-print" id="no-print">
+                <input class="btn btn-success pull-right" type="button" value="Print" onclick="printDiv()">
+            </div>
+            @*<div class="col-md-2">
+                    <img src="~/Content/UploadEmployeePhotos/@Model.EmployeeInformationVM.Photo" height="100" width="100" />
+                </div>*@
+        </div>
+
+        <div class="card-body">
+            <h2 style="background:lightgrey;padding-left:20px;">General Information</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <tr>
+
+                        <td style="width:23%;"><b>Govt. ID :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_TransferFromDivision">@Model.EmployeeInformationVM.GovtID</span></td>
+                        <td style="width:23%;"><b>NID NO. :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_TransferFromDistrict">@Model.EmployeeInformationVM.NationalID</span></td>
+                    </tr>
+                    <tr>
+
+                        <td style="width:23%;"><b>Name in Bangla :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_Rank">@Model.EmployeeInformationVM.NameBangla </span></td>
+                        <td style="width:23%;"><b>Father's Name in Bangla :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_PostResponsibility">@Model.EmployeeInformationVM.FathersNameBangla</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Name in English :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_DesignationClass">@Model.EmployeeInformationVM.NameEnglish</span></td>
+                        <td style="width:23%;"><b>Father's Name in English :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_Designation">@Model.EmployeeInformationVM.FathersNameEnglish</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Home District :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_MainPostingType">@(Model.EmployeeInformationVM?.DistrictDTO?.DistrictName ?? "")</span></td>
+                        <td style="width:23%;"><b>Mother's Name in Bangla :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_Posting">@Model.EmployeeInformationVM.MothersNameBangla</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Birth Date :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_Section">@Model.EmployeeInformationVM.DateOfBirth.ToString("dd-MM-yyyy")</span></td>
+                        <td style="width:23%;"><b>Mother's Name in English :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_WorkingAs">@Model.EmployeeInformationVM.MothersNameEnglish</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Cadre (Batch) :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_PeriodFrom"></span></td>
+                        <td style="width:23%;"><b>Confirmation G.O. No. and Date :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_PeriodTo">G.O Number @GONumber , G.O. Date @GoDate</span></td>
+                    </tr>
+
+                    <tr>
+
+                        <td style="width:23%;"><b>Cadre Date :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_TransferToDivision">@CadreDate</span></td>
+                        <td style="width:23%;"><b>Religion :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_TransferToDistrict">@Model.EmployeeInformationVM.ReligionId</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Sex :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_CurrDesignationClass">@Model.EmployeeInformationVM.GenderId</span></td>
+                        <td style="width:23%;"><b>Freedom Fighter :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_CrntDesg">@(Model.EmployeeInformationVM.FreedomFighter == true ? "Yes" : "No")</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Marital Status :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_DeppostingType">@Model.EmployeeInformationVM.MaritalStatusId</span></td>
+                        <td style="width:23%;"><b>Child/Grand Child of Freedom Fighter :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_DepPosting">@(Model.EmployeeInformationVM.ChildGrandChildOfFreedomFighter == true ? "Yes" : "No")</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Employee Status (Death/PRL/Resigned/Suspended etc.) :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_AttachSection">@(Model.EmployeeInformationVM.EmployeeStatusDTO != null ? Model.EmployeeInformationVM.EmployeeStatusDTO.EmployeeStatusName : "")</span></td>
+                        <td style="width:23%;"><b>Blood Group :</b></td>
+                        <td style="width:27%;"><span id="PostingRecords_MemoNo">@Model.EmployeeInformationVM.BloodGroup</span></td>
+
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Remarks (Write causes with date) :</b></td>
+                        <td style="width:27%;"><span>@OfficialRemarks</span></td>
+                    </tr>
+                </table>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h2 style="background:lightgrey;padding-left:20px;">Present Posting Information</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:23%;"><b>Rank/ Salary Grade :</b></td>
+                        <td style="width:27%;"><span>@PresentRank</span></td>
+                        <td style="width:23%;"><b>Class :</b></td>
+                        <td style="width:27%;"><span>@PresentClass</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Designation :</b></td>
+                        <td style="width:27%;"><span>@PresentDesignatin</span></td>
+                        <td style="width:23%;"><b>Present Join Date:</b></td>
+                        <td style="width:27%;"><span>@PresentJoiningDate</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Office Type :</b></td>
+                        <td style="width:27%;"><span>@PresentOfficeType</span></td>
+                        <td style="width:23%;"><b>Posting Place:</b></td>
+                        <td style="width:27%;"><span>@PresentPostingPlace</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>PRL Date :</b></td>
+                        <td style="width:27%;"><span>@PresentPrlDate</span></td>
+                        <td style="width:23%;"><b>Section (if any):</b></td>
+                        <td style="width:27%;"><span>@PresentSection</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Deputation/CC/Attachment (Designation) :</b></td>
+                        <td style="width:27%;"><span>@PresentDeputation</span></td>
+                        <td style="width:23%;"><b>Deputation/Attachment Posting:</b></td>
+                        <td style="width:27%;"><span>@PresentDeputationPosting</span></td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <h2 style="background:lightgrey;padding-left:20px;">First Joining Information</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:23%;"><b>Rank/ Salary Grade :</b></td>
+                        <td style="width:27%;"><span>@JoiningRank</span></td>
+                        <td style="width:23%;"><b>Class :</b></td>
+                        <td style="width:27%;"><span>@JoiningClass</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Designation :</b></td>
+                        <td style="width:27%;"><span>@JoiningDesignatin</span></td>
+                        <td style="width:23%;"><b>Join Date:</b></td>
+                        <td style="width:27%;"><span>@JoiningDate</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Office Type :</b></td>
+                        <td style="width:27%;"><span>@JoiningOfficeType</span></td>
+                        <td style="width:23%;"><b>Posting Place:</b></td>
+                        <td style="width:27%;"><span>@JoiningPostingPlace</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Section (if any):</b></td>
+                        <td style="width:27%;"><span>@JoiningSection</span></td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <tr>
+                        <td colspan="2"><h2 style="background:lightgrey;padding-left:20px;">Present Address</h2></td>
+                        <td colspan="2"><h2 style="background:lightgrey;padding-left:20px;">Permanent Address</h2></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Address in Bangla :</b></td>
+                        <td style="width:27%;"><span>@presentAddressInBangla</span></td>
+                        <td style="width:23%;"><b>Address in Bangla :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressInBangla</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Address in English :</b></td>
+                        <td style="width:27%;"><span>@presentAddressInEnglish</span></td>
+                        <td style="width:23%;"><b>Address in English :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressInEnglish</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Division :</b></td>
+                        <td style="width:27%;"><span>@presentAddressDivision</span></td>
+                        <td style="width:23%;"><b>Division :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressDivision</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>District :</b></td>
+                        <td style="width:27%;"><span>@presentAddressDistrict</span></td>
+                        <td style="width:23%;"><b>District :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressDistrict</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Police Station :</b></td>
+                        <td style="width:27%;"><span>@presentAddressPoliceStation</span></td>
+                        <td style="width:23%;"><b>Police Station :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressPoliceStation</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Other Thana :</b></td>
+                        <td style="width:27%;"><span>@presentAddressOtherThana</span></td>
+                        <td style="width:23%;"><b>Other Thana :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressOtherThana</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Post Office In Bangla :</b></td>
+                        <td style="width:27%;"><span>@presentAddressPoInBangla</span></td>
+                        <td style="width:23%;"><b>Post Office In Bangla :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressPoInBangla</span></td>
+
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Post Office In English :</b></td>
+                        <td style="width:27%;"><span>@presentAddressPoInEnglish</span></td>
+                        <td style="width:23%;"><b>Post Office In English :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressPoInEnglish</span></td>
+
+                    </tr>
+                    <tr>
+                        <td style="width:23%;"><b>Telephone No :</b></td>
+                        <td style="width:27%;"><span>@presentAddressTelephone</span></td>
+                        <td style="width:23%;"><b>Telephone No :</b></td>
+                        <td style="width:27%;"><span>@permanentAddressTelephone</span></td>
+                    </tr>
+
+                </table>
+
+
+            </div>
+
+            <h2 style="background:lightgrey;padding-left:20px;">Spouse Information</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <tr>
+                        <td style="width:20%;"><b>Name in Bangla : </b></td>
+                        <td style="width:30%;"><span>@spouseInfoNameInBangla</span></td>
+                        <td style="width:20%;"> <b>Name in English :</b></td>
+                        <td style="width:30%;"><span>@spouseInfoNameInEnglish</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:20%;"><b>Division :</b></td>
+                        <td style="width:30%;"><span>@spouseInfoDivision</span></td>
+                        <td style="width:20%;"><b>District :</b></td>
+                        <td style="width:30%;"><span>@spouseInfoDistrict</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:20%;"><b>Occupation :</b></td>
+                        <td style="width:30%;"><span>@spouseInfoOccupation</span></td>
+                        <td style="width:20%;"><b>Designation :</b></td>
+                        <td style="width:30%;"><span>@spouseInfoDesignation</span></td>
+                    </tr>
+                    <tr>
+                        <td style="width:20%;"><b>Location :</b></td>
+                        <td style="width:30%;"><span>@spouseInfoLocation</span></td>
+                    </tr>
+                </table>
+
+            </div>
+            @if (Model?.ChildrenInformationLists?.Count() > 0)
+            {
+                <h2 style="background:lightgrey;padding-left:20px;">Children Information</h2>
+                <div class="form-horizontal">
+                    <table style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width:25%;">Name in Bangla</th>
+                                <th style="width:25%;">Name in English</th>
+                                <th style="width:25%;">DOB</th>
+                                <th style="width:25%;">Gender</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var data in Model?.ChildrenInformationLists)
+                            {
+                                <tr>
+                                    <td style="width:25%;">@data?.NameInBangla</td>
+                                    <td style="width:25%;">@data?.NameInEnglish</td>
+                                    <td style="width:25%;">@data?.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                                    <td style="width:25%;">@data?.GenderId</td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+
+
+            <h2 style="background:lightgrey;padding-left:20px;">Educational Qualification</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width:30%;">Name of Institution</th>
+                            <th style="width:20%;">Principal Subject</th>
+                            <th style="width:10%;text-align:center">Degree</th>
+                            <th style="width:10%;">Passing Year</th>
+                            <th style="width:10%;">Result/Division</th>
+                            <th style="width:10%;">GPA/CGPA</th>
+                            <th style="width:10%;">Distinction</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model?.EducationalQualificationLists?.Count() > 0)
+                        {
+                            foreach (var data in Model?.EducationalQualificationLists)
+                            {
+
+                                <tr>
+                                    <td style="width:30%;">@data?.NameOfTheInstitute</td>
+                                    <td style="width:20%;">@data?.PrincipalSubject</td>
+                                    <td style="width:10%;text-align:center">@data?.DegreeId</td>
+                                    <td style="width:10%;text-align:center">@data?.PassingYear</td>
+                                    <td style="width:10%;text-align:center">@data?.ResultOrDivision</td>
+                                    <td style="width:10%;text-align:center">@data?.GPAOrCGPA</td>
+                                    <td style="width:10%;text-align:center">@data?.Distinction</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 style="background:lightgrey;padding-left:20px;">Training Information</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">Course Title</th>
+                            <th style="width:10%;">Institution</th>
+                            <th style="width:10%;">Country</th>
+                            <th style="width:10%;">Location</th>
+                            <th style="width:10%;">Period From</th>
+                            <th style="width:10%;">Period To</th>
+                            <th style="width:10%;text-align:center">Grade</th>
+                            <th style="width:10%;">Position</th>
+                            <th style="width:10%;">Training Type</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model?.TrainingInformationLists?.Count() > 0)
+                        {
+                            foreach (var data in Model?.TrainingInformationLists)
+                            {
+                                string TrainingType = data?.TrainingTypeId != 0 ? PTSL.DgFood.Web.EnumHelper.GetEnumDisplayName((PTSL.DgFood.Web.Helper.Enum.TrainingType)(int)data?.TrainingTypeId).ToString() : "";
+                                string Country = data?.CountryId != null && data?.CountryId > 0 ? PTSL.DgFood.Web.EnumHelper.GetEnumDisplayName((PTSL.DgFood.Web.Helper.Enum.Country)(int)data?.CountryId).ToString() : "";
+
+                                <tr>
+                                    <td style="width:20%;">@data?.CourseTitle</td>
+                                    <td style="width:10%;">@data?.Institute</td>
+                                    <td style="width:10%;">@Country</td>
+                                    <td style="width:10%;">@data?.Location</td>
+                                    <td style="width:10%;">@data?.FromDate.ToString("dd-MM-yyyy")</td>
+                                    <td style="width:10%;">@data?.ToDate.ToString("dd-MM-yyyy")</td>
+                                    <td style="width:10%;text-align:center">@data?.Grade</td>
+                                    <td style="width:10%;">@data?.Position</td>
+                                    <td style="width:10%;">@TrainingType</td>
+                                    @*<td style="width:10%;">@(data.TrainingTypeId == (PTSL.DgFood.Web.Helper.Enum.TrainingType)1 ? "Local Training" : "Foreign Training")</td>*@
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 style="background:lightgrey;padding-left:20px;">Promotion Partculars</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width:20%;">Rank</th>
+                            <th style="width:20%;">Promotion Date</th>
+                            <th style="width:20%;">G.O. Date</th>
+                            <th style="width:20%;">Nature of Promotion</th>
+                            <th style="width:20%;">Pay Scale</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model?.PromotionPartcularLists?.Count() > 0)
+                        {
+                            foreach (var data in Model?.PromotionPartcularLists?.OrderByDescending(x => x.Id))
+                            {
+                                <tr>
+                                    <td style="width:20%;">@(data?.RankDTO != null ? data?.RankDTO?.RankName : "")</td>
+                                    <td style="width:20%;">@(data?.PromotionDate != null ? Convert.ToDateTime(data?.PromotionDate).ToString("dd-MM-yyyy"): "")</td>
+                                    <td style="width:20%;">@(data?.GODate != null ? Convert.ToDateTime(data?.GODate).ToString("dd-MM-yyyy") : "")</td>
+                                    <td style="width:20%;">@(data?.PromtionNatureDTO != null ? data?.PromtionNatureDTO?.PromtionNatureName : "")</td>
+                                    <td style="width:20%;">@data?.PayScale</td>
+                                    @*<td style="width:10%;">@(data.TrainingTypeId == (PTSL.DgFood.Web.Helper.Enum.TrainingType)1 ? "Local Training" : "Foreign Training")</td>*@
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 style="background:lightgrey;padding-left:20px;">Posting/Transfer Records</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width:10%;">Salary Grade</th>
+                            <th style="width:20%;">Original Designation</th>
+                            <th style="width:10%;">Posting Place</th>
+                            <th style="width:10%;">Section</th>
+                            <th style="width:10%;">Desig. Attach/ Deput.</th>
+                            <th style="width:10%;">Posting. Attach/ Deput.</th>
+                            <th style="width:10%;">Attach Section</th>
+                            <th style="width:10%;">Working As</th>
+                            <th style="width:10%;">Period</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model?.PostingRecordLists?.Count() > 0)
+                        {
+                            foreach (var data in Model?.PostingRecordLists?.OrderByDescending(x => x.Id))
+                            {
+                                <tr>
+                                    <td style="width:10%;">@(data?.RankDTO != null ? data?.RankDTO?.RankName : "")</td>
+                                    <td style="width:20%;">@(data?.DesignationDTO != null ? data?.DesignationDTO?.DesignationName : "")</td>
+                                    <td style="width:10%;">@(data?.PostingDTO != null ? data?.PostingDTO.PostingName : "")</td>
+                                    <td style="width:10%;">@data?.Section</td>
+                                    <td style="width:10%;">@(data?.CrntDesgDTO != null ? data?.CrntDesgDTO?.DesignationName : "")</td>
+                                    <td style="width:10%;">@(data?.DepPostingDTO != null ? data?.DepPostingDTO?.PostingName : "")</td>
+                                    <td style="width:10%;">@data?.AttachSection</td>
+                                    <td style="width:10%;">@data?.WorkingAsId</td>
+                                    <td style="width:10%;">@(data?.PeriodFrom != null ? Convert.ToDateTime(data?.PeriodFrom).ToString("dd-MM-yyyy") : "") to @(data?.PeriodTo != null ? Convert.ToDateTime(data?.PeriodTo).ToString("dd-MM-yyyy"): "")</td>
+                                    @*<td style="width:10%;">@(data.TrainingTypeId == (PTSL.DgFood.Web.Helper.Enum.TrainingType)1 ? "Local Training" : "Foreign Training")</td>*@
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+            <h2 style="background:lightgrey;padding-left:20px;">Language Informations</h2>
+            <div class="form-horizontal">
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width:10%;">Language</th>
+                            <th style="width:20%;">Listening</th>
+                            <th style="width:20%;">Reading</th>
+                            <th style="width:20%;">Writing</th>
+                            <th style="width:30%;">Comments</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model?.LanguageInformationLists?.Count() > 0)
+                        {
+                            foreach (var data in Model?.LanguageInformationLists)
+                            {
+                                <tr>
+                                    <td style="width:10%;">@(data?.LanguageDTO != null ? data?.LanguageDTO?.LanguageName : "")</td>
+                                    <td style="width:20%;">@data?.Listening</td>
+                                    <td style="width:10%;">@data?.Reading</td>
+                                    <td style="width:10%;">@data?.Writing</td>
+                                    <td style="width:10%;">@data?.Comments</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+    @*<div class="card-header pull-right">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <input class="btn btn-success pull-right" type="button" value="Print" onclick="printDiv()">
+            </div>
+
+        </div>*@
+</div>
+
+<div class="card">
+
+
+    <div class="card-header pull-left">
+        <a href="/EmployeeInformation/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    function printDiv() {
+        //var divContents = document.getElementById("printEmployeeInfo").innerHTML;
+        //var a = window.open('', '', 'height=700, width=1000');
+        //a.document.write(divContents);
+        //a.document.close();
+        //a.print();
+
+
+        var printContents = document.getElementById("printEmployeeInfo").innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        document.getElementById('no-print').style.visibility = 'hidden';
+        //window.focus();
+        window.print();
+
+        document.body.innerHTML = originalContents;
+        LoadSidebar();
+
+        //var prtContent = document.getElementById("printEmployeeInfo");
+        //var WinPrint =
+        //    window.open('', '', 'left=0,top=0,width=1,height=1,t oolbar=0,scrollbars=0,status=0');
+        //WinPrint.document.write(prtContent.innerHTML);
+        //WinPrint.document.close();
+        //WinPrint.focus();
+        //WinPrint.print();
+        //WinPrint.close();
+    }
+        //function printDiv() {
+        //    var divContents = document.getElementById("printEmployeeInfo").innerHTML;
+        //    var a = window.open('', '', 'height=700, width=1000');
+        //    a.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"><html>');
+        //    a.document.write('<body >');
+        //    a.document.write(divContents);
+        //    a.document.write('</body></html>');
+        //    a.document.close();
+        //    a.print();
+        //}
+</script>

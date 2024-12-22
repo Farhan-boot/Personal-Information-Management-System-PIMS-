@@ -1,0 +1,30 @@
+﻿@model PTSL.DgFood.Web.Model.EntityViewModels.GeneralSetup.UnionVM
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Union Details</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="form-horizontal">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:50px;">Upazilla Name: <b>@Model.Upazilla.Name</b></td>
+                    <td style="width:50px;">Union Name: <b>@Model.Name</b></td>
+                    <td style="width:50px;">Union Name (Bangla): <b>@Model.NameBn</b></td>
+                </tr>
+                <tr>
+                    <td style="width:50px;">Geo Code: <b>@Model.GeoCode</b></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Union/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

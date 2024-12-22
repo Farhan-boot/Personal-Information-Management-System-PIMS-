@@ -1,0 +1,496 @@
+﻿@model PTSL.BdArmy.Common.Entity.BdArmy.RoutesDataVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+<style>
+    #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+    }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+</style>
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Routes</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "Routes", FormMethod.Post, new { id = "RoutesForm" }))
+        {
+            <div class="col-md-6" style="float:left;">
+                @*<div id="floating-panel">
+                        <b>Start: </b>
+                        <select id="start">
+                            <option value="T.K Bhaban, 13 Kazi Nazrul Islam Ave, Dhaka 1205">T.K Bhaban</option>
+                            <option value="st louis, mo">St Louis</option>
+                            <option value="joplin, mo">Joplin, MO</option>
+                            <option value="oklahoma city, ok">Oklahoma City</option>
+                            <option value="amarillo, tx">Amarillo</option>
+                            <option value="gallup, nm">Gallup, NM</option>
+                            <option value="flagstaff, az">Flagstaff, AZ</option>
+                            <option value="winona, az">Winona</option>
+                            <option value="kingman, az">Kingman</option>
+                            <option value="barstow, ca">Barstow</option>
+                            <option value="san bernardino, ca">San Bernardino</option>
+                            <option value="los angeles, ca">Los Angeles</option>
+                        </select>
+                        <b>End: </b>
+                        <select id="end">
+                            <option value="Farmgate, Dhaka 1205">Farmgate</option>
+                            <option value="st louis, mo">St Louis</option>
+                            <option value="joplin, mo">Joplin, MO</option>
+                            <option value="oklahoma city, ok">Oklahoma City</option>
+                            <option value="amarillo, tx">Amarillo</option>
+                            <option value="gallup, nm">Gallup, NM</option>
+                            <option value="flagstaff, az">Flagstaff, AZ</option>
+                            <option value="winona, az">Winona</option>
+                            <option value="kingman, az">Kingman</option>
+                            <option value="barstow, ca">Barstow</option>
+                            <option value="san bernardino, ca">San Bernardino</option>
+                            <option value="los angeles, ca">Los Angeles</option>
+                        </select>
+                    </div>*@
+                <input id="pac-input"
+                       class="controls"
+                       type="text"
+                       placeholder="Search Box" />
+                <div id="googleMap" style="width:100%;height:300px"></div>
+
+            </div>
+            <div class="col-md-6" style="float:left;">
+                <div class="col-md-12" style="float:left">
+                    <input type="hidden" class="form-control col-md-6" id="RoutesVM_Id" name="RoutesVM.Id" value="@Model.RoutesVM.Id">
+                    <input type="hidden" class="form-control col-md-6" id="RoutesDetailsVM_Latitude" name="RoutesDetailsVM.Latitude" value="@Model.RoutesDetailsVM.Latitude" placeholder="Enter Latitude" required>
+                    <input type="hidden" class="form-control col-md-6" id="RoutesDetailsVM_Longitude" name="RoutesDetailsVM.Longitude" value="@Model.RoutesDetailsVM.Longitude" placeholder="Enter Longitude" required>
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputDistrict">Select User <span style="color:red;"> *</span></label>
+                            @Html.DropDownList("RoutesVM.UserId", (SelectList)ViewBag.UserId, "Choose..", new { @class = "form-control col-md-12", @required = "required" })
+                        </div>
+                        <div class="col">
+                            <label for="inputDistrict">Session Name<span style="color:red;"> *</span></label>
+                            <input type="text" class="form-control col-md-12" id="RoutesVM_SessionName" name="RoutesVM.SessionName" value="@Model.RoutesVM.SessionName" placeholder="Enter Session Name" required>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputDistrict">Start Date <span style="color:red;"> *</span></label>
+                            <input type="text" class="form-control col-md-12 datepicker" id="RoutesDetailsVM_StartDate" name="RoutesDetailsVM.StartDate" value="@Model.RoutesDetailsVM.StartDate.ToString("MM-dd-yyyy")" placeholder="Enter Start Date" autocomplete="off" required>
+
+                        </div>
+                        <div class="col">
+                            <label for="inputDistrict">End Date <span style="color:red;"> *</span></label>
+                            <input type="text" class="form-control col-md-12 datepicker" id="RoutesDetailsVM_EndDate" name="RoutesDetailsVM.EndDate" value="@Model.RoutesDetailsVM.EndDate.ToString("MM-dd-yyyy")" placeholder="Enter End Date" autocomplete="off" required>
+                        </div>
+                    </div>
+
+                   
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputLongitude">Place Name <span style="color:red;"> *</span></label>
+                            <input type="text" class="form-control col-md-12" id="RoutesDetailsVM_PlaceName" name="RoutesDetailsVM.PlaceName" value="@Model.RoutesDetailsVM.PlaceName" placeholder="Enter Place Name" required>
+                        </div>
+                        <div class="col">
+                            <label for="inputDistrict">Geofence Threshold <span style="color:red;"> *</span></label>
+                            <input type="range" name="RoutesDetailsVM.Radius" id="RoutesDetailsVM_Radius" class="form-control col-md-12" value="5" min="5" max="100" step="5" onchange="SetRadiousValue()" required>
+                            <p style="color:yellowgreen">Radious value: <span id="rangeValPar">5</span> meters</p>
+                            @*<input type="text" class="form-control col-md-12" id="RoutesDetailsVM_Radius" name="RoutesDetailsVM.Radius" value="@Model.RoutesDetailsVM.Radius" placeholder="Enter Geofence Threshold" required>*@
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col">
+                            <a href="#" onclick="Add()" class="btn btn-info pull-right" style="float:right;">Add to List</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        }
+    </div>
+    <hr />
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover" id="routeTable" style="width:100%;border:1px solid">
+                <thead style="border:1px solid">
+                    <tr>
+                        <th style='display:none'>User Id</th>
+                        <th style='display:none'>Radius</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Location</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="row pull-right" style="margin:10px;">
+            <a href="#" class="btn btn-success submit-btn pull-right" onclick="Save()">Submit</a>
+        </div>
+
+    </div>
+    <div class="card-header pull-left">
+        <a href="/Routes/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPVgPRfL3SoIscOmdQM9lrH4DiJh5GOss&callback=initMap&libraries=places&visualization&amp&v=weekly&channel=2"
+        async="async" defer="defer"></script>
+
+<script>
+    // Add products to <table>
+
+    //var sl = 0;
+    function Add() {
+
+        var userid = $("#RoutesVM_UserId").val();
+        var radious = $("#RoutesDetailsVM_Radius").val();
+        var startDate = $("#RoutesDetailsVM_StartDate").val();
+        var endDate = $("#RoutesDetailsVM_EndDate").val();
+        var placeName = $("#RoutesDetailsVM_PlaceName").val();
+        var latitude = $("#RoutesDetailsVM_Latitude").val();
+        var longitude = $("#RoutesDetailsVM_Longitude").val();
+        if ($("#RoutesVM_UserId").val() == "") {
+            swal("Please Select User Name");
+            return true;
+        }
+        else if ($("#RoutesVM_SessionName").val() == "") {
+            swal("Please Add Session Name");
+            return true;
+        }
+        else if ($("#RoutesDetailsVM_PlaceName").val() == "") {
+            swal("Please Enter Place Name");
+            return true;
+        }
+        if (userid > 0 && radious > 0 && startDate != "" && endDate != "" && placeName != "" && latitude > 0 && longitude > 0) {
+            //sl++;
+            $("#routeTable tbody").append("<tr>" +
+                "<td style='display:none'>" + 0 + "</td>" +
+                "<td style='display:none'>" + radious + "</td>" +
+                "<td>" + startDate + "</td>" +
+                "<td>" + endDate + "</td>" +
+                "<td>" + placeName + "</td>" +
+                "<td>" + latitude + "</td>" +
+                "<td>" + longitude + "</td>" +
+                "<td><div class='text-center'><button class='btn btn-danger btn-sm' onclick='Delete($(this))'>Remove</button></div></td>" +
+                "</tr>");
+            clearForm();
+            $("#RoutesDetailsVM_Radius").val(5);
+            $("#rangeValPar").text(5);
+        }
+        if (latitude == 0 && longitude == 0) {
+            swal("Please select a place by mouse click");
+        }
+
+        // Append product to the table
+
+
+    }
+    //Delete selected row
+    function Delete(row) { // remove row from table
+        console.log(row);
+        //alert(sl);
+        row.closest('tr').remove();
+        //RoutesDetails.splice(sl, 1);
+        //console.log(RoutesDetails);
+        //sl--;
+        // CheckSubmitBtn();
+    }
+
+    function clearForm() {
+        //$("#RoutesDetailsVM_Radius").val("");
+        $("#RoutesDetailsVM_PlaceName").val("");
+        $("#RoutesDetailsVM_Latitude").val(0);
+        $("#RoutesDetailsVM_Longitude").val(0);
+
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var output =
+            (month < 10 ? '0' : '') + month + '/' +
+            (day < 10 ? '0' : '') + day + '/' + d.getFullYear();
+
+
+        $('#RoutesDetailsVM_StartDate').datetimepicker();
+        $("#RoutesDetailsVM_StartDate").val(output + " 12:00 AM");
+
+        $('#RoutesDetailsVM_EndDate').datetimepicker();
+        $("#RoutesDetailsVM_EndDate").val(output + " 12:00 AM");
+        circle.setMap(null);
+    }
+
+    function Save() {
+        var RoutesDataVM = {};
+        var RoutesDetails = [];
+        RoutesDataVM.RoutesDetails = [];
+        $('#routeTable > tbody  > tr').each(function () { //loop in table list
+
+            var RoutesDetailsTemp = {};
+
+            RoutesDetailsTemp.Id = this.cells[0].innerHTML;;
+            RoutesDetailsTemp.Radius = this.cells[1].innerHTML;;
+            RoutesDetailsTemp.StartDate = this.cells[2].innerHTML;;
+            RoutesDetailsTemp.EndDate = this.cells[3].innerHTML;;
+            RoutesDetailsTemp.PlaceName = this.cells[4].innerHTML;;
+            RoutesDetailsTemp.Latitude = this.cells[5].innerHTML;;
+            RoutesDetailsTemp.Longitude = this.cells[6].innerHTML;;
+
+            RoutesDetails.push(RoutesDetailsTemp);
+
+
+        });
+        RoutesDataVM.UserId = $("#RoutesVM_UserId").val();
+        RoutesDataVM.SessionName = $("#RoutesVM_SessionName").val();
+        if ($("#RoutesVM_UserId").val() == "") {
+            swal("Please Select User Name");
+            return true;
+        }
+        else if ($("#RoutesVM_SessionName").val() == "") {
+            swal("Please Add Session Name");
+            return true;
+        }
+        RoutesDataVM.RoutesDetails = RoutesDetails;
+        if (RoutesDetails.length > 0) {
+            $.ajax({
+                url: '/Routes/Create',
+                type: "POST",
+                data: JSON.stringify(RoutesDataVM),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (response) {
+                    // Process response from controller
+                    if (response.Status === true) {
+                        swal("Routes have been saved successfully."); // show success notification
+                        $(".confirm").on('click', function () {
+                            window.location.href = "/Routes/Index";
+                        });
+
+                    } else {
+                        swal(response.Message);
+                    }
+                }
+            });
+        }
+
+        console.log(Routes);
+    }
+</script>
+<script>
+
+    $(function () {
+
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var output =
+            (month < 10 ? '0' : '') + month + '/' +
+            (day < 10 ? '0' : '') + day + '/' + d.getFullYear();
+
+
+        $('#RoutesDetailsVM_StartDate').datetimepicker();
+        $("#RoutesDetailsVM_StartDate").val(output + " 12:00 AM");
+
+        $('#RoutesDetailsVM_EndDate').datetimepicker();
+        $("#RoutesDetailsVM_EndDate").val(output + " 12:00 AM");
+        //$("#RoutesDetailsVM_EndDate").datepicker({
+        //    format: 'MM/dd/yyyy',
+        //}).datepicker("setDate", 'now');
+
+    });
+
+
+    $(".submit-btn").on("click", function () {
+        if ($("#RoutesForm").valid()) {
+            //Do something here
+            var lat = $("#RoutesDetailsVM_Latitude").val();
+            var lng = $("#RoutesDetailsVM_Longitude").val();
+            if (lat == 0 || lng == 0) {
+                swal("Please select a place by mouse click");
+                return false;
+            }
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#RoutesForm").validate({
+        // Specify validation rules
+        rules: {
+            RoutesName: "required"
+        },
+
+    });
+
+
+</script>
+
+<script>
+    var geocoder;
+    var map;
+    var marker;
+    var circle;
+    var antennasCircle;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("googleMap"), {
+            center: { lat: 23.810332, lng: 90.412518 },
+            zoom: 13,
+            mapTypeId: "roadmap",
+        });
+
+
+        //const directionsService = new google.maps.DirectionsService();
+        //const directionsRenderer = new google.maps.DirectionsRenderer();
+
+        //directionsRenderer.setMap(map);
+
+        //const onChangeHandler = function () {
+        //    calculateAndDisplayRoute(directionsService, directionsRenderer);
+        //};
+        //document.getElementById("start").addEventListener("change", onChangeHandler);
+        //document.getElementById("end").addEventListener("change", onChangeHandler);
+
+
+
+        google.maps.event.addListener(map, "click", function (e) {
+
+            latLng = e.latLng;
+            $("#RoutesDetailsVM_Latitude").val(e.latLng.lat());
+            $("#RoutesDetailsVM_Longitude").val(e.latLng.lng());
+            console.log(e.latLng.lat());
+            console.log(e.latLng.lng());
+
+            console.log("Marker");
+            // if marker exists and has a .setMap method, hide it
+            if (marker && marker.setMap) {
+                marker.setMap(null);
+                circle.setMap(null);
+                //antennasCircle.setMap(null);
+            }
+            marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            });
+            var radiousval = $("#RoutesDetailsVM_Radius").val();
+            circle = new google.maps.Circle({
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.35,
+                map,
+                center: { lat: e.latLng.lat(), lng: e.latLng.lng() },
+                radius: parseInt(radiousval),
+            });
+            //$("#RoutesDetailsVM_Radius").val(radiousval);
+        });
+
+
+        // Create the search box and link it to the UI element.
+        const input = document.getElementById("pac-input");
+        const searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener("bounds_changed", () => {
+            searchBox.setBounds(map.getBounds());
+        });
+        let markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener("places_changed", () => {
+            const places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+            // Clear out the old markers.
+            markers.forEach((marker) => {
+                marker.setMap(null);
+            });
+            markers = [];
+            // For each place, get the icon, name and location.
+            const bounds = new google.maps.LatLngBounds();
+            places.forEach((place) => {
+                if (!place.geometry || !place.geometry.location) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+                const icon = {
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(25, 25),
+                };
+                // Create a marker for each place.
+                markers.push(
+                    new google.maps.Marker({
+                        map,
+                        icon,
+                        title: place.name,
+                        position: place.geometry.location,
+                    })
+                );
+                //console.log(place.formatted_address); //full address
+                $("#RoutesDetailsVM_PlaceName").val(place.name);
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+
+
+        });
+    }
+     
+
+    function SetRadiousValue() {
+        var lat = parseFloat($("#RoutesDetailsVM_Latitude").val());
+        var lang = parseFloat($("#RoutesDetailsVM_Longitude").val());
+        if (lat == 0 || lang == 0) {
+            swal("Please select a place by mouse click");
+            return true;
+        }
+        if (circle != undefined) {
+            circle.setMap(null);
+        }
+        var radiousval = $("#RoutesDetailsVM_Radius").val();
+        $("#rangeValPar").text(radiousval);
+
+        circle = new google.maps.Circle({
+            strokeColor: "#FF0000",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#FF0000",
+            fillOpacity: 0.35,
+            map,
+            center: { lat: lat, lng: lang },
+            radius: parseInt(radiousval),
+        });
+        map.fitBounds(circle.getBounds());
+
+    }
+
+</script>
+

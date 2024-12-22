@@ -1,0 +1,28 @@
+﻿@model ICollection<PTSL.DgFood.Web.Model.PermanentAddressListVM>
+@{
+    Layout = null;
+}
+
+<tbody id="PermanentAddressList">
+    @if (Model != null)
+    {
+        int i = 1;
+        foreach (var data in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@data.AddressInBangla</td>
+                <td>@data.AddressInEnglish</td>
+                <td>@data.PostOfficeInBangla</td>
+                <td>@data.PostOfficeInEnglish</td>
+                <td style="width:220px;float:left;">
+                    <a href="/EmployeeInformation/EditPermanentAddress?pid=@data.Id&empid=@data.EmpoloyeeInformationId" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                    <a href="#" class="btn btn-info icon-left btn-sm" data-toggle="modal" data-target=".PermanentAddress-details-modal" onclick="javascript: setPermanentAddressModalData(@data.Id)"><i class="fa fa-eye"></i></a>
+                    <button onclick="showDeleteConfirmPermanentAddressMessage(@data.Id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            i++;
+        }
+    }
+</tbody>
+

@@ -1,0 +1,37 @@
+﻿@model PTSL.DgFood.Web.Model.LeaveApplicationVM
+<div class="card-body">
+    <div class="form-horizontal">
+        <table style="width:100%">
+            <tr>
+                <td style="width:33px;">Employee Name: <b>@Model.EmployeeInformationDTO.NameEnglish</b></td>
+                <td style="width:33px;">Leave Type: <b>@Model.LeaveTypeInformationDTO.NameInEnglish</b></td>
+                <td style="width:34px;">Application Date: <b>@Model.ApplicationDate.ToString("dd-MM-yyyy")</b></td>
+            </tr>
+            <tr>
+                <td style="width:33px;">From Date: <b>@Model.FromDate.ToString("dd-MM-yyyy")</b></td>
+                <td style="width:33px;">To Date: <b>@Model.ToDate.ToString("dd-MM-yyyy")</b></td>
+                <td style="width:34px;">Leave Authority: <b>@Model.LeaveAuthority</b></td>
+            </tr>
+            <tr>
+                <td style="width:33px;">Leave Subject: <b>@Model.LeaveSubject</b></td>
+                <td style="width:33px;">Memo NO: <b>@Model.MemoNO</b></td>
+                <td style="width:34px;">Leave Reason: <b>@Model.LeaveReason</b></td>
+            </tr>
+            <tr>
+                <td style="width:33px;">Emergency Contact: <b>@Model.EmergencyContact</b></td>
+                <td style="width:33px;">Emergency Address: <b>@Model.EmergencyAddress</b></td>
+                <td style="width:34px;">Comments: <b>@Model.Comments</b></td>
+            </tr>
+            <tr>
+                <td style="width:33px;">Leave Days: <b>@Model.LeaveDays</b></td>
+                <td style="width:33px;">Leave Status: <b>@Model.LeaveStatus</b></td>
+                <td style="width:34px;">Approved Date: <b>@(Convert.ToDateTime(Model.ApprovedDate).ToString("dd-MM-yyyy") != "01-01-0001" ? Convert.ToDateTime(Model.ApprovedDate).ToString("dd-MM-yyyy") :"")</b></td>
+            </tr>
+            <tr>
+                <td style="width:33px;">Cancelled Date: <b>@(Convert.ToDateTime(Model.CancelledDate).ToString("dd-MM-yyyy") != "01-01-0001" ? Convert.ToDateTime(Model.CancelledDate).ToString("dd-MM-yyyy") :"")</b></td>
+                <td style="width:33px;"></td>
+                <td style="width:34px;"></td>
+            </tr>
+        </table>
+    </div>
+</div>

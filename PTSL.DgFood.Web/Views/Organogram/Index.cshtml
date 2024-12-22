@@ -1,0 +1,525 @@
+﻿@model PTSL.DgFood.Web.Model.OrganogramDetailsVM
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .non_permanent a {
+        background: #a58856;
+        color: white !important;
+    }
+    .non_permanent a:hover {
+        background: #a58856 !important;
+        color: white !important;
+        opacity: 0.8;
+    }
+</style>
+
+<link href="~/Content/assets/treeview/style.min.css" rel="stylesheet" />
+@*<script src="~/Content/assets/js/jquery-3.4.1.min.js"></script>*@
+<link href="~/Content/assets/js/JQX/jqwidgets/styles/jqx.base.css" rel="stylesheet" />
+<script src="~/Content/assets/js/JQX/scripts/demos.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/JQX/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/JQX/jqwidgets/jqxdata.entity.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/JQX/jqwidgets/jqxbuttons.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/JQX/jqwidgets/jqxscrollbar.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/JQX/jqwidgets/jqxpanel.js"></script>
+<script type="text/javascript" src="~/Content/assets/js/JQX/jqwidgets/jqxtree.js"></script>
+<script src="~/Content/assets/js/jstree.min.js"></script>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-10">
+                    <h4>Organogram Information</h4>
+                </div>
+                <div class="col-md-2">
+                    @*<a href="/EmployeeInformationCount/Create" class="badge badge-success badge-shadow pull-left">Create New</a>*@
+                </div>
+
+            </div>
+
+            <div class="card-body">
+                @using (Html.BeginForm("Create", "Organogram", FormMethod.Post, new { id = "OrganogramForm" }))
+                {
+                    <input type="hidden" id="Id" name="Id" />
+                    <div class="form-horizontal">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                @{
+                                    if (ViewBag.OrganogramOfficeTypes != null)
+                                    {
+                                        <div class="form-group TrainingManagementTypeLocalType">
+                                            <label>Select Office Type<span style="color:red;">*</span></label>
+                                            <select class="form-control" name="@nameof(Model.OrganogramOfficeType)" id="OrganogramOfficeType">
+                                                <option selected value="">Select Office Type</option>
+                                                @foreach (var data in ViewBag.OrganogramOfficeTypes)
+                                                {
+                                                    <option value="@data.Id">@data.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputDistrictName">Office</label>
+                                @Html.DropDownList("PostingId", (SelectList)ViewBag.PostingId, "Choose..", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputDistrictName">Is Parent</label>
+                                <input type="checkbox" id="IsParent" name="IsParent" class="checkboxes" value="false" onclick="IsParentSet()">
+                            </div>
+                            <div class="form-group col-md-6">
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="inputMaritalStatus">Parent Office</label>
+                                @Html.DropDownList("ParentId", (SelectList)ViewBag.ParentPostingId, "Choose..", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputMaritalStatus">Designation</label>
+                                @Html.DropDownList("DesignationID", (SelectList)ViewBag.DesignationID, "Choose..", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Office Phone</label>
+                                <input type="text" class="form-control" id="OfficePhoneNumber" name="OfficePhoneNumber" value="@Model.OfficePhoneNumber" placeholder="Enter office phone number">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Office Email</label>
+                                <input type="email" class="form-control" id="OfficeEmail" name="OfficeEmail" value="@Model.OfficeEmail" placeholder="Enter office email">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="inputCategory">Total Post</label>
+                                <input type="text" class="form-control" id="TotalPost" name="TotalPost" value="@Model.TotalPost" placeholder="Total Post">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputCategory">Designation Type</label>
+                                <select class="form-control" name="@nameof(Model.IsPermanent)" id="@nameof(Model.IsPermanent)">
+                                    <option value="">Select</option>
+                                    <option selected value="true">Permanent</option>
+                                    <option value="false">Non Permanent</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6" id="NonPermanentDeadLineContainer" style="visibility: hidden;">
+                                <label for="inputCategory">Non Permanent Designation Deadline</label>
+                                <input class="form-control" type="date" name="@nameof(Model.NonPermanentDeadLine)" id="@nameof(Model.NonPermanentDeadLine)" />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+                            </div>
+                            <div class="form-row col-md-6 justify-content-end">
+                                <div id="divView" style="display:none">
+                                    <a href="#" url="@Url.Action("OrganogramList", "Organogram", new { id = "" })" id="ViewCOAID" class="btn btn-primary pull-right btn-icon mr-1" data-toggle="modal" data-target="#exampleModal">View</a>
+                                </div>
+                                <div id="divDelete" style="display:none">
+                                    <a href="#" url="@Url.Action("Delete", "Organogram", new { id = "" })" id="DeleteCOAID" class="btn btn-danger pull-right btn-icon ml-1">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Organogram</h3>
+                            </div>
+                            <div class="box-body box-profile">
+                                <div class="col-sm-4">
+                                    <div id="html" class="demo" @*style="overflow: scroll; min-height: 400px;"*@>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div>
+                                    <a href="Index" class="btn btn-warning btn-sm">Back to List</a>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#IsPermanent").on("change", function () {
+        var isPermanent = $(this).val();
+
+        if (isPermanent == "false") {
+            $("#NonPermanentDeadLineContainer").css("visibility", "visible");
+        } else {
+            $("#NonPermanentDeadLineContainer").css("visibility", "hidden");
+        }
+    });
+</script>
+
+
+<section class="content">
+
+    <div>
+        <div class="col-md-12">
+            <div>
+                <div class="box-body">
+                    <div id='content'>
+                        <script type="text/javascript">
+                            var SelectedId = 0;
+                            var IsParent = 0;
+                            var SelectedParentId = 0;
+                            $(document).ready(function () {
+                                var treeViewJsonData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.nodeData));
+                                treeViewJsonData = treeViewJsonData.replaceAll('__class', 'class');
+
+                                var data = JSON.parse(treeViewJsonData);
+
+                                // interaction and events
+                                $('#evts_button').on("click", function () {
+                                    var instance = $('#evts').jstree(true);
+                                    instance.deselect_all();
+                                    instance.select_node('1');
+                                });
+                                $('#html')
+                                    .on("changed.jstree", function (e, data) {
+                                        var officeType, designationId, postingId;
+
+                                        debugger;
+                                        if (data.selected.length) {
+
+                                            var Id = data.instance.get_node(data.selected[0]).id;
+                                            debugger;
+                                            $.ajax({
+                                                type: "GET",
+                                                url: "/Organogram/GetOrganogramInfoById/" + Id,
+                                                dataType: "json",
+                                                contentType: "application/json",
+                                                success: function (data) {
+                                                    console.log(data);
+                                                    officeType = data.entity.OrganogramOfficeType;
+                                                    designationId = data.entity.DesignationID
+                                                    postingId = data.entity.PostingId;
+                                                    debugger
+                                                    //$('#PostingTypeId').val(data.entity.PostingTypeId).change();
+                                                    $('#OrganogramOfficeType').val(officeType);
+                                                    $('#PostingId').val(postingId);
+                                                    $('#DesignationID').val(designationId);
+                                                    $('#ParentId').val(data.entity.ParentId);
+                                                    $('#Name').val(data.entity.Name);
+                                                    $('#Id').val(data.entity.Id);
+                                                    $('#TotalPost').val(data.entity.TotalPost);
+                                                    $('#OfficePhoneNumber').val(data.entity.OfficePhoneNumber);
+                                                    $('#OfficeEmail').val(data.entity.OfficeEmail);
+
+
+                                                    if (data.entity.IsPermanent != null) {
+                                                        $("#IsPermanent").val(data.entity.IsPermanent.toString());
+                                                        $("#IsPermanent").trigger("change");
+                                                    } else {
+                                                        $("#IsPermanent").val("");
+                                                        $("#IsPermanent").trigger("change");
+                                                    }
+
+                                                    debugger;
+                                                    if (data.entity.IsPermanent == false) {
+                                                        var xxx = getUIDateString(data.entity.NonPermanentDeadLineString);
+                                                        $("#NonPermanentDeadLine").val(xxx);
+                                                    } else {
+                                                        $("#NonPermanentDeadLine").val("");
+                                                    }
+
+                                                    $('#DeleteCOAID').attr('onClick', 'showDeleteConfirmMessage(' + data.entity.Id+')');
+                                                    $('#divView').show();
+                                                    $('#divDelete').show();
+
+
+                                                    if (data.entity.IsParent == true) {
+                                                        $("#IsParent").prop("checked", true);
+                                                        SelectedId = data.entity.Id;
+                                                        IsParent = 1;
+                                                        SelectedParentId = data.entity.ParentID;
+                                                    }
+                                                    else {
+                                                        $("#IsParent").prop("checked", false);
+                                                        SelectedId = 0;
+                                                        IsParent = 0;
+                                                        SelectedParentId = data.entity.ParentID;
+                                                        debugger
+                                                    }
+                                                }, error: function (request, status, errorThrown) {
+                                                    console.log(errorThrown);
+                                                    // There's been an error, do something with it!
+                                                    // Only use status and errorThrown.
+                                                    // Chances are request will not have anything in it.
+                                                }
+                                            });
+
+                                            $.ajax({
+                                                url: '/Organogram/OrganogramList',
+                                                method: 'GET',
+                                                data: {
+                                                    officeType: officetype,
+                                                    postingId: postingId,
+                                                    designationId: designationId
+                                                },
+
+                                            })
+                                        }
+                                    })
+                                    .jstree({
+                                        'core': {
+                                            'multiple': false,
+                                            'data': data
+                                        }
+                                    });
+                        });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    $(".messDisplay").fadeOut(3000);
+    function IsParentSet() {
+        var elm = document.getElementById('IsParent');
+        debugger;
+        if (elm.checked) {
+            //elm.click();
+            $("#IsParent").val("true");
+        }
+        else {
+            $("#IsParent").val("false");
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    function Print() {
+        window.print();
+    };
+</script>
+<script>
+    function PrintElem() {
+        var divToPrint = document.getElementById('content');
+        var newWin = window.open('', 'Print-Window');
+        newWin.document.open();
+        newWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</body></html>');
+        newWin.document.close();
+        setTimeout(function () { newWin.close(); }, 10);
+
+    }
+</script>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $("#OrganogramOfficeType").on("change", function () {
+                $list = $("#ParentId");
+                console.log($list);
+                $.ajax({
+                    url: '@Url.Action("GetParentOfficeByOfficeTypeId")',
+                    type: "GET",
+                    data: { id: $("#OrganogramOfficeType").val() },
+                    dataType: 'json',
+                    success: function (result) {
+                        debugger;
+                        $list.empty();
+                        resultObj = JSON.parse(result);
+
+
+                        $list.append('<option value="0">Choose..</option>');
+                        $.each(resultObj, function (i, item) {
+                            if (SelectedId > 0 && item["Id"] == SelectedParentId && IsParent == 1) {
+                                $list.append('<option selected value="' + item["Id"] + '"> ' + item["Name"] + ' </option>');
+                            }
+                            else if (IsParent == 0 && SelectedParentId > 0 && item["Id"] == SelectedParentId)
+                            {
+                                debugger
+                                $list.append('<option selected value="' + item["Id"] + '"> ' + item["Name"] + ' </option>');
+                            }
+                            else
+                            {
+                                $list.append('<option value="' + item["Id"] + '"> ' + item["Name"] + ' </option>');
+                            }
+                        });
+                    },
+                    error: function () {
+                        alert("Something went wrong please try again.");
+                    }
+                });
+            });
+        });
+
+    function showDeleteConfirmMessage(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            var data = { 'id': id };
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: "/Organogram/Delete",
+                data: data,
+                datatype: "json",
+                success: function (result) {
+                    console.log(result);
+                    var message = result.Message;
+                    var executionState = result.executionState;
+                    if (executionState != null) {
+                        swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        $(".confirm").on('click', function () {
+                            window.location.reload();
+                        });
+                    }
+                },
+                error: function (xmlhttprequest, textstatus, errorthrown) {
+                    swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+                }
+            });
+        });
+    }
+
+    $("#ViewCOAID").on("click", function () {
+        var officeType = $("#OrganogramOfficeType").val();
+        var postingId = $("#PostingId").val();
+        var designationId = $("#DesignationID").val();
+        var isPermanent = $("#IsPermanent").val() == 'true' || !$("#IsPermanent").val();
+
+        $("#employeeData").empty();
+        $("#attachEmployeeData").empty();
+        $(".loader").show();
+
+        $.ajax({
+            type: "GET",
+            url: "/Organogram/GetEmployeeByPostDesignation",
+            data: {
+                officeType,
+                postingId,
+                designationId,
+                isPermanent
+            },
+            success: function (result) {
+                $("#joinAndPresentDesgCount").text(0);
+                $("#attachDesgCount").text(0);
+
+                if (Array.isArray(result)) {
+
+                    var joinPresentCount = result.filter(x => x.JoiningDesignationId == designationId || x.PresentDesignationId == designationId).map(function (emp, index) {
+                        $("#employeeData").append(`
+                            <tr>
+                                <td>${++index}</td>
+                                <td>${emp.NameEnglish || ''}</td>
+                                <td>${emp.MobileNumber || ''}</td>
+                                <td>${emp.OfficeEmail || 'None'}</td>
+                                <td>${emp.NationalID || 'None'}</td>
+                                <td>${emp.JoiningDesignation || 'None'}</td>
+                                <td>${emp.PresentDesignation || 'None'}</td>
+                                <td>${emp.AttachDesignation || 'None'}</td>
+                                <td><a class="btn btn-sm btn-warning" href="/EmployeeInformation/Edit?id=${emp.Id}">Edit</a></td>
+                            </tr>
+                        `);
+                    }).length;
+                    $("#joinAndPresentDesgCount").text(joinPresentCount);
+
+                    var attachCount = result.filter(x => x.AttachDesignationId == designationId).map(function (emp, index) {
+                        $("#attachEmployeeData").append(`
+                            <tr>
+                                <td>${++index}</td>
+                                <td>${emp.NameEnglish || ''}</td>
+                                <td>${emp.MobileNumber || ''}</td>
+                                <td>${emp.OfficeEmail || 'None'}</td>
+                                <td>${emp.NationalID || 'None'}</td>
+                                <td>${emp.JoiningDesignation || 'None'}</td>
+                                <td>${emp.PresentDesignation || 'None'}</td>
+                                <td>${emp.AttachDesignation || 'None'}</td>
+                                <td><a class="btn btn-sm btn-warning" href="/EmployeeInformation/Edit?id=${emp.Id}">Edit</a></td>
+                            </tr>
+                        `);
+                    }).length;
+                    $("#attachDesgCount").text(attachCount);
+                }
+
+                $(".loader").hide();
+            },
+            error: function () {
+                $(".loader").hide();
+            }
+        });
+    });
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="min-width: calc(100% - 10vw);">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Employee Lists</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Join and Present designation (<span id="joinAndPresentDesgCount">0</span>)</h6>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Office Email</th>
+                            <th scope="col">National ID</th>
+                            <th scope="col">Joining Designation</th>
+                            <th scope="col">Present Designation</th>
+                            <th scope="col">Attach Designation</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeData">
+                    </tbody>
+                </table>
+
+                <h6 style="padding-top: 10px !important;">Attach designation (<span id="attachDesgCount">0</span>)</h6>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Office Email</th>
+                            <th scope="col">National ID</th>
+                            <th scope="col">Joining Designation</th>
+                            <th scope="col">Present Designation</th>
+                            <th scope="col">Attach Designation</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="attachEmployeeData">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>

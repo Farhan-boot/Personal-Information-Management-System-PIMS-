@@ -1,0 +1,149 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.TrainingManagementTypeVM>
+@using PTSL.DgFood.Web.Helper;
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<input type="hidden" value="@MySession.Current.UserId" />
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-10">
+                    <h4>Training Management Informations</h4>
+                </div>
+                <div class="col-md-2">
+                    <a href="/TrainingManagementType/Create" class="badge badge-success badge-shadow pull-left">Create New</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered table-hover" id="tableExport" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Training Title</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Duration Hour</th>
+                                <th>Institute</th>
+                                <th>Vanue</th>
+                                <th class="not-export-col">Action</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var data in Model)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@data.TrainingTitle</td>
+                                        <td>@(Convert.ToDateTime(data.FromDate).ToString("dd-MM-yyyy"))</td>
+                                        <td>@(Convert.ToDateTime(data.ToDate).ToString("dd-MM-yyyy"))</td>
+                                        <td>@data.DurationHour</td>
+                                        <td>@data.Institute</td>
+                                        <td>@data.Vanue</td>
+                                        <td class="not-export-col">
+                                            @*<button onclick="showDeleteConfirmMessage(@data.Id)" class="btn btn-info btn-sm">Apply</button>*@
+
+                                            <button onclick="showDeleteConfirmMessage(@data.Id)" class="btn btn-info btn-sm"><i class="fa fa-tasks" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteConfirmMessage(id) {
+        swal({
+            title: "Are you sure to apply this training?",
+            text: "You will be applied to this training!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            closeOnConfirm: false
+        }, function () {
+            var data = { 'employeeId': @Session["EmployeeInformationId"], 'trainingManagementTypeId': id };
+                $.ajax({
+                    type: "GET",
+                    url: "/EmployeeTraining/Apply",
+                    data: data,
+                    datatype: "json",
+                    success: function (result) {
+                        console.log(result);
+                        var message = result.Message;
+                        var executionState = result.executionState;
+                        if (executionState != null) {
+                            debugger
+                            if (executionState == 40) {
+                                swal("Applied!", message, "success");
+                            }
+                            else {
+                                swal("Apply Failed!", message, "success");
+                            }
+                            $(".confirm").on('click', function () {
+                                window.location.reload();
+                            });
+                        }
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrown) {
+                        swal("Applied!", "You could not apply to an imaginary training.", "error");
+                    }
+                });
+        });
+    }
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            pageLength: 5,
+            dom: 'lBfrtip',
+            buttons: [
+                'copy',
+                {
+                    extend: 'csv',
+                    title: 'Training Management Informations List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    title: 'Training Management Informations List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'Training Management Informations List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6]
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: 'Training Management Informations List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6]
+                    }
+                }
+            ]
+        });
+    });
+</script>

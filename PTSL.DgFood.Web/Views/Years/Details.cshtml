@@ -1,0 +1,28 @@
+﻿@model PTSL.DgFood.Web.Model.YearsVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Year Details</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="inputYears" style="font-size:15px;">Year Name: <b>@Model.YearsName</b></label>
+                @*<input type="text" class="form-control col-md-6" id="YearsName" name="YearsName" value="@Model.YearsName" placeholder="Enter Years Name">*@
+            </div>
+            <div class="form-group">
+                <label for="inputYearsBn" style="font-size:15px;">Year Name Bangla: <b>@Model.YearsNameBn</b></label>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Years/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

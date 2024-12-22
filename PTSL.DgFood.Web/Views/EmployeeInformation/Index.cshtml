@@ -1,0 +1,183 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.EmployeeInformationListVM>
+@{
+    ViewBag.Title = "Index";
+    var RoleName = Session["RoleName"].ToString();
+
+    }
+
+<style>
+    tbody tr td:last-child {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        min-width: 130px;
+        max-width: 150px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-7">
+                    <h4>Employee Information</h4>
+                </div>
+               
+                <div class="col-md-3">
+                    @if (RoleName != "Employee Group" && RoleName.ToString() != "Individual Employee Group")
+                    {
+                        <a href="/EmployeeInformation/IndexByFilter" class="badge badge-info badge-shadow pull-right">Filter Employee</a>
+                        <a href="/EmployeeInformation/PrintPreviewEmployeeRpt" class="badge badge-danger badge-shadow pull-left">Print</a>
+                    }
+                </div>
+                <div class="col-md-2">
+                    @if (RoleName != "Employee Group")
+                    {
+                        <a href="/EmployeeInformation/Create" class="badge badge-success badge-shadow pull-right">Create New</a>
+                    }
+                </div>
+            </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        @*<table class="table table-striped table-bordered table-hover" id="tt" style="width:100%;">*@
+                            <table width="100%" class="display cell-border table table-striped" id="empListTable" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        @*<th>SL</th>*@
+                                        <th style="width:10%">Emp Id</th>
+                                        <th style="width:20%">Name</th>
+                                        <th style="width:10%">DOB</th>
+                                        <th style="width:10%">Designation</th>
+                                        <th style="width:10%">Grade</th>
+                                        <th style="width:10%">By Prom/ Recruit</th>
+                                        <th style="width:10%">Original Posting Place</th>
+                                        <th style="width:10%">Mobile No.</th>
+                                        <th style="width: 10%;">Action</th>
+                                    </tr>
+                                </thead>
+                                @{
+                                    int i = 1;
+                                }
+                                <tbody>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th><input type="search" class="form-control" placeholder="Search Emp Id"></th>
+                                        <th><input type="search" class="form-control" placeholder="Search Name"> </th>
+                                        <th><input type="search" class="form-control" placeholder="" disabled></th>
+                                        <th><input type="search" class="form-control" placeholder="Search Designation"></th>
+                                        <th><input type="search" class="form-control" placeholder="Search Grade"></th>
+                                        <th><input type="search" class="form-control" placeholder="Search By Prom/ Recruit"> </th>
+                                        <th><input type="search" class="form-control" placeholder="Original Posting Place"></th>
+                                        <th><input type="search" class="form-control" placeholder="Search Mobile No."></th>
+                                        <th><input type="search" class="form-control" placeholder="" disabled></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<script>
+    function showDeleteConfirmMessage(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+                var data = { 'id': id };
+                $.ajax({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: "/District/Delete",
+                    data: data,
+                    datatype: "json",
+                    success: function (result) {
+                        console.log(result);
+                        var message = result.Message;
+                        var executionState = result.executionState;
+                        if (executionState != null) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            $(".confirm").on('click', function () {
+                                window.location.reload();
+                            });                            
+                        }
+                    },
+                    error: function (xmlhttprequest, textstatus, errorthrown) {
+                        swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+                    }
+                });
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        var table = $('#empListTable').DataTable({
+            scrollY: 300,
+            scroolX: true,
+            scrollCollapse: true,
+            "sScrollX": "100%",
+            "bScrollCollapse": true,
+            searchDelay: 500,
+            aoColumns: [
+                { 'data': 'Id' },
+                { 'data': 'NameEnglish' },
+                {
+                    'data': 'DateOfBirth',
+                    "render": function (value) {
+                        if (value === null) return "";
+                        return moment(value).format('DD/MM/YYYY');
+                    }
+                },
+                { 'data': 'DesignationName' },
+                { 'data': 'RankName' },
+                { 'data': 'RecruitPromo' },
+                { 'data': 'PostingPlace' },
+                { 'data': 'MobileNumber' },
+                /**
+                            + '<a href="/EmployeeInformation/Report?id=' + data +'" class="btn btn-sm btn-info" title="Report" id="report' + data + '"  >Report </a>'
+                 */
+                {
+                    'data': 'Id',
+                    "mRender": function (data, type, row, meta) {
+                        //return '<a  href="/EmployeeInformation/Edit?id=' + data +'" class="btn btn-sm btn-primary" title="Edit" id="edit' + data + '"  >Edit </a>'
+                        //    + (!row.HasUser ? ('<a href="/Account/RegisterEmployeeUser?id=' + data + '" class="btn btn-sm btn-success" title="Create User" id="createUser' + data + '"  >Create User </a>')
+                        //    : ('<a href="/Account/EmployeeUserEdit?EmployeeInformationId=' + data + '" class="btn btn-sm btn-warning" title="Create User" id = "editUser' + data + '"> Edit User </a>'))
+                        //    ;
+
+
+                        return '<a  href="/EmployeeInformation/Edit?id=' + data + '" class="btn btn-sm btn-primary" title="Edit" id="edit' + data + '"  ><i class="fa fa-edit"></i> </a>'
+                            + (!row.HasUser ? ('<a href="/Account/RegisterEmployeeUser?id=' + data + '" class="btn btn-sm btn-success" title="Create User" id="createUser' + data + '"  ><i class="fa fa-user" aria-hidden="true"></i> </a>')
+                            : ('<a href="/Account/EmployeeUserEdit?EmployeeInformationId=' + data + '" class="btn btn-sm btn-warning" title="Create User" id = "editUser' + data + '"> <i class="fas fa-user-edit"></i> </a>'))
+                            ;
+
+
+
+                    }
+                },
+            ],
+            bFilter: true,//Enables Filtering
+            bServerSide: true,
+            sAjaxSource: "/EmployeeInformation/EmployeeList"
+
+        });
+
+        table.columns().eq(0).each(function (colIdx) {
+            $('input', table.column(colIdx).footer()).on('blur', function () {
+                table
+                    .column(colIdx)
+                    .search(this.value)
+                    .draw();
+            });
+        });
+    });
+</script>

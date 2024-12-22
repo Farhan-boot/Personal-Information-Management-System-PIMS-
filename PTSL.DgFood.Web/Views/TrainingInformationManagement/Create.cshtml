@@ -1,0 +1,233 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.EmployeeInformationListVM>
+@{
+    ViewBag.Title = "Index";
+    var RoleName = Session["RoleName"].ToString();
+
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-12">
+                    <h4>Training Management</h4>
+                </div>
+
+            </div>
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-6">
+                            <label for="inputNationalID">Rank </label>
+                            @Html.DropDownList("RankId", (SelectList)ViewBag.RankId, "Choose..", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Designation </label>
+                            @Html.DropDownList("DesignationId", (SelectList)ViewBag.DesignationId, "Choose..", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-6">
+                            <label for="inputNationalID">Employee Id </label>
+                            <input type="text" name="EmployeeInformationId" id="EmployeeInformationId" class="form-control" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputNationalID"></label>
+                            <input class="btn btn-success" type="submit" name="Search" id="Search" value="Search" style="margin-top:25px;" />
+                        </div>
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-6">
+                            <label for="inputNationalID">Training Name </label>
+                            @Html.DropDownList("TrainingManagementTypeId", (SelectList)ViewBag.TrainingManagementTypeId, "Choose..", htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="form-group col-md-6">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <label class="pull-right"><input type="checkbox" id="checkAll" /> Select all</label><span>    </span>
+                    <table class="table table-striped table-bordered table-hover" id="EmployeeTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                @*<th>SL</th>*@
+                                <th style="width:10%">Emp Id</th>
+                                <th style="width:20%">Name</th>
+                                <th style="width:10%">DOB</th>
+                                <th style="width:10%">Designation</th>
+                                <th style="width:10%">Grade</th>
+                                <th style="width:10%">By Prom/ Recruit</th>
+                                <th style="width:10%">Original Posting Place</th>
+                                <th style="width:10%">Mobile No.</th>
+                                <th style="width: 130px;">Action</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var data in Model)
+                                {
+                                    <tr>
+                                        @*<td>@i</td>*@
+                                        <td>@data.Id</td>
+                                        <td>@data.NameEnglish</td>
+                                        <td>@data.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                                        <td>@data.DesignationName</td>
+                                        <td>@data.RankName</td>
+                                        <td>@data.RecruitPromo</td>
+                                        <td>@data.PostingPlace</td>
+                                        <td>@data.MobileNumber</td>
+                                        <td style="float:left;width: 130px;">
+                                            <span class="pull-right"><input type="checkbox" id="all-package-chk" onclick="SetEmployeeId(@data.Id)" /> Check</span>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modalC" id="PromotionformModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="min-width:980px;margin-left:-48%;border:1px solid white!important;border-radius:5px">
+            <div class="modal-header">
+                <h6 class="modal-title"><b>Employee Promotion Form</b></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input type="text" id="detaileID" hidden>
+            <div class="modal-body" id="ModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button onclick="showPromotionConfirmMessage()" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var EmployeeIds = [];
+    $(document).ready(function () {
+        $("#checkAll").change(function () {
+            if ($(this).prop('checked') == true) {
+                EmployeeIds = [];
+                var terf = document.getElementById('EmployeeTable');
+                var firstChilds = terf.querySelectorAll("td:first-child");
+                //var allName = [];
+                for (i = 0; i < firstChilds.length; ++i) {
+                    EmployeeIds.push(firstChilds[i].innerHTML);
+                }
+
+                console.log(EmployeeIds); 
+
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            }
+            else {
+                EmployeeIds = [];
+                console.log(EmployeeIds);
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            }
+        });
+
+        
+    });
+
+    
+    function SetEmployeeId(id) {
+        const index = EmployeeIds.indexOf(id);
+        if (index > -1) {
+            EmployeeIds.splice(index, 1);
+        }
+        else {
+            EmployeeIds.push(id);
+        }
+        console.log(EmployeeIds);
+    }
+    $("#RankId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDesignation = $("#DesignationId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetDesignationDropdownByRankId",
+            data: { "id": selectedItem },
+            success: function (data) {
+                console.log(data);
+                ddlDesignation.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDesignation.append($('<option></option>').val(option.Id).html(option.DesignationName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+    function PromotionForm(id) { 
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: '/PromotionManagement/PromotionFormPartial',
+            contentType: "application/json; charset=utf-8",
+            data: { "id": id },
+            datatype: "json",
+            success: function (data) {
+                $('#ModalContent').html(data);
+                $('#PromotionformModal').modal(options);
+                $('#PromotionformModal').modal('show');
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            }
+        });
+    }
+    //function showDeleteConfirmMessage(id) {
+    //    swal({
+    //        title: "Are you sure?",
+    //        text: "You will not be able to recover this imaginary file!",
+    //        type: "warning",
+    //        showCancelButton: true,
+    //        confirmButtonColor: "#DD6B55",
+    //        confirmButtonText: "Yes, delete it!",
+    //        closeOnConfirm: false
+    //    }, function () {
+    //            var data = { 'id': id };
+    //            $.ajax({
+    //                type: "GET",
+    //                contentType: "application/json; charset=utf-8",
+    //                url: "/District/Delete",
+    //                data: data,
+    //                datatype: "json",
+    //                success: function (result) {
+    //                    console.log(result);
+    //                    var message = result.Message;
+    //                    var executionState = result.executionState;
+    //                    if (executionState != null) {
+    //                        swal("Deleted!", "Your imaginary file has been deleted.", "success");
+    //                        $(".confirm").on('click', function () {
+    //                            window.location.reload();
+    //                        });
+    //                    }
+    //                },
+    //                error: function (xmlhttprequest, textstatus, errorthrown) {
+    //                    swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+    //                }
+    //            });
+    //    });
+    //}
+</script>

@@ -1,0 +1,79 @@
+﻿@model PTSL.DgFood.Web.Model.UserVM
+@{
+    ViewBag.Title = "Create Employee Account";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create Employee Account</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("RegisterEmployeeUser", "Account", FormMethod.Post, new { id = "Form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.Hidden("EmployeeInformationId", (long)ViewBag.EmployeeInformationId)
+
+            <div class="form-horizontal">
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">User Name <span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" placeholder="Enter User Name" required disabled="disabled">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">Password <span style="color:red;">*</span></label>
+                        <input type="password" class="form-control" id="UserPassword" name="UserPassword" value="@Model.UserPassword" placeholder="Enter User Password" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">Email  <span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="UserEmail" name="UserEmail" value="@Model.UserEmail" placeholder="Enter User Email" required disabled="disabled">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">Confirm Password <span style="color:red;">*</span></label>
+                        <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" placeholder="Enter Confirm Password" required>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12 p-0 text-right">
+                    <button type="button" class="btn btn-primary submit-btn" id="userRegister">Submit</button>
+                </div>
+            </div>
+        }
+
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Account/UserLists" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $("#userRegister").on("click", function (event) {
+        event.preventDefault();
+
+        if ($('#UserPassword').val() != $('#ConfirmPassword').val()) {
+            sweetAlert("Error", "Password not matched!", "warning");
+            return false;
+        }
+        if ($("#Form").valid()) {
+            $(".loader").fadeIn("slow");
+            $("#Form").submit();
+        }
+    });
+
+    $("#Form").validate({
+        rules: {
+            GroupId: "required",
+            UserPassword: "required",
+            UserName: "required",
+            ConfirmPassword: "required",
+            UserEmail: "required"
+        },
+    });
+</script>

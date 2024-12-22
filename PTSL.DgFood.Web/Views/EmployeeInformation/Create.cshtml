@@ -1,0 +1,433 @@
+﻿@model PTSL.DgFood.Web.Model.EmployeeInformationVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+<input type="text" class="form-control" id="EmpCodeGen" name="EmpCodeGen" value="@Model.EmpCodeGen" placeholder="EmpCodeGen" hidden>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Employee Information</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "EmployeeInformation", FormMethod.Post, new { id = "EmployeeInformationForm", enctype = "multipart/form-data" }))
+        {
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputGovtID">Employee Code <span style="color:red;">* (Auto Gen,Select Date Of Birth) </span></label>
+                    <input type="text" class="form-control" id="EmployeeCode" name="EmployeeCode" value="@Model.EmployeeCode" placeholder="Enter Employee Code" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputGovtID">Cader ID</label>
+                    <input type="text" class="form-control" id="GovtID" name="GovtID" value="@Model.GovtID" placeholder="Enter Cader ID">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputEmail">Email <span style="color:red;">*</span></label>
+                    <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" placeholder="Enter Email" required>
+                </div>
+                @*<div class="form-group col-md-3">
+                    <label for="OfficeEmail">Office Email</label>
+                    <input type="email" class="form-control" id="OfficeEmail" name="OfficeEmail" value="@Model.OfficeEmail" placeholder="Enter Office Email">
+                </div>*@
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail">Photo</label>
+                    <input type="file" class="form-control" id="Photo" name="Photo" value="@Model.Photo" onchange="return employeeFileValidation()">
+                </div>
+                <div class="form-group col-md-6">
+
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNationalID">National ID <span style="color: red;">*</span></label>
+                    <input type="text" class="form-control" id="NationalID" name="NationalID" value="@Model.NationalID" placeholder="Enter National ID">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputMobileNumber">Mobile Number</label>
+                    <input type="text" class="form-control" id="MobileNumber" name="MobileNumber" value="@Model.MobileNumber" placeholder="Enter Mobile Number">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNameBangla">Name in Bangla <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="NameBangla" name="NameBangla" value="@Model.NameBangla" placeholder="Enter Name in Bangla" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputNameEnglish">Name in English <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="NameEnglish" name="NameEnglish" value="@Model.NameEnglish" placeholder="Enter Name in English" required>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputDateOfBirth">Birth Date <span style="color:red;">*</span></label>
+                    <input type="date" class="form-control datepicker" id="DateOfBirth" name="DateOfBirth" value="" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputSex">Gender <span style="color:red;">*</span></label>
+                    @Html.DropDownList("GenderId", null, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputMaritalStatus">Marital Status <span style="color:red;">*</span></label>
+                    @Html.DropDownList("MaritalStatusId", null, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputRank">Number Of Children</label>
+                    <input type="text" class="form-control" id="NumberOfChildren" name="NumberOfChildren" value="@Model.NumberOfChildren" placeholder="Enter Number Of Children">
+
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputFathersNameBangla">Father's Name in Bangla <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="FathersNameBangla" name="FathersNameBangla" value="@Model.FathersNameBangla" placeholder="Father's Name in Bangla" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputFathersNameEnglish">Father's Name in English <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="FathersNameEnglish" name="FathersNameEnglish" value="@Model.FathersNameEnglish" placeholder="Father's Name in English" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputMothersNameBangla">Mother's Name in Bangla <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="MothersNameBangla" name="MothersNameBangla" value="@Model.MothersNameBangla" placeholder="Mother's Name in Bangla" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputMothersNameEnglish">Mother's Name in English <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="MothersNameEnglish" name="MothersNameEnglish" value="@Model.MothersNameEnglish" placeholder="Mother's Name in English" required>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputMaritalStatus">Religion</label>
+                    @Html.DropDownList("ReligionId", null, "Choose..", htmlAttributes: new { @class = "form-control", style = "display:inline;float:left" })
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputMaritalStatus">Other Religion</label>
+                    <input type="text" class="form-control" style="float:left" id="OtherReligion" name="OtherReligion" value="@Model.OtherReligion" placeholder="Other Religion">
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputDistrictName">Division <span style="color:red;">*</span></label>
+                    @Html.DropDownList("DivisionId", (SelectList)ViewBag.DivisionId, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputDistrictName">District <span style="color:red;">*</span></label>
+                    @Html.DropDownList("DistrictId", (SelectList)ViewBag.DistrictId, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+            </div>
+            @*<div class="form-group">
+                <label for="inputMobileNumber">TIN <span style="color:red;">*</span></label>
+                <input type="text" class="form-control col-md-6" id="TIN" name="TIN" value="@Model.TIN" placeholder="Enter TIN No" required>
+
+            </div>*@
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputMobileNumber">TIN <span style="color:red;"></span></label>
+                    <input type="number" class="form-control col-md-12" id="TIN" name="TIN" value="@Model.TIN" placeholder="Enter TIN No">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputDistrictName">Police Station <span style="color:red;">*</span></label>
+                    @Html.DropDownList("PoliceStationId", (SelectList)ViewBag.PoliceStationId, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+            </div>
+            <div class="form-row">
+                <!--
+    <div class="form-group col-md-6">
+        <div class="section-title" style="font-size:12px;">Freedom Fighter <span style="color:red;">*</span></div>
+        <div class="custom-control custom-radio custom-control-inline" style="display:inline-block">
+            <input type="radio" id="customRadioInline1" name="FreedomFighter" value="true">
+            <label class="custom-control-radio" for="customRadioInline1">Yes</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline" style="display:inline-block">
+            <input type="radio" id="customRadioInline2" name="FreedomFighter" value="false" checked required="required">
+            <label class="custom-control-radio" for="customRadioInline2">No</label>
+        </div>
+    </div>
+    <div class="form-group col-md-6">
+        <div class="section-title" style="font-size:12px;">Child/Grand Child of Freedom Fighter <span style="color:red;">*</span></div>
+        <div class="custom-control custom-radio custom-control-inline" style="display:inline-block">
+            <input type="radio" id="ChildGrandChildOfFreedomFighter1" name="ChildGrandChildOfFreedomFighter" value="true">
+            <label class="custom-control-radio" for="ChildGrandChildOfFreedomFighter1">Yes</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline" style="display:inline-block">
+            <input type="radio" id="ChildGrandChildOfFreedomFighter2" name="ChildGrandChildOfFreedomFighter" value="false" checked required="required">
+            <label class="custom-control-radio" for="ChildGrandChildOfFreedomFighter2">No</label>
+        </div>
+    </div>
+        -->
+                <div class="form-group col-md-6">
+                    <label for="inputNationalID">Freedom Fighter <span style="color:red;">*</span></label>
+                    @Html.DropDownList("FreedomFighterInformationId", (SelectList)ViewBag.FreedomFighterInformationId, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="inputOclsd">Lsd <span style="color:red;"></span></label>
+                    <input type="text" class="form-control" id="Oclsd" name="Oclsd" value="@Model.oclsd" placeholder="Enter Lsd">
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNationalID">Passport Number</label>
+                    <input type="text" class="form-control" id="PassportNumber" name="PassportNumber" value="@Model.PassportNumber" placeholder="Enter Passport NO">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputMobileNumber">Passport Issue Date</label>
+                    <input type="date" class="form-control datepicker" id="PassportIssueDate" name="PassportIssueDate" value="@(Model.PassportIssueDate != null ? Convert.ToDateTime(Model.PassportIssueDate).ToString("yyyy-MM-dd") : "")">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNationalID">Passport Place</label>
+                    <input type="text" class="form-control" id="PassportIssuePlace" name="PassportIssuePlace" value="@Model.PassportIssuePlace" placeholder="Enter Passport Issue Place">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputMobileNumber">Passport Expire Date</label>
+                    <input type="date" class="form-control datepicker" id="PassportDateOfExpire" name="PassportDateOfExpire" value="@(Model.PassportDateOfExpire != null ? Convert.ToDateTime(Model.PassportDateOfExpire).ToString("yyyy-MM-dd") : "")">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputNationalID">Blood Group <span style="color:red;">*</span></label>
+                    @Html.DropDownList("BloodGroup", (SelectList)ViewBag.BloodGroup, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputRank">Employee Status <span style="color:red;">*</span></label>
+                    @Html.DropDownList("EmployeeStatusId", (SelectList)ViewBag.OfficialInformationEmployeeStatusId, "Choose..", new { @class = "form-control", @required = "required" })
+                </div>
+            </div>
+
+            @*<div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail">Photo</label>
+                    <input type="file" class="form-control" id="Photo" name="Photo" value="@Model.Photo" onchange="return employeeFileValidation()">
+                </div>
+                <div class="form-group col-md-6">
+                </div>
+            </div>*@
+
+            <div class="form-horizontal">
+                <h4 style="background: darkslateblue; color: white; padding-left: 8px; border-radius: 5px; padding-top: 4px; padding-bottom: 4px; ">Bcs Information</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputBcsBatchNo">Batch No <span style="color:red;"></span></label>
+                        <input type="text" class="form-control" id="BcsBatchNo" name="BcsBatchNo" value="@Model.BcsBatchNo" placeholder="Enter Batch No">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputBcsOrderNo">Order No <span style="color:red;"></span></label>
+                        <input type="text" class="form-control" id="BcsOrderNo" name="BcsOrderNo" value="@Model.BcsOrderNo" placeholder="Enter Order No">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputBcsDate">Date <span style="color:red;"></span></label>
+                        <input type="date" class="form-control" id="BcsDate" name="BcsDate" value="@Model.BcsDate" placeholder="Enter Bcs Date">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/EmployeeInformation/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+    <div class="card-header pull-left">
+        <a href="/EmployeeInformation/UpdateExistingEmployeeData" class="btn btn-warning">Update Existing Employee Data</a>
+    </div>
+</div>
+
+<script>
+    $("#PassportIssueDate").change(function () {
+        var PassportIssueDate = document.getElementById("PassportIssueDate").value;
+        var PassportDateOfExpire = document.getElementById("PassportDateOfExpire").value;
+
+        if ((Date.parse(PassportIssueDate) > Date.parse(PassportDateOfExpire))) {
+            alert("Passport Issue Date can not be later than Passport Expire Date");
+            document.getElementById("PassportIssueDate").value = "";
+        }
+    });
+
+    $("#PassportDateOfExpire").change(function () {
+        var PassportIssueDate = document.getElementById("PassportIssueDate").value;
+        var PassportDateOfExpire = document.getElementById("PassportDateOfExpire").value;
+
+        if ((Date.parse(PassportIssueDate) > Date.parse(PassportDateOfExpire))) {
+            alert("Passport Expire Date can not be earlier than Passport Issue Date");
+            document.getElementById("PassportDateOfExpire").value = "";
+        }
+    });
+
+    function employeeFileValidation() {
+        var fileInput =
+            document.getElementById('Photo');
+
+        var filePath = fileInput.value;
+
+        // Allowing file type
+        var allowedExtensions =
+            /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type');
+            fileInput.value = '';
+            return false;
+        }
+
+    }
+    $(function () {
+        @*if ($("#DateOfBirth").val() == "01-01-0001") {
+            $("#DateOfBirth").val("");
+            $("#DateOfBirth").datepicker();
+        }
+        else {
+            $(".datepicker").datepicker();
+        }
+
+        if ($("#PassportIssueDate").val() == "01-01-0001") {
+
+            $("#PassportIssueDate").datepicker({
+                format: 'MM/dd/yyyy',
+            }).datepicker("setDate", 'now');
+        }
+        else {
+            $(".datepicker").datepicker();
+        }
+
+        if ($("#PassportDateOfExpire").val() == "01-01-0001") {
+
+            $("#PassportDateOfExpire").datepicker({
+                format: 'MM/dd/yyyy',
+            }).datepicker("setDate", 'now');
+        }
+        else {
+            $(".datepicker").datepicker();
+        }*@
+
+        $("#DivisionId").change(function () {
+                 var selectedItem = $(this).val();
+                 var ddlDistrict = $("#DistrictId");
+            if (selectedItem == "" || selectedItem == null) {
+                return true;
+            }
+             $.ajax({
+                 cache: false,
+                 type: "GET",
+                 url: "/dropdown/GetDistrictDropdownByDivisionId",
+                    data: { "divisionId": selectedItem },
+                 success: function (data) {
+                     ddlDistrict.html('<option>Choose..</option>');
+                        $.each(data, function (id, option) {
+                            ddlDistrict.append($('<option></option>').val(option.Id).html(option.DistrictName));
+                        });
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                    }
+                });
+        });
+
+        $("#DistrictId").change(function () {
+            var selectedItem = $(this).val();
+            var ddlDistrict = $("#PoliceStationId");
+            if (selectedItem == "" || selectedItem == null) {
+                return true;
+            }
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/Dropdown/GetPoliceStationDropdownByDistrictId",
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlDistrict.html('<option>Choose..</option>');
+                    $.each(data, function (id, option) {
+                        ddlDistrict.append($('<option></option>').val(option.Id).html(option.PoliceStationName));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve states.');
+                }
+            });
+        });
+     });
+
+    $(".submit-btn").on("click", function () {
+        if ($("#EmployeeInformationForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#EmployeeInformationForm").validate({
+        // Specify validation rules
+        rules: {
+            NameBangla: "required",
+            NameEnglish: "required",
+            DivisionId: "required",
+            DistrictId: "required",
+            DateOfBirth: "required",
+            GenderId: "required",
+            MaritalStatusId: "required",
+            FathersNameBangla: "required",
+            FathersNameEnglish: "required",
+            MothersNameBangla: "required",
+            MothersNameEnglish: "required",
+            EmployeeStatusId: "required",
+            EmployeeCode: "required",
+            PoliceStationId: "required",
+            Email: {
+                required: true,
+                _isEmail: true,
+            },
+            OfficeEmail: {
+                _isEmailOptional: true,
+            },
+            NationalID: {
+                required: true,
+                _mustBeInteger: true,
+                minlength: 10,
+                maxlength: 20,
+            },
+            MobileNumber: {
+                _mustBeIntegerOptional: true
+            }
+        },
+    });
+
+
+</script>
+
+
+<script>
+    $("#DateOfBirth").change(function () {
+        var dateOfBirth = $("#DateOfBirth").val();
+        var strFirstFour = dateOfBirth.substring(0, 4);
+        var dateOfBirth = $("#EmpCodeGen").val();
+        var mainEmpCode = (parseInt(dateOfBirth) + 1).toString();
+
+        $("#EmployeeCode").val(strFirstFour + "" + mainEmpCode);
+
+    });
+</script>

@@ -1,0 +1,91 @@
+﻿@model PTSL.DgFood.Web.Model.SpecialHolydaySetupVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Special Holiday Setup</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "SpecialHolydaySetup", FormMethod.Post, new { id = "SpecialHolydaySetupForm" }))
+        {
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="inputSpecialHolydaySetup">Name <span style="color:red;">*</span></label>
+                <input type="text" class="form-control col-md-6" id="SpecialHolydaySetupName" name="SpecialHolydaySetupName" value="@Model.SpecialHolydaySetupName" placeholder="Enter Holiday Name" required>
+            </div>
+            <div class="form-group">
+                <label for="inputSpecialHolydaySetupBn">Name Bangla<span style="color:red;"></span></label>
+                <input type="text" class="form-control col-md-6" id="SpecialHolydaySetupNameBn" name="SpecialHolydaySetupNameBn" value="@Model.SpecialHolydaySetupNameBn" placeholder="Enter Holiday Name Bangla">
+            </div>
+            <div class="form-group">
+                <label for="inputSpecialHolydaySetup">Description <span style="color:red;">*</span></label>
+                <textarea rows="6" cols="20" type="text" class="form-control form-control col-md-6" id="Description" name="Description" required>@Model.Description</textarea>
+
+            </div>
+            <div class="form-group">
+                <label for="inputSpecialHolydaySetup">Start Date <span style="color:red;">*</span></label>
+                <input type="date" class="form-control col-md-6 datepicker" id="StartDate" name="StartDate" placeholder="Enter Start Date" required>
+
+            </div>
+            <div class="form-group">
+                <label for="inputSpecialHolydaySetup">End Date <span style="color:red;">*</span></label>
+                <input type="date" class="form-control col-md-6 datepicker" id="EndDate" name="EndDate" placeholder="Enter End Date" required>
+
+            </div>
+            <div class="form-group col-md-6">
+                <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+            </div>
+        </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/SpecialHolydaySetup/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+
+    $("#StartDate").change(function () {
+        var startDate = document.getElementById("StartDate").value;
+        var endDate = document.getElementById("EndDate").value;
+
+        if ((Date.parse(startDate) > Date.parse(endDate))) {
+            alert("Start date should be less or equal End date");
+            document.getElementById("StartDate").value = "";
+        }
+    });
+
+    $("#EndDate").change(function () {
+        var startDate = document.getElementById("StartDate").value;
+        var endDate = document.getElementById("EndDate").value;
+
+        if ((Date.parse(startDate) > Date.parse(endDate))) {
+            alert("End date should be greater or equal Start date");
+            document.getElementById("EndDate").value = "";
+        }
+    });
+
+    $(".submit-btn").on("click", function () {
+        if ($("#SpecialHolydaySetupForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#SpecialHolydaySetupForm").validate({
+        // Specify validation rules
+        rules: {
+            SpecialHolydaySetupName: "required",
+            Description: "required",
+            StartDate: "required",
+            EndDate: "required"
+        },
+
+    });
+</script>

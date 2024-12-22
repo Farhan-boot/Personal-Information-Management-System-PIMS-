@@ -1,0 +1,235 @@
+﻿@model PTSL.DgFood.Web.Model.LeaveApplicationVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Leave Application</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "LeaveApplication", FormMethod.Post, new { id = "LeaveApplicationForm" }))
+        {
+            <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+            <input type="hidden" name="CreatedAt" id="CreatedAt" value="@Model.CreatedAt" />
+            <input type="hidden" name="LeaveStatus" id="LeaveStatus" value="@Model.LeaveStatus" />
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputSex">Employee <span style="color:red;">*</span></label>
+                    @Html.DropDownList("EmployeeInformationId", null, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputSex">Leave Type <span style="color:red;">*</span></label>
+                    @Html.DropDownList("LeaveTypeInformationId", null, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputSex">Remaining Leave</label>
+                    <span type="text" class="form-control" id="RemainingLeave" name="RemainingLeave" style="color:red"></span>
+
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputDateOfBirth">Application Date <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control datepicker" id="ApplicationDate" name="ApplicationDate" value="@Model.ApplicationDate.ToString("MM-dd-yyyy")" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputDateOfBirth">From Date <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control datepicker" id="FromDate" name="FromDate" value="@Model.FromDate.ToString("MM-dd-yyyy")" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputDateOfBirth">To Date <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control datepicker" id="ToDate" name="ToDate" value="@Model.ToDate.ToString("MM-dd-yyyy")" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputDateOfBirth">Leave Authority <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="LeaveAuthority" name="LeaveAuthority" value="@Model.LeaveAuthority" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputDateOfBirth">Leave Subject <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="LeaveSubject" name="LeaveSubject" value="@Model.LeaveSubject" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputDateOfBirth">Memo Number</label>
+                    <input type="text" class="form-control" id="MemoNO" name="MemoNO" value="@Model.MemoNO">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputDateOfBirth">Leave Reason <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="LeaveReason" name="LeaveReason" value="@Model.LeaveReason" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputDateOfBirth">Emergency Contact <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="EmergencyContact" name="EmergencyContact" value="@Model.EmergencyContact" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputDateOfBirth">Emergency Address <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="EmergencyAddress" name="EmergencyAddress" value="@Model.EmergencyAddress" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="inputDateOfBirth">Comments</label>
+                    <input type="text" class="form-control" id="Comments" name="Comments" value="@Model.Comments">
+                </div>
+
+            </div>
+            <div class="col-sm-9">
+                <div class="form-check">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="IsHeadOfOffice" name="IsHeadOfOffice" value="true" @(Model.IsHeadOfOffice == true ? "checked='true'" : "")>
+                        <label class="custom-control-label" for="IsHeadOfOffice">Head Of Office</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/LeaveApplication/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $("#FromDate").change(function () {
+        var FromDate = document.getElementById("FromDate").value;
+        var ToDate = document.getElementById("ToDate").value;
+
+        if ((Date.parse(FromDate) > Date.parse(ToDate))) {
+            alert("From date should be less or equal To date");
+            document.getElementById("FromDate").value = "";
+        }
+    });
+
+    $("#ToDate").change(function () {
+        var FromDate = document.getElementById("FromDate").value;
+        var ToDate = document.getElementById("ToDate").value;
+
+        if ((Date.parse(FromDate) > Date.parse(ToDate))) {
+            alert("To date should be greater or equal From date");
+            document.getElementById("ToDate").value = "";
+        }
+    });
+
+    $(document).ready(function () {
+
+        if ($("#EmployeeInformationId").val() > 0 && $("#LeaveTypeInformationId").val() > 0) {
+             
+            $('#LeaveTypeInformationId').trigger('change');
+        }
+    });
+
+    $(".submit-btn").on("click", function () {
+        if ($("#LeaveApplicationForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#LeaveApplicationForm").validate({
+        // Specify validation rules
+        rules: {
+            EmployeeInformationId: "required",
+            LeaveTypeInformationId: "required",
+            ApplicationDate: "required",
+            FromDate: "required",
+            ToDate: "required",
+            LeaveAuthority: "required",
+            LeaveSubject: "required",
+            LeaveReason: "required",
+            EmergencyContact: "required",
+            EmergencyAddress: "required"
+        },
+
+    });
+
+    $(function () {
+        if ($("#FromDate").val() == "01-01-0001") {
+
+            $("#FromDate").datepicker({
+                format: 'MM/dd/yyyy',
+            }).datepicker("setDate", 'now');
+        }
+        else {
+            $(".datepicker").datepicker();
+        }
+
+        if ($("#ToDate").val() == "01-01-0001") {
+
+            $("#ToDate").datepicker({
+                format: 'MM/dd/yyyy',
+            }).datepicker("setDate", 'now');
+        }
+        else {
+            $(".datepicker").datepicker();
+        }
+
+        if ($("#ApplicationDate").val() == "01-01-0001") {
+
+            $("#ApplicationDate").datepicker({
+                format: 'MM/dd/yyyy',
+            }).datepicker("setDate", 'now');
+        }
+        else {
+            $(".datepicker").datepicker();
+        }
+    });
+    $("#LeaveTypeInformationId").change(function () {
+        $("#RemainingLeave").text("");
+        var selectedItem = $(this).val();
+        var EmployeeInformationId = $("#EmployeeInformationId").val();
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        if (EmployeeInformationId > 0) {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/dropdown/GetRemainingLeaveByLeaveTypeId",
+                data: { "LeaveTypeInformationId": selectedItem, "EmployeeInformationId": EmployeeInformationId },
+                success: function (data) {
+                    $("#RemainingLeave").text(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve states.');
+                }
+            });
+
+        }
+    });
+    $("#EmployeeInformationId").change(function () {
+        $("#RemainingLeave").text("");
+        var selectedItem = $(this).val();
+        var LeaveTypeInformationId = $("#LeaveTypeInformationId").val();
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        if (LeaveTypeInformationId > 0) {
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/dropdown/GetRemainingLeaveByLeaveTypeId",
+                data: { "LeaveTypeInformationId": LeaveTypeInformationId, "EmployeeInformationId": selectedItem },
+                success: function (data) {
+                    $("#RemainingLeave").text(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve states.');
+                }
+            });
+
+        }
+    });
+</script>

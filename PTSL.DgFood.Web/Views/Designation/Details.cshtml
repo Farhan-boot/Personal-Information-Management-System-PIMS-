@@ -1,0 +1,27 @@
+﻿@model PTSL.DgFood.Web.Model.DesignationVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Designation Details</h4>
+    </div>
+
+    <div class="card-body">
+        <table style="width:100%">
+            <tr>
+                <td style="width:50px;">Designation Class Name: <b>@Model.DesignationClassDTO.DesignationClassName</b></td>
+                <td style="width:50px;">Designation Name: <b>@Model.DesignationName</b></td>
+                <td style="width:50px;">Designation Name Bangla: <b>@Model.DesignationNameBangla</b></td>
+            </tr>
+        </table>
+        
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Designation/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

@@ -1,0 +1,542 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- index.html  21 Nov 2019 03:44:50 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>BDArmy - Admin Dashboard</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="~/Content/assets/css/app.min.css">
+    <link rel="stylesheet" href="~/Content/assets/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="~/Content/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+
+    <link href="~/Content/assets/css/Calender/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Content/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/Content/assets/bundles/prism/prism.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/custom.css">
+    <link href="~/Content/assets/sweetalert/sweetalert.css" rel="stylesheet" />
+    <link rel='shortcut icon' type='image/x-icon' href='~/Content/assets/img/favicon.ico' />
+    @*<link rel='stylesheet' href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css'>*@
+    <link href="~/Content/assets/css/Calender/jquery-ui.css" rel="stylesheet" />
+    @*<link href="~/Content/assets/css/Calender/style.css" rel="stylesheet" />*@
+    <link href="~/Content/assets/css/tabs.css" rel="stylesheet" />
+    <!-- General JS Scripts -->
+
+    <script src="~/Content/assets/js/app.min.js"></script>
+    <script src="~/Content/assets/bundles/datatables/datatables.min.js"></script>
+    <script src="~/Content/assets/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Content/assets/bundles/jquery-ui/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+    <script src="~/Content/assets/js/scripts.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var token = $("#token").val();
+            if( token == "")
+            {
+                window.location.href = "/Account/Login";
+            }
+
+            $('#tableExport1').DataTable({
+                pageLength: 5,
+                "scrollY": 200,
+                "scrollX": true,
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']]
+            })
+
+            var message = @Html.Raw(Json.Encode(Session["Message"]));
+            var executionState = @Html.Raw(Json.Encode(Session["executionState"]));
+            //var redirectUrl =@Html.Raw(Json.Encode(Session["redirectUrl"]));
+            if (message != null) {
+                swal(message);
+                @{
+                    //Session["executionState"] = null;
+                Session["Message"] = null;
+                }
+                    //$(".confirm").on('click', function () {
+                    //    window.location.href = redirectUrl;
+                    //});
+            }
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <input type="hidden" name="token" id="token" value="@Session["Token"]" />
+        <div class="main-wrapper main-wrapper-1">
+            <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar sticky">
+                <div class="form-inline mr-auto">
+                    @*<ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <i data-feather="maximize"></i>
+                            </a>
+                        </li>
+                         
+                    </ul>*@
+
+                    <ul class="navbar-nav mr-3">
+                        <li>
+                            <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-align-justify"><line x1="21" y1="10" x2="3" y2="10"></line><line x1="21" y1="6" x2="3" y2="6"></line><line x1="21" y1="14" x2="3" y2="14"></line><line x1="21" y1="18" x2="3" y2="18"></line></svg></a>
+                        </li>
+                        <li>
+                            <a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link nav-link-lg message-toggle">
+                            <i data-feather="mail"></i>
+                            <span class="badge headerBadge1">
+                                6
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-header">
+                                Messages
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-message">
+                                <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar
+											text-white">
+                                        <img alt="image" src="~/Content/assets/img/users/user-1.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            John
+                                            Deo
+                                        </span>
+                                        <span class="time messege-text">Please check your mail !!</span>
+                                        <span class="time">2 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/Content/assets/img/users/user-2.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Sarah
+                                            Smith
+                                        </span> <span class="time messege-text">
+                                            Request for leave
+                                            application
+                                        </span>
+                                        <span class="time">5 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/Content/assets/img/users/user-5.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Jacob
+                                            Ryan
+                                        </span> <span class="time messege-text">
+                                            Your payment invoice is
+                                            generated.
+                                        </span> <span class="time">12 Min Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/Content/assets/img/users/user-4.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Lina
+                                            Smith
+                                        </span> <span class="time messege-text">
+                                            hii John, I have upload
+                                            doc
+                                            related to task.
+                                        </span> <span class="time">
+                                            30
+                                            Min Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/Content/assets/img/users/user-3.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Jalpa
+                                            Joshi
+                                        </span> <span class="time messege-text">
+                                            Please do as specify.
+                                            Let me
+                                            know if you have any query.
+                                        </span> <span class="time">
+                                            1
+                                            Days Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-avatar text-white">
+                                        <img alt="image" src="~/Content/assets/img/users/user-2.png" class="rounded-circle">
+                                    </span> <span class="dropdown-item-desc">
+                                        <span class="message-user">
+                                            Sarah
+                                            Smith
+                                        </span> <span class="time messege-text">Client Requirements</span>
+                                        <span class="time">2 Days Ago</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-list-toggle">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link notification-toggle nav-link-lg">
+                            <i data-feather="bell" class="bell"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                            <div class="dropdown-header">
+                                Notifications
+                                <div class="float-right">
+                                    <a href="#">Mark All As Read</a>
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                <a href="#" class="dropdown-item dropdown-item-unread">
+                                    <span class="dropdown-item-icon bg-primary text-white">
+                                        <i class="fas
+												fa-code"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Template update is
+                                        available now! <span class="time">
+                                            2 Min
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-info text-white">
+                                        <i class="far
+												fa-user"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        <b>You</b> and <b>
+                                            Dedik
+                                            Sugiharto
+                                        </b> are now friends <span class="time">
+                                            10 Hours
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-success text-white">
+                                        <i class="fas
+												fa-check"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        <b>Kusnaedi</b> has
+                                        moved task <b>Fix bug header</b> to <b>Done</b> <span class="time">
+                                            12
+                                            Hours
+                                            Ago
+                                        </span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-danger text-white">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Low disk space. Let's
+                                        clean it! <span class="time">17 Hours Ago</span>
+                                    </span>
+                                </a> <a href="#" class="dropdown-item">
+                                    <span class="dropdown-item-icon bg-info text-white">
+                                        <i class="fas
+												fa-bell"></i>
+                                    </span> <span class="dropdown-item-desc">
+                                        Welcome to BD Army
+                                        <span class="time">Yesterday</span>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="dropdown-footer text-center">
+                                <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="~/Content/assets/img/user.png"
+                                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right pullDown">
+                            <div class="dropdown-title" id="nameDiv">Hello @Session["UserEmail"]</div>
+                            <a href="profile.html" class="dropdown-item has-icon">
+                                <i class="far
+										fa-user"></i> Profile
+                            </a> <a href="timeline.html" class="dropdown-item has-icon">
+                                <i class="fas fa-bolt"></i>
+                                Activities
+                            </a> <a href="#" class="dropdown-item has-icon">
+                                <i class="fas fa-cog"></i>
+                                Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/Account/logoff" class="dropdown-item has-icon text-danger">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main-sidebar sidebar-style-2">
+                <aside id="sidebar-wrapper">
+                    <div class="sidebar-brand">
+                        <a href="/Home/index">
+                            <img alt="image" src="~/Content/assets/img/logo.png" class="header-logo" /> <span class="logo-name"> Army </span>
+                        </a>
+                    </div>
+
+
+                    <ul id="main-menu" class="sidebar-menu">
+                        @*<li class="menu-header">Main</li>*@
+                        <li class="dropdown active">
+                            <a href="/Home/Index" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+
+            <script type="text/javascript">
+                    // Code used to add Todo Tasks
+                    //jQuery(document).ready(function () {
+                        //$(document).ready(function () {
+
+                        $.ajax({
+                            url: '@Url.Action("RootMenue", "Home")',
+                            type: 'GET',
+                            success: function (res) {
+                                console.log("========== Menu ========");
+                                console.log(res);
+                                if (res == "")
+                                {
+                                    var currentUrl = window.location.href;
+                                    var url = '@Url.Action("Login","Login")';
+                                    window.location.href = url;
+                                }
+                                $("#nameDiv").html(res.UserName);
+                                $("#groupDiv").html("User Group: "+res.GroupName);
+
+
+                                var menuHtml = "";
+                                //menuHtml += "<li class='header'>Dashboard</li>";
+                                if (res.MenuList != null && res.MenuList.length > 0) {
+                                    for (var j = 0; j < res.MenuList.length; j++) {
+                                        menuHtml += '<li class="dropdown" id="' + j + '">';
+                                        menuHtml += '<a href="#" class="menu-toggle nav-link has-dropdown">';
+                                        menuHtml += '<i class="' + res.MenuList[j].ModuleIcon + '"></i>';
+                                        menuHtml += '<span> ' + res.MenuList[j].ModuleName + '</span >';
+                                        menuHtml += "</a>";
+
+                                        menuHtml += '<ul class="dropdown-menu" id="' + j + 900 + '">';
+                                        for (var i = 0; i < res.MenuList[j].AccessList.length; i++) {
+                                            menuHtml += '<li id="' + res.MenuList[j].AccessList[i].ControllerName + '_' + res.MenuList[j].AccessList[i].ActionName + '">';
+                                            menuHtml += '<a href="' + '/' + res.MenuList[j].AccessList[i].ControllerName + '/' + res.MenuList[j].AccessList[i].ActionName + '" class="nav-link">';
+                                            menuHtml += '<i class="fa fa-circle-o"></i> ' + res.MenuList[j].AccessList[i].Mask + '';
+
+                                            menuHtml += '</a>';
+                                            menuHtml += '</li>';
+                                        }
+                                        menuHtml += '</ul>';
+                                        menuHtml += '</li>';
+                                    }
+                                }
+
+                                $("#main-menu").append(menuHtml);
+                                //var report_menu = '<li class="treeview active" id="report"><a href="/Reports/Index"><i class="fa fa-tasks"></i><span> Reports</span><span class="pull-right-container"></span></a></li>';
+                                //$("#main-menu").append(report_menu);
+                                var newscript = document.createElement('script');
+                                newscript.type = 'text/javascript';
+                                newscript.async = true;
+                                //newscript.src = 'http://192.168.1.234:7031/assets/js/neon-custom.js';
+                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(newscript);
+                                LoadSidebar();
+                            }
+                        });
+                        //});
+
+
+            </script>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-body">
+                        @RenderBody()
+                    </div>
+                </section>
+                <div class="settingSidebar">
+                    @*<a href="javascript:void(0)" class="settingPanelToggle">
+                            <i class="fa fa-spin fa-cog"></i>
+                        </a>*@
+                    <div class="settingSidebar-body ps-container ps-theme-default">
+                        <div class=" fade show active">
+                            <div class="setting-panel-header">
+                                Setting Panel
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Select Layout</h6>
+                                <div class="selectgroup layout-color w-50">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                                        <span class="selectgroup-button">Light</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                                        <span class="selectgroup-button">Dark</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                                <div class="selectgroup selectgroup-pills sidebar-color">
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                                        <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                              data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                                        <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                              data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <h6 class="font-medium m-b-10">Color Theme</h6>
+                                <div class="theme-setting-options">
+                                    <ul class="choose-theme list-unstyled mb-0">
+                                        <li title="white" class="active">
+                                            <div class="white"></div>
+                                        </li>
+                                        <li title="cyan">
+                                            <div class="cyan"></div>
+                                        </li>
+                                        <li title="black">
+                                            <div class="black"></div>
+                                        </li>
+                                        <li title="purple">
+                                            <div class="purple"></div>
+                                        </li>
+                                        <li title="orange">
+                                            <div class="orange"></div>
+                                        </li>
+                                        <li title="green">
+                                            <div class="green"></div>
+                                        </li>
+                                        <li title="red">
+                                            <div class="red"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <div class="theme-setting-options">
+                                    <label class="m-b-0">
+                                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                               id="mini_sidebar_setting">
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="control-label p-l-10">Mini Sidebar</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                                <div class="theme-setting-options">
+                                    <label class="m-b-0">
+                                        <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                               id="sticky_header_setting">
+                                        <span class="custom-switch-indicator"></span>
+                                        <span class="control-label p-l-10">Sticky Header</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                                    <i class="fas fa-undo"></i> Restore Default
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="main-footer">
+                <div class="footer-left">
+                    <a href="#">Bangladesh Army</a>
+                </div>
+                <div class="footer-right">
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Page Specific JS File -->
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+    <script src="~/Content/assets/js/page/datatables.js"></script>
+    <!-- JS Libraies -->
+    <script type="text/javascript" src="~/Content/assets/bundles/prism/prism.js"></script>
+    <script src="~/Content/assets/bundles/apexcharts/apexcharts.min.js"></script>
+    <!-- Page Specific JS File -->
+    <script src="~/Content/assets/js/page/index.js"></script>
+    <!-- Template JS File -->
+    <!-- Custom JS File -->
+    @*<script src="~/Content/assets/js/scripts.js"></script>*@
+    <script src="~/Content/assets/js/custom.js"></script>
+    <script src="~/Content/assets/sweetalert/waves.js"></script>
+    <script src="~/Content/assets/sweetalert/sweetalert.min.js"></script>
+
+    <script src="~/Content/assets/sweetalert/dialogs.js"></script>
+
+
+    @*<script src="~/Content/assets/js/bootstrap-datetimepicker.js"></script>*@
+    @*<script src="~/Content/assets/js/bootstrap-datetimepicker.fr.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+
+    <script src="~/Content/assets/js/bootstrap-datetimepicker.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-map/3.0-rc1/jquery.ui.map.js"></script>*@
+    @*<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>*@
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPVgPRfL3SoIscOmdQM9lrH4DiJh5GOss&callback=initMap"></script>*@
+
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPVgPRfL3SoIscOmdQM9lrH4DiJh5GOss&callback=initMap&libraries=places&v=weekly&channel=2"
+        async></script>*@
+    <script src="~/Content/assets/bundles/amcharts4/core.js"></script>
+    <script src="~/Content/assets/bundles/amcharts4/charts.js"></script>
+    <script src="~/Content/assets/bundles/amcharts4/animated.js"></script>
+    <script src="~/Content/assets/bundles/amcharts4/worldLow.js"></script>
+    <script src="~/Content/assets/bundles/amcharts4/maps.js"></script>
+</body>
+
+</html>

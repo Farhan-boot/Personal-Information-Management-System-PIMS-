@@ -1,0 +1,22 @@
+﻿@model ICollection<PTSL.DgFood.Web.Model.PostingRecordsListVM>
+@{
+    Layout = null;
+}
+
+<tbody id="PostingRecordsList">
+    @if (Model != null)
+    {
+        int i = 1;
+        foreach (var data in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@data.Rank</td>
+                <td>@data.Designation</td>
+                <td>@data.PostResponsibility</td>
+                <td>@data.PostingPlace</td>
+            </tr>
+            i++;
+        }
+    }
+</tbody>

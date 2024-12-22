@@ -1,0 +1,175 @@
+﻿@*@model PTSL.DgFood.Web.Model.AccessMapperVM*@
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New AccessMapper</h4>
+    </div>
+
+    <div class="card-body">
+
+        <div class="list-group">
+
+            <div class="list-group-item">
+                <div class="editor-field" style="width: 400px">
+                    <label style="width: 200px">Admin User Group Name:</label>
+                    @Html.DropDownList("PmsGroupID", new SelectList(ViewBag.GroupList, "Id", "GroupName"), new { @class = "form-control col-md-6", @required = "required" })
+                </div>
+                <br />
+
+            </div>
+
+            <div class="list-group-item">
+                <div class="editor-field">
+                    <input class='Checkbox' type="checkbox" /> Check All
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div id="accessBox"></div>
+                    </div>
+
+
+                </div>
+            </div>
+            <br />
+
+        </div>
+         
+        <div class="col-md-12">
+            <button type="button" id="" onclick="myFunction()" class="btn btn-success btn-icon icon-left pull-right">
+                <i class=" entypo-check">
+                </i>Save
+            </button>
+        </div> 
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/AccessMapper/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    //$(".submit-btn").on("click", function () {
+    //    if ($("#AccessMapperForm").valid()) {
+    //        //Do something here
+    //        $(".loader").fadeIn("slow");
+    //    }
+    //});
+
+    //$("#AccessMapperForm").validate({
+    //    // Specify validation rules
+    //    rules: {
+    //        AccessMapperName: "required"
+    //    },
+
+    //});
+
+    function myFunction() {
+        var txt;
+        var r = confirm("Confirm Change ?");
+        if (r == true) {
+            console.log("Success");
+            if ($('#PmsGroupID').val() === '') {
+               
+                return false;
+            } else {
+                var userGroupname = $('#PmsGroupID').val();
+                //var isActive = $('#isActiveDropDown').val();
+                var isActive = 1; // default value active
+
+                var moduleActionName = $('#Checkbox:checked').map(function () { return this.value; }).get().join(',');
+                
+                var accessMapperViewModel = {
+                    //Id: userGroupname, //not needed
+                    AccessList: moduleActionName
+                };
+                console.log(accessMapperViewModel);
+                //return false;
+
+
+
+                $.ajax({
+                    data: accessMapperViewModel,
+                    url: '/AccessMapper/Create',
+                    method: 'POST',
+                    dataType: 'json',
+                    success: function (result) {
+                        var message = result.Message;
+                        var executionState = result.executionState;
+                        if (executionState != null) {
+                            swal(message);
+                            $(".confirm").on('click', function () {
+                                window.location.href = "/AccessMapper/Index";
+                            });
+                        }
+
+                    },
+                    error: function (error) {
+                        //bootbox.alert({
+                        //    size: 'small',
+                        //    message: "error!!!"
+                        //});
+                    }
+                }); //ajax call ends here
+
+            }
+            console.log("success");
+        } else {
+            console.log("Failed");
+        }
+    }
+    $(document).ready(function () {
+
+        $.ajax({
+            url: "/AccessMapper/AccessList",
+            type: 'GET',
+            success: function (res) {
+                console.log(res);
+                //alert(res);
+                var check = "";
+                var strOfCheck = "";
+                var a = 1;
+                for (var i = 0; i < res.length; i++) {
+
+                    if (res[i].ControllerName != check) {
+                        if (a != 1) {
+                            strOfCheck += "</div>";
+                        }
+                        strOfCheck += "<div class='col-md-3' style='float:left'>";
+                        strOfCheck += "<strong>";
+                        strOfCheck += "<label>Access Name:</label> <label>" + res[i].ControllerName + "</label> <br /> <label> Authentication:</label>";
+                        strOfCheck += "</strong > <br />";
+                        a++;
+                        strOfCheck += "<input id='Checkbox' type='checkbox' name='v' value=" + res[i].Id + ">";
+                        strOfCheck += "" + res[i].Mask + " <label> </label> <br />";
+                        check = res[i].ControllerName;
+                        //check = res[i];
+                        //strOfCheck += "<div class='col-md-3'>
+
+                    }
+                    else {
+                        strOfCheck += "<input id='Checkbox' type='checkbox' name='v' value=" + res[i].Id + ">";
+                        strOfCheck += "" + res[i].Mask + " <label> </label> <br />";
+                    }
+                }
+                //console.log(strOfCheck);
+                $("#accessBox").append(strOfCheck);
+
+            }
+        });
+        $(".Checkbox").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+        //$('#adminUserGroupSave').click(function () {
+
+
+
+
+        //});
+
+    }); //document ready ends here
+</script>

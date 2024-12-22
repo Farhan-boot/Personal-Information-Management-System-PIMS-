@@ -1,0 +1,26 @@
+﻿@model PTSL.DgFood.Web.Model.PostingVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Posting Details</h4>
+    </div>
+
+    <div class="card-body">
+        <table style="width:100%">
+            <tr>
+                <td style="width:50px;">Posting Type Name: <b>@Model.PostingTypeDTO.PostingTypeName</b></td>
+                <td style="width:50px;">Posting Name: <b>@Model.PostingName</b></td>
+                <td style="width:50px;">Posting Name Bangla: <b>@Model.PostingNameBangla</b></td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Posting/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

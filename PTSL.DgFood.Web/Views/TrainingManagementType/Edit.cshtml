@@ -1,0 +1,470 @@
+﻿@model PTSL.DgFood.Web.Model.TrainingManagementTypeVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Training/Workshop Information Name</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "TrainingManagementType", FormMethod.Post, new { id = "TrainingManagementTypeForm" }))
+        {
+            <div class="row" style="padding-bottom:16px">
+                <div class="col-md-12" style="padding-left: 0px; padding-right: 0px">
+                    <h6 class="border-bottom mb-3">Training/Workshop plan info</h6>
+                    <div class="col-md-6" style="float: left;">
+                        <label for="inputTrainingPlan">Training Plan <span style="color:red;">*</span></label>
+                        @Html.DropDownList("TrainingPlanId", null, "Choose Training Plan", htmlAttributes: new { @class = "form-control col-md-12", @required = "required" })
+                        @*<input type="text" class="form-control" id="TrainingPlan" name="TrainingPlan" value="@Model.TrainingPlan" placeholder="Enter Training Plan" required>*@
+                    </div>
+                    <div class="col-md-6" style="float: left;">
+                        <label>Training/Workshop Plan Type <span style="color:red;">*</span></label>
+                        @*@Html.DropDownList("TrainingPlanTypeId", (SelectList)ViewBag.TrainingPlanTypeId, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })*@
+                        @Html.DropDownList("TrainingPlanTypeId", null, "Choose Training Plan Type", htmlAttributes: new { @class = "form-control col-md-12", @required = "required" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Training basic info -->
+                <div class="col-md-6">
+                    <h6 class="border-bottom mb-3">Training/Workshop basic info</h6>
+                    <div class="form-horizontal">
+                        <input type="hidden" name="Id" id="ModelId" value="@Model.Id" />
+                        <div class="form-group">
+                            <label for="inputTrainingManagementType">Training/Workshop Title <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="TrainingTitle" name="TrainingTitle" value="@Model.TrainingTitle" placeholder="Enter Training Title" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Training/Workshop Batch Name <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="TrainingBatch" name="@nameof(Model.TrainingBatch)" value="@Model.TrainingBatch" placeholder="Enter Training Batch Name" required>
+                        </div>
+                        @*<div class="form-group">
+            <label>Training/Workshop Subject <span style="color:red;">*</span></label>
+            <input type="text" class="form-control" id="TrainingSubject" name="@nameof(Model.TrainingSubject)" value="@Model.TrainingSubject" placeholder="Enter Training Subject" required>
+        </div>*@
+                        <div class="form-group">
+                            <label>Training/Workshop Objective <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="TrainingObjective" name="@nameof(Model.TrainingObjective)" value="@Model.TrainingObjective" placeholder="Enter Training Objective" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Special Training Type <span style="color:red;">*</span></label>
+                            @Html.DropDownList("SpecialTrainingTypeId", null, "Choose Special Training Type", htmlAttributes: new { @class = "form-control col-md-12", @required = "required" })
+                        </div>
+                    </div>
+
+                    <h6 class="border-bottom mb-3 mt-5">Training/Workshop location</h6>
+                    <div class="form-horizontal">
+                        @{
+                            if (ViewBag.TrainingManagementTypes != null)
+                            {
+                                <div class="form-group">
+                                    <label>Traning/Workshop Location Type <span style="color:red;">*</span></label>
+                                    <select class="form-control" name="@nameof(Model.TrainingLocationType)" id="TrainingLocationType">
+                                        <option selected value="">Select Location Type</option>
+                                        @foreach (var data in ViewBag.TrainingManagementTypes)
+                                        {
+                                            <option value="@data.Id">@data.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+                        }
+                        @{
+                            if (ViewBag.LocalTrainingTypes != null)
+                            {
+                                <div class="form-group TrainingManagementTypeLocalType">
+                                    <label>Local Location Type <span style="color:red;">*</span></label>
+                                    <select class="form-control" name="@nameof(Model.TrainingManagementTypeLocalType)" id="TrainingManagementTypeLocalType" aria-label="Select Local Location Type">
+                                        <option selected value="">Select Local Location</option>
+                                        @foreach (var data in ViewBag.LocalTrainingTypes)
+                                        {
+                                            <option value="@data.Id">@data.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+                        }
+                        @{
+                            if (ViewBag.ForeignTrainingTypes != null)
+                            {
+                                <div class="form-group TrainingManagementTypeForeignType">
+                                    <label>Foreign Location Type <span style="color:red;">*</span></label>
+                                    <select class="form-control" name="@nameof(Model.TrainingManagementTypeForeignType)" id="TrainingManagementTypeForeignType">
+                                        <option selected value="">Select Foreign Location</option>
+                                        @foreach (var data in ViewBag.ForeignTrainingTypes)
+                                        {
+                                            <option value="@data.Id">@data.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+                        }
+                        @{
+                            if (ViewBag.Countries != null)
+                            {
+                                <div class="form-group MultipleCountries">
+                                    <label>Select Multiple Countries <span style="color:red;">*</span></label>
+                                    <select class="form-control" name="" id="MultipleCountries">
+                                        <option selected value="">Select Countries</option>
+                                        @foreach (var data in ViewBag.Countries)
+                                        {
+                                            <option value="@data.Id">@data.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
+                        }
+                        <div id="ShowSelectedCountries"></div>
+
+                        <!-- Local location -->
+                        @*<div>
+                            <div class="form-group DivisionId">
+                                <label>Division <span style="color:red;">*</span></label>
+                                @Html.DropDownList("DivisionId", (SelectList)ViewBag.DivisionId, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="form-group DistrictId">
+                                <label>District <span style="color:red;">*</span></label>
+                                @Html.DropDownList("DistrictId", (SelectList)ViewBag.DistrictId, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                            </div>
+                            <div class="form-group UpazillaId">
+                                <label>Upazilla <span style="color:red;">*</span></label>
+                                @Html.DropDownList("UpazillaId", (SelectList)ViewBag.UpazillaId, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+                            </div>
+                        </div>*@
+
+                        <div class="form-group mt-5">
+                            <button type="submit" class="btn btn-primary submit-btn float-right">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Training schedule and other info -->
+                <div class="col-md-6">
+                    <h6 class="border-bottom mb-3">Schedule and other info</h6>
+
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputDistrict">From Date <span style="color:red;">*</span></label>
+                            <input type="date" class="form-control" id="FromDate" name="FromDate" value="@Model.FromDate.ToString("yyyy-MM-dd")" placeholder="Enter FromDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>To Date <span style="color:red;">*</span></label>
+                            <input type="date" class="form-control" id="ToDate" name="ToDate" value="@Model.ToDate.ToString("yyyy-MM-dd")" placeholder="Enter ToDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Duration Hour <span style="color:red;">*</span></label>
+                            <input type="number" class="form-control" id="DurationHour" name="DurationHour" value="@Model.DurationHour" placeholder="Enter Duration Hour" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Vanue <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" name="@nameof(Model.Vanue)" value="@Model.Vanue" id="Vanue" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Institute</label>
+                            <input type="text" class="form-control" name="Institute" value="@Model.Institute" id="Institute" />
+                        </div>
+                        <div class="form-group">
+                            <label>Suggested By</label>
+                            <input type="text" class="form-control" name="@nameof(Model.SuggestedBy)" value="@Model.SuggestedBy" id="SuggestedBy" />
+                        </div>
+                        <div class="form-group">
+                            <label>Remarks</label>
+                            <textarea class="form-control" name="@nameof(Model.Remarks)" id="Remarks">@Model.Remarks</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/TrainingManagementType/Index" class="btn btn-warning">Return to List</a>
+    </div>
+</div>
+
+<script>
+    $(".TrainingManagementTypeLocalType").hide();
+    $(".TrainingManagementTypeForeignType").hide();
+    $(".MultipleCountries").hide();
+    $(".DivisionId").hide();
+    $(".DistrictId").hide();
+    $(".UpazillaId").hide();
+
+    var selectedCountries = [];
+    var allCountryValues = [];
+
+    $("#TrainingLocationType").on("change", function (event) {
+        var value = event.currentTarget.value;
+
+        // If value is 1 or Local
+        if (value == '1') {
+            $(".TrainingManagementTypeLocalType").show();
+
+            $(".TrainingManagementTypeForeignType").hide();
+            $(".MultipleCountries").hide();
+
+            $("#TrainingManagementTypeLocalType").val(null);
+            $("#TrainingManagementTypeForeignType").val(null);
+
+            // Clear any selected countries;
+            selectedCountries = [];
+            $("#ShowSelectedCountries").empty();
+        } else {
+            $(".TrainingManagementTypeForeignType").show();
+
+            $(".TrainingManagementTypeLocalType").hide();
+            $(".DivisionId").hide();
+            $(".DistrictId").hide();
+            $(".UpazillaId").hide();
+
+            $("#TrainingManagementTypeLocalType").val(null);
+            $("#TrainingManagementTypeForeignType").val(null);
+            $("#ShowSelectedCountries").empty();
+        }
+    });
+
+    $("#TrainingManagementTypeForeignType").on("change", function (event) {
+        var value = event.currentTarget.value;
+
+        // If value is 2 or Other countires
+        if (value == '2') {
+            $(".MultipleCountries").show();
+        } else {
+            $(".MultipleCountries").hide();
+
+            // Clear any selected countries;
+            selectedCountries = [];
+            $("#ShowSelectedCountries").empty();
+        }
+    })
+
+    $("#TrainingManagementTypeLocalType").on("change", function (event) {
+        var value = event.currentTarget.value;
+
+        // If value is 2 or Other countires
+        if (value == '4') {
+            $(".DivisionId").show();
+            $(".DistrictId").show();
+            $(".UpazillaId").show();
+        } else {
+            $(".DivisionId").hide();
+            $(".DistrictId").hide();
+            $(".UpazillaId").hide();
+        }
+    })
+
+    $("#MultipleCountries option").map(function () {
+        var countryId = $(this).val();
+        var countryName = $(this).text();
+        allCountryValues.push({ countryId, countryName });
+    });
+    $("#MultipleCountries").on("change", function (event) {
+        var value = event.currentTarget.value;
+
+        addCountry(value);
+    });
+    function addCountry(value) {
+        if (!value) return;
+
+        var selectedCountryIndex = selectedCountries.findIndex(element => element.countryId == value);
+
+        var country = null;
+        if (selectedCountryIndex == -1) {
+            country = allCountryValues.find(element => element.countryId == value);
+            selectedCountries.push(country);
+        } else {
+            return;
+        }
+
+        $("#ShowSelectedCountries").append(`
+            <span data-countryid="${country?.countryId}" class="badge badge-secondary mr-1 mt-1">
+                <span>${country?.countryName}</span>
+                <button type="button" onClick="removeCountry(${country?.countryId})" class="close ml-2 text-white" style="font-size: 15px; line-height: 0.6;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </span>
+        `);
+    }
+    function removeCountry(countryId) {
+        if (!countryId) return;
+
+        selectedCountries = selectedCountries.filter(x => x.countryId != countryId);
+
+        $(`#ShowSelectedCountries span[data-countryid="${ countryId }"]`).remove();
+    }
+
+    $("#DivisionId").change(function () {
+         var selectedItem = $(this).val();
+         var ddlDistrict = $("#DistrictId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+         $.ajax({
+             cache: false,
+             type: "GET",
+             url: "/dropdown/GetDistrictDropdownByDivisionId",
+                data: { "divisionId": selectedItem },
+             success: function (data) {
+                 ddlDistrict.html('<option>Choose..</option>');
+                    $.each(data, function (id, option) {
+                        ddlDistrict.append($('<option></option>').val(option.Id).html(option.DistrictName));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve states.');
+                }
+            });
+    });
+
+    $("#DistrictId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlUpazilla = $("#UpazillaId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetUpazillaDropdownByDistrictId",
+            data: { "districtId": selectedItem },
+            success: function (data) {
+                ddlUpazilla.html('<option>Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlUpazilla.append($('<option></option>').val(option.Id).html(option.Name));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+
+    $(".submit-btn").on("click", function (submitEvent) {
+        submitEvent.preventDefault();
+
+        if ($("#TrainingManagementTypeForm").valid()) {
+            $(".loader").fadeIn("slow");
+
+            // Gather data
+            var TrainingTitle = $("#TrainingTitle").val();
+            var TrainingBatch = $("#TrainingBatch").val();
+            var TrainingSubject = $("#TrainingSubject").val();
+            var TrainingObjective = $("#TrainingObjective").val();
+
+            var TrainingLocationType = $("#TrainingLocationType").val();
+            var TrainingManagementTypeLocalType = $("#TrainingManagementTypeLocalType").val();
+            var TrainingManagementTypeForeignType = $("#TrainingManagementTypeForeignType").val();
+            var CountryTrainingManagementTypeMaps = selectedCountries.map(x => ({ Country: parseInt(x.countryId) }));
+
+            var DivisionId = $("#DivisionId").val();
+            var DistrictId = $("#DistrictId").val();
+            var UpazillaId = $("#UpazillaId").val();
+
+            var FromDate = $("#FromDate").val();
+            var ToDate = $("#ToDate").val();
+            var DurationHour = $("#DurationHour").val();
+            var Institute = $("#Institute").val();
+            var Vanue = $("#Vanue").val();
+            var SuggestedBy = $("#SuggestedBy").val();
+            var Remarks = $("#Remarks").val();
+            var ModelId = $("#ModelId").val();
+
+            //Add New
+            var TrainingPlan = $("#TrainingPlan").val();
+            var TrainingPlanType = $("#TrainingPlanTypeId").val();
+            var TrainingPlanId = $("#TrainingPlanId").val();
+            var SpecialTrainingTypeId = $("#SpecialTrainingTypeId").val();
+
+            var data = {
+                TrainingTitle,
+                TrainingBatch,
+                TrainingSubject,
+                TrainingObjective,
+                TrainingLocationType,
+                TrainingManagementTypeLocalType,
+                TrainingManagementTypeForeignType,
+                CountryTrainingManagementTypeMaps,
+                DivisionId,
+                DistrictId,
+                UpazillaId,
+                FromDate,
+                ToDate,
+                DurationHour,
+                Institute,
+                Vanue,
+                SuggestedBy,
+                Remarks,
+                Id: ModelId,
+                TrainingPlan: TrainingPlan,
+                TrainingPlanType: TrainingPlanType,
+                TrainingPlanId: TrainingPlanId,
+                SpecialTrainingType: SpecialTrainingTypeId
+            };
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "/TrainingManagementType/Edit",
+                data: data,
+                success: function (data) {
+                    window.location.href = "/TrainingManagementType/Index";
+                },
+                error: function (err) {
+                    alert('Failed to save data.');
+                }
+            });
+        }
+    });
+
+    $("#TrainingManagementTypeForm").validate({
+        // Specify validation rules
+        rules: {
+            TrainingSubject: "required",
+            TrainingObjective: "required",
+            TrainingLocationType: "required",
+            TrainingBatch: "required",
+            TrainingTitle: "required",
+            FromDate: "required",
+            ToDate: "required",
+            DurationHour: "required",
+        },
+    });
+
+    // Get values form c# and do work accordingly
+    function setValues(trainingLocationType, foreignType, localType, countryMaps) {
+        if (trainingLocationType) {
+            $("#TrainingLocationType").val(trainingLocationType).trigger("change");
+        }
+        if (foreignType) {
+            $("#TrainingManagementTypeForeignType").val(trainingLocationType).trigger("change");
+        }
+        if (localType) {
+            $("#TrainingManagementTypeLocalType").val(trainingLocationType).trigger("change");
+        }
+
+        if (countryMaps && Array.isArray(countryMaps)) {
+            countryMaps.forEach((value) => {
+                addCountry(value?.Country);
+            })
+        }
+    }
+</script>
+
+<script>
+    setValues(
+        @((byte)Model.TrainingLocationType),
+        @(Model.TrainingManagementTypeForeignType != null ? (byte)Model.TrainingManagementTypeForeignType : 0),
+        @(Model.TrainingManagementTypeLocalType != null ? (byte)Model.TrainingManagementTypeLocalType : 0),
+        @Html.Raw(Json.Encode(Model.CountryTrainingManagementTypeMaps))
+    );
+</script>

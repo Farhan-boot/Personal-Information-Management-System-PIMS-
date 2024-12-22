@@ -1,0 +1,260 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.EmployeeInformationListVM>
+@{
+    ViewBag.Title = "Index";
+    var RoleName = Session["RoleName"].ToString();
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-8">
+                    <h4>Employee Information</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("Index", "DisciplinaryActionsAndCriminalProsecution", FormMethod.Post, new { id = "EmployeeInformationForm", enctype = "multipart/form-data" }))
+                {
+                    <div class="row">
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="inputNationalID">Office Type </label>
+                                @Html.DropDownList("PostingTypeId", (SelectList)ViewBag.PostingTypeId, "Choose..", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputRank">Office Place </label>
+                                @Html.DropDownList("PostingId", (SelectList)ViewBag.PostingId, "Choose..", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="inputNationalID">Rank </label>
+                                @Html.DropDownList("RankId", (SelectList)ViewBag.RankId, "Choose..", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputRank">Designation </label>
+                                @Html.DropDownList("DesignationId", (SelectList)ViewBag.DesignationId, "Choose..", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="inputNationalID">Division </label>
+                                @Html.DropDownList("DivisionId", (SelectList)ViewBag.DivisionId, "Choose..", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputRank">District </label>
+                                @Html.DropDownList("DistrictId", (SelectList)ViewBag.DistrictId, "Choose..", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="inputRank">Police Station </label>
+                                @Html.DropDownList("PoliceStationId", (SelectList)ViewBag.PoliceStationId, "Choose..", new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputNationalID">Employee Id </label>
+                                <input type="text" name="Id" id="Id" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-row col-md-12">
+                            <div class="form-group col-md-6">
+
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputNationalID"></label>
+                                <input class="btn btn-success pull-right btn-sm" type="submit" name="Search" id="Search" value="Search" style="margin-top:25px;" />
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                }
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="EmployeeTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Emp Id</th>
+                                <th>Name</th>
+                                <th>DOB</th>
+                                <th>Designation</th>
+                                <th>Grade</th>
+                                <th>By Prom/ Recruit</th>
+                                <th>Original Posting Place</th>
+                                <th>Mobile No.</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var data in Model)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@data.Id</td>
+                                        <td>@data.NameEnglish</td>
+                                        <td>@data.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                                        <td>
+
+                                            @data.DesignationName
+                                        </td>
+                                        <td>
+                                            @data.RankName
+                                        </td>
+                                        <td>@data.RecruitPromo</td>
+                                        <td>@data.PostingPlace</td>
+                                        <td>@data.MobileNumber</td>
+                                        <td style="float:left;width: 130px;">
+                                            <button onclick="redirectBtn(@data.Id)" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modalC" id="DetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @using (Html.BeginForm("DisciplinaryActionsAndCriminalProsecution", "DisciplinaryActionsAndCriminalProsecution", FormMethod.Post, new { id = "DisciplinaryActionsAndCriminalProsecutionForm", enctype = "multipart/form-data" }))
+        {
+            <div class="modal-content" style="min-width:980px;margin-left:-48%;border:1px solid white!important;border-radius:5px">
+                <div class="modal-header">
+                    <h6 class="modal-title"><b>DisciplinaryActionsAndCriminalProsecution Details</b></h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <input type="text" id="detaileID" hidden>
+                <div class="modal-body" id="ModalContent">
+
+                </div>
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary submit-btn pull-right" id="PostingRecordsBtn">DisciplinaryActionsAndCriminalProsecution</button>
+                </div>*@
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+
+    function redirectBtn(id) {
+        window.location.href = '/DisciplinaryActionsAndCriminalProsecution/create/' + id;
+    }
+
+    @*ar isPostingRecordsOpened = false;
+
+    function LoadPostingRecordsData() {
+        if (isPostingRecordsOpened == false) {
+            $(".loader").show();
+
+            $.ajax({
+                url: "@Url.Content("~/PostingRecords/GetFilterData")",
+                type: 'POST',
+                data:
+                {
+                    EmployeeInformationId: employeeid
+                },
+                success: function (response) {
+                    $("#PostingRecordsList").replaceWith(response);
+                    LoadDisciplinaryActionsAndCriminalProsecutionDatatable();
+                    $(".loader").hide();
+                },
+                error: function (xhr) {
+                    $(".loader").hide();
+                    alert("Something went wrong, please try again");
+                }
+            });
+            isPostingRecordsOpened = true;
+        }
+        else {
+            isPostingRecordsOpened = false;
+        }
+
+    }*@
+
+    $(function () {
+        $("#RankId").change(function () {
+            var selectedItem = $(this).val();
+            var ddlDesignation = $("#DesignationId");
+            if (selectedItem == "" || selectedItem == null) {
+                return true;
+            }
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/Dropdown/GetDesignationDropdownByRankId",
+                data: { "id": selectedItem },
+                success: function (data) {
+                    console.log(data);
+                    ddlDesignation.html('<option value="">Choose..</option>');
+                    $.each(data, function (id, option) {
+                        ddlDesignation.append($('<option></option>').val(option.Id).html(option.DesignationName));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve states.');
+                }
+            });
+        });
+
+        $("#DivisionId").change(function () {
+            var selectedItem = $(this).val();
+            var ddlDistrict = $("#DistrictId");
+            if (selectedItem == "" || selectedItem == null) {
+                return true;
+            }
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/dropdown/GetDistrictDropdownByDivisionId",
+                data: { "divisionId": selectedItem },
+                success: function (data) {
+                    ddlDistrict.html('<option>Choose..</option>');
+                    $.each(data, function (id, option) {
+                        ddlDistrict.append($('<option></option>').val(option.Id).html(option.DistrictName));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve states.');
+                }
+            });
+        });
+
+        $("#DistrictId").change(function () {
+            var selectedItem = $(this).val();
+            var ddlDistrict = $("#PoliceStationId");
+            if (selectedItem == "" || selectedItem == null) {
+                return true;
+            }
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/Dropdown/GetPoliceStationDropdownByDistrictId",
+                data: { "districtId": selectedItem },
+                success: function (data) {
+                    ddlDistrict.html('<option>Choose..</option>');
+                    $.each(data, function (id, option) {
+                        ddlDistrict.append($('<option></option>').val(option.Id).html(option.PoliceStationName));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve states.');
+                }
+            });
+        });
+    });
+</script>

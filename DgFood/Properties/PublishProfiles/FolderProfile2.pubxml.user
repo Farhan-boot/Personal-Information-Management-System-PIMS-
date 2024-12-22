@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>G:\DG_Food_Publish\Api</_PublishTargetUrl>
+    <History>True|2024-04-02T09:30:04.7505350Z;True|2021-09-29T18:52:52.8960200+06:00;True|2021-09-29T10:36:59.2710221+06:00;True|2021-09-27T12:55:44.2503502+06:00;True|2021-09-27T12:16:10.3134119+06:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

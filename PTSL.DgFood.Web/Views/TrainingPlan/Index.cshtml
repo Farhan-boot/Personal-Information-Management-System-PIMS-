@@ -1,0 +1,179 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.TrainingPlanVM>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-10">
+                    <h4>Training Plan</h4>
+                    <br />
+                    @using (Html.BeginForm("TrainingImplementationReport", "TrainingPlan", FormMethod.Post, new { id = "GradationTypeForm" }))
+                    {
+                        <select name="getMonthName" id="getMonthName" class="form-control" style="width:100px;float:left">
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                        <button type="submit" class="badge badge-primary badge-shadow pull-left" style="float: left">Training Implementation Report</button>
+                    }
+                </div>
+                <div class="col-md-2">
+                    <a href="/TrainingPlan/Create" class="badge badge-success badge-shadow pull-left">Create New</a><br />                                                                                           <a href="/TrainingPlan/TrainingMonthlyDetailsReport" class="badge badge-primary badge-shadow pull-left">Training Monthly Report</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="tableExport" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Possible Training/Workshop Topics</th>
+                                <th>Training Hours</th>
+                                <th>Grade</th>
+                                <th>Number Of Participants</th>
+                                <th>Total Training Hours</th>
+                                <th>Instructor/Consultant</th>
+                                <th>Probable Start Date</th>
+                                <th>Probable End Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var data in Model)
+                                {
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@data.PossibleTrainingWorkshopTopics</td>
+                                        <td>@data.TrainingHours</td>
+                                        <td>@data.GradeName</td>
+                                        <td>@data.NumberOfParticipants</td>
+                                        <td>@data.TotalTrainingHours</td>
+                                        <td>@data.InstructorOrConsultant</td>
+                                        <td>@data.ProbableStartDate.Value.ToLongDateString()</td>
+                                        <td>@data.ProbableEndDate.Value.ToLongDateString()</td>
+
+                                        <td>
+                                            @*<a href="/TrainingPlan/Edit?id=@data.Id" class="btn btn-primary btn-sm">Edit</a>
+                                            <a href="/TrainingPlan/Details?id=@data.Id" class="btn btn-info btn-sm">Details</a>
+                                            <button onclick="showDeleteConfirmMessage(@data.Id)" class="btn btn-danger btn-sm">Delete</button>*@
+
+                                            <a href="/TrainingPlan/Edit?id=@data.Id" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                            <a href="/TrainingPlan/Details?id=@data.Id" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                                            <button onclick="showDeleteConfirmMessage(@data.Id)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteConfirmMessage(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            var data = { 'id': id };
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: "/TrainingPlan/Delete",
+                data: data,
+                datatype: "json",
+                success: function (result) {
+                    console.log(result);
+                    var message = result.Message;
+                    var executionState = result.executionState;
+                    if (executionState != null) {
+                        if (executionState != 10) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        }
+                        else {
+                            swal("Deleted Faild!", message, "success");
+                        }
+
+                        $(".confirm").on('click', function () {
+                            window.location.reload();
+                        });
+                    }
+                },
+                error: function (xmlhttprequest, textstatus, errorthrown) {
+                    swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+                }
+            });
+        });
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#tableExport').DataTable({
+            stateSave: true,
+            "bDestroy": true,
+            pageLength: 5,
+            dom: 'lBfrtip',
+            buttons: [
+                'copy',
+                {
+                    extend: 'csv',
+                    title: 'Training Plan List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+                {
+                    extend: 'excel',
+                    title: 'Training Plan List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    title: 'Training Plan List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                },
+                {
+                    extend: 'print',
+                    title: 'Training Plan List',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
+

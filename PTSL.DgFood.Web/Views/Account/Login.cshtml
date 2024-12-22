@@ -1,0 +1,103 @@
+﻿@using PTSL.DgFood.Web.Model
+@model LoginVM
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>DGFood - Admin Dashboard Template</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="~/Content/assets/css/app.min.css">
+    <link rel="stylesheet" href="~/Content/assets/bundles/bootstrap-social/bootstrap-social.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/custom.css">
+    <link rel='~/Content/shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+</head>
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row" style="flex-direction: column;justify-content: center;align-items: center;">
+                    <img style="max-width: 100px;max-height: 100px;" src="~/Content/assets/img/bd-govt.png" />
+                    <h4 class="mt-1">Directorate General of Food</h4>
+                    <h6>Welcome to Personnel Information Management System</h6>
+                </div>
+                <div class="row" style="justify-content: center;margin-top: 20px;">
+                    <div class="" style="width: min(500px, 100%);margin-top: 20px;">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4 style="text-align: center;">Login</h4>
+                            </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "LoginForm" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    if (ViewBag.ErrorMsg != null)
+                                    {
+                                        <div class="form-group">
+                                            <label style="color:red" for="email">Username or Password Invalid ! </label>
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <label for="email">User</label>
+                                        <input id="UserEmail" type="text" class="form-control" name="UserEmail" value="@Model.UserEmail" tabindex="1" required autofocus placeholder="Enter user">
+                                        <div class="invalid-feedback">
+                                            Please fill User
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="d-block">
+                                            <label for="password" class="control-label">Password</label>
+                                        </div>
+                                        <input id="UserPassword" type="password" class="form-control" value="@Model.UserPassword" name="UserPassword" tabindex="2" required placeholder="Enter password">
+                                        <div class="invalid-feedback">
+                                            Please fill Password
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                                            <label class="custom-control-label" for="remember-me">Remember Me</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                            Login
+                                        </button>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- General JS Scripts -->
+    <script src="~/Content/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <!-- Page Specific JS File -->
+    <!-- Template JS File -->
+    <script src="~/Content/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="~/Content/assets/js/custom.js"></script>
+</body>
+
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+</html>

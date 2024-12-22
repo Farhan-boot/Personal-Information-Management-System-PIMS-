@@ -1,0 +1,1873 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4AA8E3A6-021E-4722-94E5-6EBE3EFC88A9}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PTSL.DgFood.Web</RootNamespace>
+    <AssemblyName>PTSL.DgFood.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44353</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>4.2</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authentication.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authentication.Core.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authentication.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authorization, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authorization.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Authorization.Policy, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authorization.Policy.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.Policy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Extensions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Mvc.Core.2.2.5\lib\netstandard2.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.ResponseCaching.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.ResponseCaching.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.ResponseCaching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Routing.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.WebUtilities.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.2.1.0\lib\net45\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.2.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyModel, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.2.1.0\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.2.2.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Headers.2.2.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.3.2\lib\net45\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.2.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.2\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.1\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.4.5.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.1\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\EmployeeManagement\DisciplinaryHistoryController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\EmployeePostingDetailsController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\TrainingPlanController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\OtherTrainingMemberController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\UniversityInformationController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\OrganogramController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\EmployeeInformationCountController.cs" />
+    <Compile Include="Controllers\EmployeeGroup\EmployeeTrainingController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\PRLController.cs" />
+    <Compile Include="Controllers\GeneralSetup\UnionController.cs" />
+    <Compile Include="Controllers\GeneralSetup\UpazillaController.cs" />
+    <Compile Include="Controllers\jsTree3Controller.cs" />
+    <Compile Include="Controllers\SystemUser\AccessMapperController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\TrainingInformationManagementMasterController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\TrainingInformationManagementController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\LeaveApplicationController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\LanguageInformationController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\DisciplinaryActionsAndCriminalProsecutionController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\OfficialInformationController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\PostingRecordsController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\PromotionManagementController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\ServiceHistoryController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\PromotionPartcularsController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\ReportsController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\TrainingInformationController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\EducationalQualificationController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\PermanentAddressController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\PresentAddressController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\TransferController.cs" />
+    <Compile Include="Controllers\GeneralSetup\CalculationMethodController.cs" />
+    <Compile Include="Controllers\GeneralSetup\PayScaleYearInfoController.cs" />
+    <Compile Include="Controllers\GeneralSetup\LeaveTypeInformationController.cs" />
+    <Compile Include="Controllers\GeneralSetup\TrainingManagementTypeController.cs" />
+    <Compile Include="Controllers\GeneralSetup\WeeklyHolydaySetupController.cs" />
+    <Compile Include="Controllers\GeneralSetup\SpecialHolydaySetupController.cs" />
+    <Compile Include="Controllers\GeneralSetup\YearsController.cs" />
+    <Compile Include="Controllers\GeneralSetup\LanguageController.cs" />
+    <Compile Include="Controllers\GeneralSetup\GradationTypeController.cs" />
+    <Compile Include="Controllers\GeneralSetup\EmployeeTypeController.cs" />
+    <Compile Include="Controllers\GeneralSetup\JobCategoryController.cs" />
+    <Compile Include="Controllers\GeneralSetup\DropdownController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\ChildrenInformationController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\SpouseInformationController.cs" />
+    <Compile Include="Controllers\EmployeeManagement\EmployeeInformationController.cs" />
+    <Compile Include="Controllers\SystemUser\PmsGroupController.cs" />
+    <Compile Include="Controllers\SystemUser\AccountController.cs" />
+    <Compile Include="Controllers\DashBoard\HomeController.cs" />
+    <Compile Include="Controllers\SystemUser\AccesslistController.cs" />
+    <Compile Include="Controllers\SystemUser\ModuleController.cs" />
+    <Compile Include="Controllers\GeneralSetup\PromtionNatureController.cs" />
+    <Compile Include="Controllers\GeneralSetup\PresentStatusController.cs" />
+    <Compile Include="Controllers\GeneralSetup\PostResponsibilityController.cs" />
+    <Compile Include="Controllers\GeneralSetup\PostingController.cs" />
+    <Compile Include="Controllers\GeneralSetup\PostingTypeController.cs" />
+    <Compile Include="Controllers\GeneralSetup\PoliceStationController.cs" />
+    <Compile Include="Controllers\GeneralSetup\EmployeeStatusController.cs" />
+    <Compile Include="Controllers\GeneralSetup\DesignationClassController.cs" />
+    <Compile Include="Controllers\GeneralSetup\DegreeController.cs" />
+    <Compile Include="Controllers\GeneralSetup\CategoryController.cs" />
+    <Compile Include="Controllers\GeneralSetup\DesignationController.cs" />
+    <Compile Include="Controllers\GeneralSetup\DistrictController.cs" />
+    <Compile Include="Controllers\GeneralSetup\DivisionController.cs" />
+    <Compile Include="Controllers\GeneralSetup\RankController.cs" />
+    <Compile Include="Controllers\SystemUser\ManageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\CachingHelper.cs" />
+    <Compile Include="Helper\DateTimeHelper.cs" />
+    <Compile Include="Helper\Enum\ApiOption.cs" />
+    <Compile Include="Helper\Enum\BloodGroup.cs" />
+    <Compile Include="Helper\Enum\PostingDetails.cs" />
+    <Compile Include="Helper\Enum\Grade.cs" />
+    <Compile Include="Helper\Enum\TrainingPlanType.cs" />
+    <Compile Include="Helper\Enum\Cadre.cs" />
+    <Compile Include="Helper\Enum\CompletionState.cs" />
+    <Compile Include="Helper\Enum\Days.cs" />
+    <Compile Include="Helper\Enum\EligibleFor.cs" />
+    <Compile Include="Helper\Enum\EmployeeTabInfoEnum.cs" />
+    <Compile Include="Helper\Enum\Country.cs" />
+    <Compile Include="Helper\Enum\ExecutionState.cs" />
+    <Compile Include="Helper\Enum\FileType.cs" />
+    <Compile Include="Helper\Enum\Gender.cs" />
+    <Compile Include="Helper\Enum\HttpHeaderEnum.cs" />
+    <Compile Include="Helper\Enum\LeaveStatus.cs" />
+    <Compile Include="Helper\Enum\ListCondition.cs" />
+    <Compile Include="Helper\Enum\LocationType.cs" />
+    <Compile Include="Helper\Enum\MaritalStatus.cs" />
+    <Compile Include="Helper\Enum\NatureOfPromotion.cs" />
+    <Compile Include="Helper\Enum\OrganogramOfficeType.cs" />
+    <Compile Include="Helper\Enum\FreedomFighterInformation.cs" />
+    <Compile Include="Helper\Enum\RankEnum.cs" />
+    <Compile Include="Helper\Enum\RecruitmentType.cs" />
+    <Compile Include="Helper\Enum\RecruitPromoEnum.cs" />
+    <Compile Include="Helper\Enum\Religion.cs" />
+    <Compile Include="Helper\Enum\RetrievalPurpose.cs" />
+    <Compile Include="Helper\Enum\TestAction.cs" />
+    <Compile Include="Helper\Enum\TrainingInformationManagementApprovalStatus.cs" />
+    <Compile Include="Helper\Enum\TrainingLocationType.cs" />
+    <Compile Include="Helper\Enum\TrainingManagementTypeForeignType.cs" />
+    <Compile Include="Helper\Enum\TrainingManagementTypeLocalType.cs" />
+    <Compile Include="Helper\Enum\TrainingManagementTypeStatus.cs" />
+    <Compile Include="Helper\Enum\SpecialTrainingType.cs" />
+    <Compile Include="Helper\Enum\TrainingType.cs" />
+    <Compile Include="Helper\Enum\WorkingAs.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\Enum\YearOfPayScale.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
+    <Compile Include="Helper\HttpHelper.cs" />
+    <Compile Include="Helper\ModelStateExtensions.cs" />
+    <Compile Include="Helper\MultipleButtonAttribute.cs" />
+    <Compile Include="Helper\MySession.cs" />
+    <Compile Include="Helper\NinjectWebCommon.cs" />
+    <Compile Include="Helper\PayloadResponse.cs" />
+    <Compile Include="Helper\SessionAuthorizeAttribute .cs" />
+    <Compile Include="Helper\URLHelper.cs" />
+    <Compile Include="Helper\UtilityHelper.cs" />
+    <Compile Include="Models\jsTree3Node.cs" />
+    <Compile Include="Model\AccountViewModels.cs" />
+    <Compile Include="Model\ApiResponseModel\WebApiResponse.cs" />
+    <Compile Include="Model\BaseModels\BaseModel.cs" />
+    <Compile Include="Model\CustomModal\TrainingImplementationReportVM.cs" />
+    <Compile Include="Model\CustomModal\TrainingMonthlyDetailsReportVM.cs" />
+    <Compile Include="Model\EntityViewModels\DashboardVM.cs" />
+    <Compile Include="Model\EntityViewModels\Datatable\JqDataTable.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\Addl_prof_q_infoVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\DirectAndPromotionalEmployeeVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\DisciplinaryActionsAndCriminalProsecutionGetEmployeeFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\DisciplinaryHistoryVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeePostingDetailsVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\TrainingPlanVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\OtherTrainingMemberVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\UniversityInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\DocumentVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeInformationByDisciplinaryVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\GetTrainingFilterDataByDateVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\OrganogramDetailsVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\OrganogramVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeInformationCountVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PRL_VM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PromotionManagementListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PromotionManagementVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PromotionManagentFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PublicationInfoVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PostingAbroadVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\OtherServiceInfoVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\MagisterialPowerInfoVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\ForeignTravelInfoVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\ChildrenInformationFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\AwardInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeInformationDetailsVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\ServiceHistoryListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PromotionParticularsListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\DisciplinaryActionsAndCriminalProsecutionListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PostingRecordsListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\LanguageInfoListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\TotalEmployeeOfficeWiseVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\TrainingBulkUploadVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\TrainingInfoListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EducationalQualificationListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PermanentAddressListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PresentAddressListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\DisciplinaryActionsAndCriminalProsecutionFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EducationalQualificationFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeInformationFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeInformationListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeTransferFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeViewModel.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\LanguageInformationFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\LanguageInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\LeaveApplicationFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\LeaveApplicationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\OfficialInformationFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PermanentAddressFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PostingRecordsFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PresentAddressFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PromotionPartcularsFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\ServiceHistoryFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\SpouseInformationFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\ChildrenInformationListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\SpouseInformationListVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\TrainingInformationFilterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\TrainingInformationManagementMasterVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\TrainingInformationManagementVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\CalculationMethodVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\CadreVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\CountryTrainingManagementTypeMapVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\PayScalePerGradeVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\InstituteVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\EventVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\LeaveTypeInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\RecruitPromoVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\SpecialHolydaySetupVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\TrainingManagementTypeVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\UnionVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\UpazillaVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\WeeklyHolydaySetupVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\PayScaleYearInfoVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\YearsVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\GradationTypeVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\EmployeeTypeVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\JobCategoryVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\LanguageVM.cs" />
+    <Compile Include="Model\EntityViewModels\SystemUser\MenueViewModel.cs" />
+    <Compile Include="Model\EntityViewModels\SystemUser\ModuleVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\ChildrenInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\DisciplinaryActionsAndCriminalProsecutionVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EducationalQualificationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\EmployeeTransferVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PermanentAddressVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PostingRecordsVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PresentAddressVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\OfficialInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\PromotionPartcularsVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\ServiceHistoryVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\SpouseInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\EmployeeManagementEntity\TrainingInformationVM.cs" />
+    <Compile Include="Model\EntityViewModels\SystemUser\AccesslistVM.cs" />
+    <Compile Include="Model\EntityViewModels\SystemUser\AccessMapperVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\CategoryVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\ColorVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\DegreeVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\DesignationClassVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\DesignationVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\DistrictVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\DivisionVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\EmployeeStatusVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\PoliceStationVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\PostingTypeVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\PostingVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\PostResponsibilityVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\PresentStatusVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\PromtionNatureVM.cs" />
+    <Compile Include="Model\EntityViewModels\GeneralSetup\RankVM.cs" />
+    <Compile Include="Model\EntityViewModels\SystemUser\SupplierModel.cs" />
+    <Compile Include="Model\EntityViewModels\SystemUser\PmsGroupVM.cs" />
+    <Compile Include="Model\EntityViewModels\SystemUser\UserGroupVM.cs" />
+    <Compile Include="Model\EntityViewModels\SystemUser\UserVM.cs" />
+    <Compile Include="Model\HomeViewModel.cs" />
+    <Compile Include="Model\IdentityModels.cs" />
+    <Compile Include="Model\ManageViewModels.cs" />
+    <Compile Include="Model\ViewModel\TreeViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Implementation\DashboardService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\DisciplinaryHistoryService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\EmployeePostingDetailsService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\OrganogramService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\EmployeeInformationCountService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\OtherTrainingMemberService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\PRLService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\PromotionManagementService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\TrainingInformationManagementMasterService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\TrainingInformationManagementService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\LeaveApplicationService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\LanguageInformationService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\ChildrenInformationService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\PresentAddressService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\EducationalQualificationService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\TrainingInformationService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\ServiceHistoryService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\OfficialInformationService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\DisciplinaryActionsAndCriminalProsecutionService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\PostingRecordsService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\EmployeeTransferService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\PromotionPartcularsService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\PermanentAddressService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\SpouseInformationService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\EmployeeInformationService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\TrainingPlanService.cs" />
+    <Compile Include="Services\Implementation\EmployeeManagementEntity\UniversityInformationService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\UnionService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\UpazillaService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\PayScaleYearInfoService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\LeaveTypeInformationService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\CalculationMethodService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\TrainingManagementTypeService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\WeeklyHolydaySetupService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\SpecialHolydaySetupService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\YearsService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\LanguageService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\EmployeeTypeService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\GradationTypeService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\JobCategoryService.cs" />
+    <Compile Include="Services\Implementation\SystemUser\PmsGroupService.cs" />
+    <Compile Include="Services\Implementation\SystemUser\UserService.cs" />
+    <Compile Include="Services\Implementation\SystemUser\UserGroupService.cs" />
+    <Compile Include="Services\Implementation\SystemUser\ModuleService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\PromtionNatureService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\CategoryService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\DistrictService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\DegreeService.cs" />
+    <Compile Include="Services\Implementation\SystemUser\AccesslistService.cs" />
+    <Compile Include="Services\Implementation\SystemUser\AccessMapperService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\DesignationService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\DesignationClassService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\EmployeeStatusService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\PoliceStationService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\PostingService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\PostingTypeService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\PostResponsibilityService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\PresentStatusService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\DivisionService.cs" />
+    <Compile Include="Services\Implementation\GeneralSetup\RankService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IDisciplinaryHistoryService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IEmployeePostingDetailsService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IOrganogramService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IEmployeeInformationCountService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IOtherTrainingMemberService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IPromotionManagementService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\ITrainingInformationManagementMasterService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\ITrainingInformationManagementService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\ILeaveApplicationService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\ILanguageInformationService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IChildrenInformationService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IPresentAddressService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IEducationalQualificationService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\ITrainingInformationService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IServiceHistoryService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IOfficialInformationService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IDisciplinaryActionsAndCriminalProsecutionService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IPostingRecordsService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IEmployeeTransferService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IPromotionPartcularsService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IPermanentAddressService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\ISpouseInformationService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IEmployeeInformationService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IPRLService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\ITrainingPlanService.cs" />
+    <Compile Include="Services\Interface\EmployeeManagementEntity\IUniversityInformationService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\ICalculationMethodService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IUnionService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IUpazillaService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IPayScaleYearInfoService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\ILeaveTypeInformationService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\ISpecialHolydaySetupService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\ITrainingManagementTypeService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IWeeklyHolydaySetupService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IYearsService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\ILanguageService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IJobCategoryService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IGradationTypeService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IEmployeeTypeService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IPromtionNatureService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IDegreeService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\ICategoryService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IDistrictService.cs" />
+    <Compile Include="Services\Interface\IDashboardService.cs" />
+    <Compile Include="Services\Interface\SystemUser\IAccesslistService.cs" />
+    <Compile Include="Services\Interface\SystemUser\IAccessMapperService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IDesignationService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IDesignationClassService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IEmployeeStatusService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IPoliceStationService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IPostingService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IPostingTypeService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IPostResponsibilityService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IPresentStatusService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IDivisionService.cs" />
+    <Compile Include="Services\Interface\GeneralSetup\IRankService.cs" />
+    <Compile Include="Services\Interface\SystemUser\IPmsGroupService.cs" />
+    <Compile Include="Services\Interface\SystemUser\IUserService.cs" />
+    <Compile Include="Services\Interface\SystemUser\IUserGroupService.cs" />
+    <Compile Include="Services\Interface\SystemUser\IModuleService.cs" />
+    <Compile Include="Startup.cs" />
+    <Content Include="Content\assets\img\bd-govt.png" />
+    <Content Include="Content\assets\img\homeInfo.png" />
+    <Content Include="Content\assets\js\html2canvas.min.js" />
+    <Content Include="Content\wave-blue.svg" />
+    <Content Include="Content\wave-yellow.svg" />
+    <Content Include="Content\wave-greenish.svg" />
+    <Content Include="Views\Reports\BloodGroupWiseReport.cshtml" />
+    <Content Include="Views\EmployeeTraining\Index.cshtml" />
+    <Content Include="Views\Upazilla\Create.cshtml" />
+    <Content Include="Views\Upazilla\Details.cshtml" />
+    <Content Include="Views\Upazilla\Edit.cshtml" />
+    <Content Include="Views\Upazilla\Index.cshtml" />
+    <Content Include="Views\DisciplinaryActionsAndCriminalProsecution\Index.cshtml" />
+    <Content Include="Views\DisciplinaryActionsAndCriminalProsecution\Create.cshtml" />
+    <Content Include="Views\PRL\Index.cshtml" />
+    <Content Include="Views\Home\EmployeeIndex.cshtml" />
+    <Content Include="Views\Account\RegisterEmployeeUser.cshtml" />
+    <Content Include="Views\Account\EmployeeUserEdit.cshtml" />
+    <Content Include="Views\LeaveApplication\NewApplication.cshtml" />
+    <Content Include="Views\LeaveApplication\EmployeeIndex.cshtml" />
+    <Content Include="Views\Account\EmployeeUserLists.cshtml" />
+    <Content Include="Views\OtherTrainingMember\Index.cshtml" />
+    <Content Include="Views\OtherTrainingMember\Details.cshtml" />
+    <Content Include="Views\Reports\AllEmployeeRpt.cshtml" />
+    <Content Include="Views\Home\IndividualEmployeeIndex.cshtml" />
+    <None Include="Views\Reports\FirstJoiningDateWiseEmployeeRpt.cshtml" />
+    <Content Include="Views\Reports\PRLReportDateWiseRpt.cshtml" />
+    <Content Include="Views\Reports\GradationListWiseReport.cshtml" />
+    <Content Include="Views\Reports\GetEmployeeByDisciplinaryAction.cshtml" />
+    <Content Include="Views\Reports\TrainingReport.cshtml" />
+    <Content Include="Views\Reports\TrainingCompletionReport.cshtml" />
+    <Content Include="Views\TrainingInformationManagementMaster\TrainingPending.cshtml" />
+    <Content Include="Views\UniversityInformation\Create.cshtml" />
+    <Content Include="Views\UniversityInformation\Details.cshtml" />
+    <Content Include="Views\UniversityInformation\Edit.cshtml" />
+    <Content Include="Views\UniversityInformation\Index.cshtml" />
+    <Content Include="Views\Union\Create.cshtml" />
+    <Content Include="Views\Union\Details.cshtml" />
+    <Content Include="Views\Union\Edit.cshtml" />
+    <Content Include="Views\Union\Index.cshtml" />
+    <Content Include="Views\TrainingPlan\Create.cshtml" />
+    <Content Include="Views\TrainingPlan\Details.cshtml" />
+    <Content Include="Views\TrainingPlan\Edit.cshtml" />
+    <Content Include="Views\TrainingPlan\Index.cshtml" />
+    <Content Include="Views\TrainingPlan\TrainingMonthlyDetailsReport.cshtml" />
+    <Content Include="Views\TrainingPlan\TrainingImplementationReport.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\assets\bundles\amcharts4\animated.js" />
+    <Content Include="Content\assets\bundles\amcharts4\charts.js" />
+    <Content Include="Content\assets\bundles\amcharts4\core.js" />
+    <Content Include="Content\assets\bundles\amcharts4\maps.js" />
+    <Content Include="Content\assets\bundles\amcharts4\worldLow.js" />
+    <Content Include="Content\assets\bundles\apexcharts\apexcharts.min.js" />
+    <Content Include="Content\assets\bundles\bootstrap-colorpicker\dist\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Content\assets\bundles\bootstrap-colorpicker\dist\js\bootstrap-colorpicker.min.js" />
+    <Content Include="Content\assets\bundles\bootstrap-daterangepicker\daterangepicker.css" />
+    <Content Include="Content\assets\bundles\bootstrap-daterangepicker\daterangepicker.js" />
+    <Content Include="Content\assets\bundles\bootstrap-social\bootstrap-social.css" />
+    <Content Include="Content\assets\bundles\bootstrap-tagsinput\dist\bootstrap-tagsinput.css" />
+    <Content Include="Content\assets\bundles\bootstrap-tagsinput\dist\bootstrap-tagsinput.min.js" />
+    <Content Include="Content\assets\bundles\bootstrap-timepicker\css\bootstrap-timepicker.min.css" />
+    <Content Include="Content\assets\bundles\bootstrap-timepicker\js\bootstrap-timepicker.min.js" />
+    <Content Include="Content\assets\bundles\chartjs\chart.min.js" />
+    <Content Include="Content\assets\bundles\chocolat\dist\css\chocolat.css" />
+    <Content Include="Content\assets\bundles\chocolat\dist\images\close.png" />
+    <Content Include="Content\assets\bundles\chocolat\dist\images\fullscreen.png" />
+    <Content Include="Content\assets\bundles\chocolat\dist\images\left.png" />
+    <Content Include="Content\assets\bundles\chocolat\dist\images\loader.gif" />
+    <Content Include="Content\assets\bundles\chocolat\dist\images\right.png" />
+    <Content Include="Content\assets\bundles\chocolat\dist\js\jquery.chocolat.min.js" />
+    <Content Include="Content\assets\bundles\ckeditor\ckeditor.js" />
+    <Content Include="Content\assets\bundles\cleave-js\dist\addons\cleave-phone.us.js" />
+    <Content Include="Content\assets\bundles\cleave-js\dist\cleave.min.js" />
+    <Content Include="Content\assets\bundles\codemirror\lib\codemirror.css" />
+    <Content Include="Content\assets\bundles\codemirror\lib\codemirror.js" />
+    <Content Include="Content\assets\bundles\codemirror\mode\javascript\javascript.js" />
+    <Content Include="Content\assets\bundles\codemirror\theme\duotone-dark.css" />
+    <Content Include="Content\assets\bundles\datatables\DataTables-1.10.16\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\assets\bundles\datatables\DataTables-1.10.16\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\assets\bundles\datatables\datatables.min.css" />
+    <Content Include="Content\assets\bundles\datatables\datatables.min.js" />
+    <Content Include="Content\assets\bundles\datatables\export-tables\buttons.flash.min.js" />
+    <Content Include="Content\assets\bundles\datatables\export-tables\buttons.print.min.js" />
+    <Content Include="Content\assets\bundles\datatables\export-tables\dataTables.buttons.min.js" />
+    <Content Include="Content\assets\bundles\datatables\export-tables\jszip.min.js" />
+    <Content Include="Content\assets\bundles\datatables\export-tables\pdfmake.min.js" />
+    <Content Include="Content\assets\bundles\datatables\export-tables\vfs_fonts.js" />
+    <Content Include="Content\assets\bundles\datatables\Select-1.2.4\css\select.bootstrap4.min.css" />
+    <Content Include="Content\assets\bundles\dropzonejs\dropzone.css" />
+    <Content Include="Content\assets\bundles\dropzonejs\min\dropzone.min.js" />
+    <Content Include="Content\assets\bundles\echart\echarts.js" />
+    <Content Include="Content\assets\bundles\editable-table\mindmup-editabletable.js" />
+    <Content Include="Content\assets\bundles\flag-icon-css\css\flag-icon.min.css" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ad.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ae.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\af.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ag.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ai.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\al.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\am.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ao.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\aq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ar.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\as.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\at.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\au.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\aw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ax.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\az.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ba.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bb.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bd.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\be.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bi.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bo.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\br.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bs.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\by.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\bz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ca.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cd.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ch.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ci.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ck.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\co.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cx.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cy.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\cz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\de.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\dj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\dk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\dm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\do.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\dz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ec.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ee.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\eg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\eh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\er.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\es-ct.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\es.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\et.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\eu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\fi.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\fj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\fk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\fm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\fo.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\fr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ga.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gb-eng.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gb-nir.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gb-sct.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gb-wls.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gb.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gd.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ge.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gi.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gp.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gs.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\gy.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\hk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\hm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\hn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\hr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ht.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\hu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\id.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ie.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\il.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\im.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\in.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\io.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\iq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ir.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\is.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\it.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\je.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\jm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\jo.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\jp.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ke.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\kg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\kh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ki.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\km.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\kn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\kp.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\kr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\kw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ky.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\kz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\la.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\lb.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\lc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\li.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\lk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\lr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ls.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\lt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\lu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\lv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ly.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ma.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\md.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\me.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ml.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mo.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mp.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ms.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mx.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\my.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\mz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\na.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\nc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ne.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\nf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ng.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ni.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\nl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\no.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\np.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\nr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\nu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\nz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\om.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pa.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pe.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ph.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ps.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\pw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\py.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\qa.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\re.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ro.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\rs.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ru.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\rw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sa.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sb.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sd.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\se.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\si.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\so.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ss.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\st.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sx.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sy.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\sz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\td.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\th.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\to.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\tz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ua.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ug.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\um.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\un.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\us.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\uy.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\uz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\va.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\vc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ve.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\vg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\vi.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\vn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\vu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\wf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ws.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\ye.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\yt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\za.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\zm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\1x1\zw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ad.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ae.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\af.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ag.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ai.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\al.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\am.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ao.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\aq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ar.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\as.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\at.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\au.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\aw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ax.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\az.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ba.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bb.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bd.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\be.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bi.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bo.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\br.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bs.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\by.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\bz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ca.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cd.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ch.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ci.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ck.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\co.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cx.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cy.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\cz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\de.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\dj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\dk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\dm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\do.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\dz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ec.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ee.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\eg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\eh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\er.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\es-ct.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\es.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\et.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\eu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\fi.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\fj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\fk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\fm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\fo.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\fr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ga.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gb-eng.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gb-nir.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gb-sct.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gb-wls.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gb.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gd.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ge.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gi.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gp.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gs.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\gy.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\hk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\hm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\hn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\hr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ht.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\hu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\id.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ie.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\il.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\im.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\in.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\io.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\iq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ir.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\is.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\it.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\je.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\jm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\jo.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\jp.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ke.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\kg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\kh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ki.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\km.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\kn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\kp.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\kr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\kw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ky.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\kz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\la.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\lb.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\lc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\li.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\lk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\lr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ls.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\lt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\lu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\lv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ly.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ma.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\md.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\me.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ml.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mo.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mp.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mq.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ms.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mx.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\my.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\mz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\na.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\nc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ne.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\nf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ng.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ni.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\nl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\no.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\np.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\nr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\nu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\nz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\om.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pa.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pe.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ph.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ps.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\pw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\py.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\qa.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\re.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ro.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\rs.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ru.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\rw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sa.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sb.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sd.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\se.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sh.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\si.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\so.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ss.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\st.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sx.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sy.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\sz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\td.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\th.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tj.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tk.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tl.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\to.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tr.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tv.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tw.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\tz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ua.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ug.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\um.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\un.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\us.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\uy.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\uz.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\va.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\vc.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ve.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\vg.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\vi.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\vn.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\vu.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\wf.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ws.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\ye.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\yt.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\za.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\zm.svg" />
+    <Content Include="Content\assets\bundles\flag-icon-css\flags\4x3\zw.svg" />
+    <Content Include="Content\assets\bundles\fullcalendar\fullcalendar.min.css" />
+    <Content Include="Content\assets\bundles\fullcalendar\fullcalendar.min.js" />
+    <Content Include="Content\assets\bundles\gmaps.js" />
+    <Content Include="Content\assets\bundles\ionicons\css\ionicons.min.css" />
+    <Content Include="Content\assets\bundles\ionicons\fonts\ionicons28b5.svg" />
+    <Content Include="Content\assets\bundles\izitoast\css\iziToast.min.css" />
+    <Content Include="Content\assets\bundles\izitoast\js\iziToast.min.js" />
+    <Content Include="Content\assets\bundles\jquery-pwstrength\jquery.pwstrength.min.js" />
+    <Content Include="Content\assets\bundles\jquery-selectric\jquery.selectric.min.js" />
+    <Content Include="Content\assets\bundles\jquery-selectric\selectric.css" />
+    <Content Include="Content\assets\bundles\jquery-steps\jquery.steps.min.js" />
+    <Content Include="Content\assets\bundles\jquery-ui\jquery-ui.min.js" />
+    <Content Include="Content\assets\bundles\jquery-validation\dist\jquery.validate.min.js" />
+    <Content Include="Content\assets\bundles\jquery.sparkline.min.js" />
+    <Content Include="Content\assets\bundles\jqvmap\dist\jquery.vmap.min.js" />
+    <Content Include="Content\assets\bundles\jqvmap\dist\jqvmap.min.css" />
+    <Content Include="Content\assets\bundles\jqvmap\dist\maps\jquery.vmap.indonesia.js" />
+    <Content Include="Content\assets\bundles\jqvmap\dist\maps\jquery.vmap.world.js" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\css\lightgallery.css" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\fonts\lgd641.svg" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\img\loading.gif" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\img\video-play.png" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\img\vimeo-play.png" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\img\youtube-play.png" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\js\lightgallery-all.js" />
+    <Content Include="Content\assets\bundles\morris\morris.css" />
+    <Content Include="Content\assets\bundles\morris\morris.min.js" />
+    <Content Include="Content\assets\bundles\morris\raphael-min.js" />
+    <Content Include="Content\assets\bundles\owlcarousel2\dist\assets\owl.carousel.min.css" />
+    <Content Include="Content\assets\bundles\owlcarousel2\dist\assets\owl.theme.default.min.css" />
+    <Content Include="Content\assets\bundles\owlcarousel2\dist\assets\owl.video.play.png" />
+    <Content Include="Content\assets\bundles\owlcarousel2\dist\owl.carousel.min.js" />
+    <Content Include="Content\assets\bundles\pretty-checkbox\pretty-checkbox.min.css" />
+    <Content Include="Content\assets\bundles\prism\prism.css" />
+    <Content Include="Content\assets\bundles\prism\prism.js" />
+    <Content Include="Content\assets\bundles\select2\dist\css\select2.min.css" />
+    <Content Include="Content\assets\bundles\select2\dist\js\select2.full.min.js" />
+    <Content Include="Content\assets\bundles\summernote\summernote-bs4.css" />
+    <Content Include="Content\assets\bundles\summernote\summernote-bs4.js" />
+    <Content Include="Content\assets\bundles\sweetalert\sweetalert.min.js" />
+    <Content Include="Content\assets\bundles\upload-preview\assets\js\jquery.uploadPreview.min.js" />
+    <Content Include="Content\assets\bundles\weather-icon\css\weather-icons-wind.min.css" />
+    <Content Include="Content\assets\bundles\weather-icon\css\weather-icons.min.css" />
+    <Content Include="Content\assets\bundles\weather-icon\font\weathericons-regular-webfont.svg" />
+    <Content Include="Content\assets\css\app.min.css" />
+    <Content Include="Content\assets\css\Calender\jquery-ui.css" />
+    <Content Include="Content\assets\css\Calender\style.css" />
+    <Content Include="Content\assets\css\components.css" />
+    <Content Include="Content\assets\css\custom.css" />
+    <Content Include="Content\assets\css\MaterialIcons-Regular.html" />
+    <Content Include="Content\assets\css\Print.css" />
+    <Content Include="Content\assets\css\tabs.css" />
+    <Content Include="Content\assets\css\style.css" />
+    <Content Include="Content\assets\fonts\fonts\webfonts\fa-brands-400.html" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-600.svg" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-700.svg" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-800.svg" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-regular.svg" />
+    <Content Include="Content\assets\fonts\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\assets\fonts\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\assets\fonts\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\assets\img\banner\1.png" />
+    <Content Include="Content\assets\img\banner\2.png" />
+    <Content Include="Content\assets\img\banner\3.png" />
+    <Content Include="Content\assets\img\banner\4.png" />
+    <Content Include="Content\assets\img\blog\img01.png" />
+    <Content Include="Content\assets\img\blog\img02.png" />
+    <Content Include="Content\assets\img\blog\img03.png" />
+    <Content Include="Content\assets\img\blog\img04.png" />
+    <Content Include="Content\assets\img\blog\img05.png" />
+    <Content Include="Content\assets\img\blog\img06.png" />
+    <Content Include="Content\assets\img\blog\img07.png" />
+    <Content Include="Content\assets\img\blog\img08.png" />
+    <Content Include="Content\assets\img\blog\img09.png" />
+    <Content Include="Content\assets\img\blog\img10.png" />
+    <Content Include="Content\assets\img\blog\img11.png" />
+    <Content Include="Content\assets\img\blog\img12.png" />
+    <Content Include="Content\assets\img\blog\img13.png" />
+    <Content Include="Content\assets\img\blog\img14.png" />
+    <Content Include="Content\assets\img\blog\img15.png" />
+    <Content Include="Content\assets\img\browsers\chrome.png" />
+    <Content Include="Content\assets\img\browsers\firefox.png" />
+    <Content Include="Content\assets\img\browsers\internet-explorer.png" />
+    <Content Include="Content\assets\img\browsers\opera.png" />
+    <Content Include="Content\assets\img\browsers\safari.png" />
+    <Content Include="Content\assets\img\cards\americanexpress.png" />
+    <Content Include="Content\assets\img\cards\dinersclub.png" />
+    <Content Include="Content\assets\img\cards\discover.png" />
+    <Content Include="Content\assets\img\cards\jcb.png" />
+    <Content Include="Content\assets\img\cards\mastercard.png" />
+    <Content Include="Content\assets\img\cards\paypal.png" />
+    <Content Include="Content\assets\img\cards\visa.png" />
+    <Content Include="Content\assets\img\favicon.ico" />
+    <Content Include="Content\assets\img\image-64.png" />
+    <Content Include="Content\assets\img\image-gallery\1.png" />
+    <Content Include="Content\assets\img\image-gallery\10.png" />
+    <Content Include="Content\assets\img\image-gallery\11.png" />
+    <Content Include="Content\assets\img\image-gallery\12.png" />
+    <Content Include="Content\assets\img\image-gallery\13.png" />
+    <Content Include="Content\assets\img\image-gallery\14.png" />
+    <Content Include="Content\assets\img\image-gallery\15.png" />
+    <Content Include="Content\assets\img\image-gallery\16.png" />
+    <Content Include="Content\assets\img\image-gallery\17.png" />
+    <Content Include="Content\assets\img\image-gallery\18.png" />
+    <Content Include="Content\assets\img\image-gallery\19.png" />
+    <Content Include="Content\assets\img\image-gallery\2.png" />
+    <Content Include="Content\assets\img\image-gallery\20.png" />
+    <Content Include="Content\assets\img\image-gallery\3.png" />
+    <Content Include="Content\assets\img\image-gallery\4.png" />
+    <Content Include="Content\assets\img\image-gallery\5.png" />
+    <Content Include="Content\assets\img\image-gallery\6.png" />
+    <Content Include="Content\assets\img\image-gallery\7.png" />
+    <Content Include="Content\assets\img\image-gallery\8.png" />
+    <Content Include="Content\assets\img\image-gallery\9.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-1.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-10.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-11.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-12.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-13.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-14.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-15.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-16.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-17.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-18.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-19.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-2.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-20.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-3.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-4.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-5.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-6.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-7.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-8.png" />
+    <Content Include="Content\assets\img\image-gallery\thumb\thumb-9.png" />
+    <Content Include="Content\assets\img\loading.gif" />
+    <Content Include="Content\assets\img\logo.png" />
+    <Content Include="Content\assets\img\logo_1.png" />
+    <Content Include="Content\assets\img\posts\post11.png" />
+    <Content Include="Content\assets\img\posts\post12.png" />
+    <Content Include="Content\assets\img\posts\post13.png" />
+    <Content Include="Content\assets\img\posts\post4.png" />
+    <Content Include="Content\assets\img\posts\post5.png" />
+    <Content Include="Content\assets\img\posts\post6.png" />
+    <Content Include="Content\assets\img\posts\post7.png" />
+    <Content Include="Content\assets\img\posts\post8.png" />
+    <Content Include="Content\assets\img\posts\post9.png" />
+    <Content Include="Content\assets\img\products\product-1.png" />
+    <Content Include="Content\assets\img\products\product-2.png" />
+    <Content Include="Content\assets\img\products\product-3.png" />
+    <Content Include="Content\assets\img\products\product-4.png" />
+    <Content Include="Content\assets\img\products\product-5.png" />
+    <Content Include="Content\assets\img\spinner-white.svg" />
+    <Content Include="Content\assets\img\spinner.svg" />
+    <Content Include="Content\assets\img\typing.svg" />
+    <Content Include="Content\assets\img\user.png" />
+    <Content Include="Content\assets\img\users\user-1.png" />
+    <Content Include="Content\assets\img\users\user-10.png" />
+    <Content Include="Content\assets\img\users\user-2.png" />
+    <Content Include="Content\assets\img\users\user-3.png" />
+    <Content Include="Content\assets\img\users\user-4.png" />
+    <Content Include="Content\assets\img\users\user-5.png" />
+    <Content Include="Content\assets\img\users\user-6.png" />
+    <Content Include="Content\assets\img\users\user-7.png" />
+    <Content Include="Content\assets\img\users\user-8.png" />
+    <Content Include="Content\assets\img\users\user-9.png" />
+    <Content Include="Content\assets\js\app.min.js" />
+    <Content Include="Content\assets\js\custom.js" />
+    <Content Include="Content\assets\js\jquery-3.4.1.min.js" />
+    <Content Include="Content\assets\js\jstree.min.js" />
+    <Content Include="Content\assets\js\page\advance-table.js" />
+    <Content Include="Content\assets\js\page\auth-register.js" />
+    <Content Include="Content\assets\js\page\calendar.js" />
+    <Content Include="Content\assets\js\page\chart-amchart.js" />
+    <Content Include="Content\assets\js\page\chart-apexcharts.js" />
+    <Content Include="Content\assets\js\page\chart-chartjs.js" />
+    <Content Include="Content\assets\js\page\chart-echarts.js" />
+    <Content Include="Content\assets\js\page\chart-morris.js" />
+    <Content Include="Content\assets\js\page\chat.js" />
+    <Content Include="Content\assets\js\page\ckeditor.js" />
+    <Content Include="Content\assets\js\page\contact.js" />
+    <Content Include="Content\assets\js\page\create-post.js" />
+    <Content Include="Content\assets\js\page\datatables.js" />
+    <Content Include="Content\assets\js\page\editable-table.js" />
+    <Content Include="Content\assets\js\page\form-wizard.js" />
+    <Content Include="Content\assets\js\page\forms-advanced-forms.js" />
+    <Content Include="Content\assets\js\page\gallery1.js" />
+    <Content Include="Content\assets\js\page\gmaps-advanced-route.js" />
+    <Content Include="Content\assets\js\page\gmaps-draggable-marker.js" />
+    <Content Include="Content\assets\js\page\gmaps-geocoding.js" />
+    <Content Include="Content\assets\js\page\gmaps-geolocation.js" />
+    <Content Include="Content\assets\js\page\gmaps-marker.js" />
+    <Content Include="Content\assets\js\page\gmaps-multiple-marker.js" />
+    <Content Include="Content\assets\js\page\gmaps-route.js" />
+    <Content Include="Content\assets\js\page\gmaps-simple.js" />
+    <Content Include="Content\assets\js\page\index.js" />
+    <Content Include="Content\assets\js\page\ion-icons.js" />
+    <Content Include="Content\assets\js\page\light-gallery.js" />
+    <Content Include="Content\assets\js\page\multiple-upload.js" />
+    <Content Include="Content\assets\js\page\owl-carousel.js" />
+    <Content Include="Content\assets\js\page\portfolio.js" />
+    <Content Include="Content\assets\js\page\posts.js" />
+    <Content Include="Content\assets\js\page\sparkline.js" />
+    <Content Include="Content\assets\js\page\sweetalert.js" />
+    <Content Include="Content\assets\js\page\toastr.js" />
+    <Content Include="Content\assets\js\page\vector-map.js" />
+    <Content Include="Content\assets\js\page\widget-chart.js" />
+    <Content Include="Content\assets\js\page\widget-data.js" />
+    <Content Include="Content\assets\js\scripts.js" />
+    <Content Include="Content\assets\sweetalert\dialogs.js" />
+    <Content Include="Content\assets\sweetalert\sweetalert-dev.js" />
+    <Content Include="Content\assets\sweetalert\sweetalert.css" />
+    <Content Include="Content\assets\sweetalert\sweetalert.min.js" />
+    <Content Include="Content\assets\sweetalert\waves.js" />
+    <Content Include="Content\assets\treeview\32px.png" />
+    <Content Include="Content\assets\treeview\bootstrap-treeview.min.css" />
+    <Content Include="Content\assets\treeview\style.min.css" />
+    <Content Include="Content\assets\treeview\throbber.gif" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\jsTree\docs.css" />
+    <Content Include="Content\jsTree\themes\default-dark\32px.png" />
+    <Content Include="Content\jsTree\themes\default-dark\40px.png" />
+    <Content Include="Content\jsTree\themes\default-dark\style.css" />
+    <Content Include="Content\jsTree\themes\default-dark\style.min.css" />
+    <Content Include="Content\jsTree\themes\default-dark\throbber.gif" />
+    <Content Include="Content\jsTree\themes\default\32px.png" />
+    <Content Include="Content\jsTree\themes\default\40px.png" />
+    <Content Include="Content\jsTree\themes\default\style.css" />
+    <Content Include="Content\jsTree\themes\default\style.min.css" />
+    <Content Include="Content\jsTree\themes\default\throbber.gif" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\assets\bundles\ionicons\fonts\ionicons28b5.eot" />
+    <Content Include="Content\assets\bundles\ionicons\fonts\ionicons28b5.ttf" />
+    <Content Include="Content\assets\bundles\ionicons\fonts\ionicons28b5.woff" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\fonts\lgd41d.eot" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\fonts\lgd641.eot" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\fonts\lgd641.ttf" />
+    <Content Include="Content\assets\bundles\lightgallery\dist\fonts\lgd641.woff" />
+    <Content Include="Content\assets\bundles\material-icons\MaterialIcons-Regular.ttf" />
+    <Content Include="Content\assets\bundles\material-icons\MaterialIcons-Regular.woff" />
+    <Content Include="Content\assets\bundles\material-icons\MaterialIcons-Regular.woff2" />
+    <Content Include="Content\assets\bundles\summernote\font\summernote4c4d.eot" />
+    <Content Include="Content\assets\bundles\summernote\font\summernote4c4d.ttf" />
+    <Content Include="Content\assets\bundles\summernote\font\summernote4c4d.woff" />
+    <Content Include="Content\assets\bundles\summernote\font\summernoted41d.eot" />
+    <Content Include="Content\assets\bundles\weather-icon\font\weathericons-regular-webfont.eot" />
+    <Content Include="Content\assets\bundles\weather-icon\font\weathericons-regular-webfont.ttf" />
+    <Content Include="Content\assets\bundles\weather-icon\font\weathericons-regular-webfont.woff" />
+    <Content Include="Content\assets\bundles\weather-icon\font\weathericons-regular-webfont.woff2" />
+    <Content Include="Content\assets\bundles\weather-icon\font\weathericons-regular-webfontd41d.eot" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-600.eot" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-600.ttf" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-600.woff" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-600.woff2" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-600d41d.eot" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-700.eot" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-700.ttf" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-700.woff" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-700.woff2" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-700d41d.eot" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-800.eot" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-800.ttf" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-800.woff" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-800.woff2" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-800d41d.eot" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-regular.eot" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-regular.ttf" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-regular.woff" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-regular.woff2" />
+    <Content Include="Content\assets\fonts\nunito-v9-latin-regulard41d.eot" />
+    <Content Include="Content\assets\fonts\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\assets\fonts\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\assets\fonts\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\assets\fonts\webfonts\fa-brands-400d41d.eot" />
+    <Content Include="Content\assets\fonts\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\assets\fonts\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\assets\fonts\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\assets\fonts\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\assets\fonts\webfonts\fa-regular-400d41d.eot" />
+    <Content Include="Content\assets\fonts\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\assets\fonts\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\assets\fonts\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\assets\fonts\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\assets\fonts\webfonts\fa-solid-900d41d.eot" />
+    <Content Include="Content\UploadedTransferDocument\197300001\197300001-24-11-2021-4-34 PM-Emp-Transfer.pdf" />
+    <Content Include="Content\UploadedTransferDocument\9890001\9890001-22-11-2021-3-24 PM-Emp-Transfer.pdf" />
+    <Content Include="Content\UploadedTransferDocument\9890003\9890003-24-11-2021-3-38 PM-Emp-Transfer.pdf" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsTree3\jstree.js" />
+    <Content Include="Scripts\jsTree3\jstree.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Rank\Index.cshtml" />
+    <Content Include="Views\Rank\Create.cshtml" />
+    <Content Include="Views\Rank\Edit.cshtml" />
+    <Content Include="Views\Rank\Details.cshtml" />
+    <Content Include="Views\Division\Create.cshtml" />
+    <Content Include="Views\Division\Details.cshtml" />
+    <Content Include="Views\Division\Edit.cshtml" />
+    <Content Include="Views\Division\Index.cshtml" />
+    <Content Include="Views\District\Create.cshtml" />
+    <Content Include="Views\District\Details.cshtml" />
+    <Content Include="Views\District\Edit.cshtml" />
+    <Content Include="Views\District\Index.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Degree\Create.cshtml" />
+    <Content Include="Views\Degree\Details.cshtml" />
+    <Content Include="Views\Degree\Edit.cshtml" />
+    <Content Include="Views\Degree\Index.cshtml" />
+    <Content Include="Views\DesignationClass\Create.cshtml" />
+    <Content Include="Views\DesignationClass\Details.cshtml" />
+    <Content Include="Views\DesignationClass\Edit.cshtml" />
+    <Content Include="Views\DesignationClass\Index.cshtml" />
+    <Content Include="Views\Designation\Create.cshtml" />
+    <Content Include="Views\Designation\Details.cshtml" />
+    <Content Include="Views\Designation\Edit.cshtml" />
+    <Content Include="Views\Designation\Index.cshtml" />
+    <Content Include="Views\EmployeeStatus\Create.cshtml" />
+    <Content Include="Views\EmployeeStatus\Details.cshtml" />
+    <Content Include="Views\EmployeeStatus\Edit.cshtml" />
+    <Content Include="Views\EmployeeStatus\Index.cshtml" />
+    <Content Include="Views\PoliceStation\Create.cshtml" />
+    <Content Include="Views\PoliceStation\Details.cshtml" />
+    <Content Include="Views\PoliceStation\Edit.cshtml" />
+    <Content Include="Views\PoliceStation\Index.cshtml" />
+    <Content Include="Views\PostingType\Create.cshtml" />
+    <Content Include="Views\PostingType\Details.cshtml" />
+    <Content Include="Views\PostingType\Edit.cshtml" />
+    <Content Include="Views\PostingType\Index.cshtml" />
+    <Content Include="Views\Posting\Create.cshtml" />
+    <Content Include="Views\Posting\Details.cshtml" />
+    <Content Include="Views\Posting\Edit.cshtml" />
+    <Content Include="Views\Posting\Index.cshtml" />
+    <Content Include="Views\PostResponsibility\Create.cshtml" />
+    <Content Include="Views\PostResponsibility\Details.cshtml" />
+    <Content Include="Views\PostResponsibility\Edit.cshtml" />
+    <Content Include="Views\PostResponsibility\Index.cshtml" />
+    <Content Include="Views\PresentStatus\Create.cshtml" />
+    <Content Include="Views\PresentStatus\Details.cshtml" />
+    <Content Include="Views\PresentStatus\Edit.cshtml" />
+    <Content Include="Views\PresentStatus\Index.cshtml" />
+    <Content Include="Views\PromtionNature\Create.cshtml" />
+    <Content Include="Views\PromtionNature\Details.cshtml" />
+    <Content Include="Views\PromtionNature\Edit.cshtml" />
+    <Content Include="Views\PromtionNature\Index.cshtml" />
+    <Content Include="Views\Module\Create.cshtml" />
+    <Content Include="Views\Module\Details.cshtml" />
+    <Content Include="Views\Module\Edit.cshtml" />
+    <Content Include="Views\Module\Index.cshtml" />
+    <Content Include="Views\Accesslist\Create.cshtml" />
+    <Content Include="Views\Accesslist\Details.cshtml" />
+    <Content Include="Views\Accesslist\Edit.cshtml" />
+    <Content Include="Views\Accesslist\Index.cshtml" />
+    <Content Include="Views\PmsGroup\Create.cshtml" />
+    <Content Include="Views\PmsGroup\Details.cshtml" />
+    <Content Include="Views\PmsGroup\Edit.cshtml" />
+    <Content Include="Views\PmsGroup\Index.cshtml" />
+    <Content Include="Views\AccessMapper\Create.cshtml" />
+    <Content Include="Views\AccessMapper\Details.cshtml" />
+    <Content Include="Views\AccessMapper\Edit.cshtml" />
+    <Content Include="Views\AccessMapper\Index.cshtml" />
+    <Content Include="Views\EmployeeInformation\Create.cshtml" />
+    <Content Include="Views\EmployeeInformation\Details.cshtml" />
+    <Content Include="Views\EmployeeInformation\Edit.cshtml" />
+    <Content Include="Views\EmployeeInformation\Index.cshtml" />
+    <Content Include="Views\SpouseInformation\_SpouceInformationPartial.cshtml" />
+    <Content Include="Views\SpouseInformation\Create.cshtml" />
+    <Content Include="Views\SpouseInformation\Details.cshtml" />
+    <Content Include="Views\SpouseInformation\Edit.cshtml" />
+    <Content Include="Views\SpouseInformation\Index.cshtml" />
+    <Content Include="Views\Shared\_EmployeeTabIndexPartial.cshtml" />
+    <Content Include="Views\ChildrenInformation\Create.cshtml" />
+    <Content Include="Views\ChildrenInformation\Details.cshtml" />
+    <Content Include="Views\ChildrenInformation\Edit.cshtml" />
+    <Content Include="Views\ChildrenInformation\Index.cshtml" />
+    <Content Include="Views\JobCategory\Create.cshtml" />
+    <Content Include="Views\JobCategory\Details.cshtml" />
+    <Content Include="Views\JobCategory\Edit.cshtml" />
+    <Content Include="Views\JobCategory\Index.cshtml" />
+    <Content Include="Views\EmployeeType\Create.cshtml" />
+    <Content Include="Views\EmployeeType\Details.cshtml" />
+    <Content Include="Views\EmployeeType\Edit.cshtml" />
+    <Content Include="Views\EmployeeType\Index.cshtml" />
+    <Content Include="Views\GradationType\Create.cshtml" />
+    <Content Include="Views\GradationType\Details.cshtml" />
+    <Content Include="Views\GradationType\Edit.cshtml" />
+    <Content Include="Views\GradationType\Index.cshtml" />
+    <Content Include="Views\EmployeeInformation\Report.cshtml" />
+    <Content Include="Views\Account\UserLists.cshtml" />
+    <Content Include="Views\Account\UserEdit.cshtml" />
+    <Content Include="Views\EmployeeInformation\IndexByFilter.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Reports\NotActiveEmployeeRpt.cshtml" />
+    <Content Include="Views\Language\Create.cshtml" />
+    <Content Include="Views\Language\Details.cshtml" />
+    <Content Include="Views\Language\Edit.cshtml" />
+    <Content Include="Views\Language\Index.cshtml" />
+    <Content Include="Views\Reports\PrintPriviewNotActiveEmployeeRpt.cshtml" />
+    <Content Include="Views\Reports\StatusWiseEmployeeRpt.cshtml" />
+    <Content Include="Views\Reports\PrintPreviewStatusWiseEmployeeRpt.cshtml" />
+    <Content Include="Views\Reports\DesignationWiseEmployeeRpt.cshtml" />
+    <Content Include="Views\Reports\PrintPreviewDesignationWiseEmployeeRpt.cshtml" />
+    <Content Include="Views\Reports\DateWiseTransferRpt.cshtml" />
+    <Content Include="Views\Reports\PrintPreviewDateWiseTransferRpt.cshtml" />
+    <Content Include="Views\Reports\DateWisePromotionRpt.cshtml" />
+    <Content Include="Views\Reports\PrintPreviewDateWisePromotionRpt.cshtml" />
+    <Content Include="Views\Reports\LocationWiseEmployeeReport.cshtml" />
+    <Content Include="Views\Reports\PrintPreviewLocationWiseEmployeeReport.cshtml" />
+    <Content Include="Views\Years\Create.cshtml" />
+    <Content Include="Views\Years\Details.cshtml" />
+    <Content Include="Views\Years\Edit.cshtml" />
+    <Content Include="Views\Years\Index.cshtml" />
+    <Content Include="Views\WeeklyHolydaySetup\Create.cshtml" />
+    <Content Include="Views\WeeklyHolydaySetup\Details.cshtml" />
+    <Content Include="Views\WeeklyHolydaySetup\Edit.cshtml" />
+    <Content Include="Views\WeeklyHolydaySetup\Index.cshtml" />
+    <Content Include="Views\SpecialHolydaySetup\Create.cshtml" />
+    <Content Include="Views\SpecialHolydaySetup\Details.cshtml" />
+    <Content Include="Views\SpecialHolydaySetup\Edit.cshtml" />
+    <Content Include="Views\SpecialHolydaySetup\Index.cshtml" />
+    <Content Include="Views\CalculationMethod\Create.cshtml" />
+    <Content Include="Views\CalculationMethod\Details.cshtml" />
+    <Content Include="Views\CalculationMethod\Edit.cshtml" />
+    <Content Include="Views\CalculationMethod\Index.cshtml" />
+    <Content Include="Views\LeaveTypeInformation\Create.cshtml" />
+    <Content Include="Views\LeaveTypeInformation\Details.cshtml" />
+    <Content Include="Views\LeaveTypeInformation\Edit.cshtml" />
+    <Content Include="Views\LeaveTypeInformation\Index.cshtml" />
+    <Content Include="Views\LeaveApplication\Create.cshtml" />
+    <Content Include="Views\LeaveApplication\Details.cshtml" />
+    <Content Include="Views\LeaveApplication\Edit.cshtml" />
+    <Content Include="Views\LeaveApplication\Index.cshtml" />
+    <Content Include="Views\SpouseInformation\GetFilterData.cshtml" />
+    <Content Include="Views\ChildrenInformation\GetFilterData.cshtml" />
+    <Content Include="Views\PermanentAddress\GetFilterData.cshtml" />
+    <Content Include="Views\DisciplinaryActionsAndCriminalProsecution\GetFilterData.cshtml" />
+    <Content Include="Views\EducationalQualification\GetFilterData.cshtml" />
+    <Content Include="Views\LanguageInformation\GetFilterData.cshtml" />
+    <Content Include="Views\PresentAddress\GetFilterData.cshtml" />
+    <Content Include="Views\PostingRecords\GetFilterData.cshtml" />
+    <Content Include="Views\PromotionPartculars\GetFilterData.cshtml" />
+    <Content Include="Views\ServiceHistory\GetFilterData.cshtml" />
+    <Content Include="Views\TrainingInformation\GetFilterData.cshtml" />
+    <Content Include="Views\PromotionManagement\Index.cshtml" />
+    <Content Include="Views\LeaveApplication\LeaveApplicationDetailsPartial.cshtml" />
+    <Content Include="Views\PromotionManagement\PromotionFormPartial.cshtml" />
+    <Content Include="Views\TrainingInformationManagement\Index.cshtml" />
+    <Content Include="Views\TrainingInformationManagement\Create.cshtml" />
+    <Content Include="Views\TrainingInformationManagementMaster\Create.cshtml" />
+    <Content Include="Views\TrainingInformationManagementMaster\Index.cshtml" />
+    <Content Include="Views\TrainingInformationManagementMaster\Edit.cshtml" />
+    <Content Include="Views\TrainingManagementType\Create.cshtml" />
+    <Content Include="Views\TrainingManagementType\Details.cshtml" />
+    <Content Include="Views\TrainingManagementType\Edit.cshtml" />
+    <Content Include="Views\TrainingManagementType\Index.cshtml" />
+    <Content Include="Views\Transfer\Index.cshtml" />
+    <Content Include="Views\Transfer\_partialTransfer.cshtml" />
+    <Content Include="Views\TrainingInformationManagementMaster\TrainingCompleted.cshtml" />
+    <Content Include="Views\PromotionManagement\Create.cshtml" />
+    <Content Include="Views\Transfer\Transfer.cshtml" />
+    <Content Include="Views\Transfer\TransferList.cshtml" />
+    <Content Include="Views\Transfer\Details.cshtml" />
+    <Content Include="Views\Transfer\Edit.cshtml" />
+    <Content Include="Views\PromotionManagement\Edit.cshtml" />
+    <Content Include="Views\PromotionManagement\PromotionHistoryPartial.cshtml" />
+    <Content Include="Views\EmployeeInformation\PrintPreviewEmployeeRpt.cshtml" />
+    <Content Include="Views\Transfer\PostingEntry.cshtml" />
+    <Content Include="Views\Transfer\TransferHistoryPartial.cshtml" />
+    <Content Include="Views\EmployeeInformationCount\Index.cshtml" />
+    <Content Include="Views\EmployeeInformationCount\Create.cshtml" />
+    <Content Include="Views\EmployeeInformationCount\Edit.cshtml" />
+    <Content Include="Views\Organogram\Create.cshtml" />
+    <Content Include="Views\Organogram\Edit.cshtml" />
+    <Content Include="Views\Organogram\Index.cshtml" />
+    <Content Include="Views\Shared\_jsTreeDemo.cshtml" />
+    <Content Include="Views\jsTree3\Demo.cshtml" />
+    <Content Include="Views\jsTree3\AJAXDemo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Assets\" />
+    <Folder Include="Content\UploadEmployeePhotos\" />
+    <Folder Include="Controllers\Account\" />
+    <Folder Include="Services\Implementation\Account\" />
+    <Folder Include="Services\Interface\Account\" />
+    <Folder Include="Views\DisciplinaryHistory\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EnglishAndBanglaFeildValidation\CustomFeildValidation.csproj">
+      <Project>{c957bb19-d84f-4267-a789-ba8a02b29a72}</Project>
+      <Name>CustomFeildValidation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>30185</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:44353/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

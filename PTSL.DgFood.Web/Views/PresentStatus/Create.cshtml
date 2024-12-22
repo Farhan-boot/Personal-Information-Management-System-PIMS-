@@ -1,0 +1,54 @@
+﻿@model PTSL.DgFood.Web.Model.PresentStatusVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Present Status</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "PresentStatus", FormMethod.Post, new { id = "PresentStatusForm" }))
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputPresentStatus">Present Status Name <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control col-md-6" id="PresentStatusName" name="PresentStatusName" value="@Model.PresentStatusName" placeholder="Enter Present Status Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputPresentStatus">Present Status Name Bangla<span style="color:red;"></span></label>
+                    <input type="text" class="form-control col-md-6" id="PresentStatusNameBn" name="PresentStatusNameBn" value="@Model.PresentStatusNameBn" placeholder="Enter Present Status Name Bangla">
+                </div>
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/PresentStatus/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $(".submit-btn").on("click", function () {
+        if ($("#PresentStatusForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#PresentStatusForm").validate({
+        // Specify validation rules
+        rules: {
+            PresentStatusName: "required"
+        },
+
+    });
+
+
+</script>

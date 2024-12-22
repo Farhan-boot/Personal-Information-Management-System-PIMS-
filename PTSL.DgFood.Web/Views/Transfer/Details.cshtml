@@ -1,0 +1,195 @@
+﻿@model PTSL.DgFood.Web.Model.EmployeeTransferVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Transfer Details</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color: #4d626f; color:white">
+                </div>
+                <input type="hidden" name="Id" id="txtEmplyeeID" value="@Model.EmployeeInformationId" />
+                <div class="form-horizontal">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Transfer From Division  </label>
+                            @Html.DropDownList("TransferFromDivisionId", (SelectList)ViewBag.PostingRecordsFromDivisionId, "Choose..", new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Transfer From District  </label>
+                            @Html.DropDownList("TransferFromDistrictId", (SelectList)ViewBag.PostingRecordsFromDistrictId, "Choose..", new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Rank/Salary Grade </label>
+                            @Html.DropDownList("RankId", (SelectList)ViewBag.PostingRecordsRankId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Post Responsibility </label>
+                            @Html.DropDownList("PostResponsibilityId", (SelectList)ViewBag.PostingRecordsPostResponsibilityId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Designation Class </label>
+                            @Html.DropDownList("DesignationClassId", (SelectList)ViewBag.PostingRecordsDesignationClassId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Designation </label>
+                            @Html.DropDownList("DesignationId", (SelectList)ViewBag.PostingRecordsDesignationId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Posting Type </label>
+                            @Html.DropDownList("MainPostingTypeId", (SelectList)ViewBag.PostingRecordsPostingTypeId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Posting Place </label>
+                            @Html.DropDownList("PostingId", (SelectList)ViewBag.PostingRecordsPostingId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Section </label>
+                            <input typeof="text" class="form-control" id="Section" name="Section" value="@Model.Section" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Working As </label>
+                            @Html.DropDownList("WorkingAsId", (SelectList)ViewBag.PostingRecordsWorkingAsId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Period From </label>
+                            <input type="date" class="form-control" id="PeriodFrom" name="PeriodFrom" value="@(Model.PeriodFrom != null ? Convert.ToDateTime(Model.PeriodFrom).ToString("yyyy-MM-dd") : "")" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Period To </label>
+                            <input type="date" class="form-control" id="PeriodTo" name="PeriodTo" value="@(Model.PeriodTo != null ? Convert.ToDateTime(Model.PeriodTo).ToString("yyyy-MM-dd") : "" )" disabled>
+                        </div>
+                    </div>
+                    <hr style="border-top: 2px dashed black">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Transfer To Division  </label>
+                            @Html.DropDownList("TransferToDivisionId", (SelectList)ViewBag.PostingRecordsToDivisionId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Transfer To District  </label>
+                            @Html.DropDownList("TransferToDistrictId", (SelectList)ViewBag.PostingRecordsToDistrictId, "Choose..", new { @class = "form-control", @required = "required", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Designation Class for CC/Attachment etc.</label>
+                            @Html.DropDownList("CurrDesignationClassId", (SelectList)ViewBag.PostingRecordsCurrDesignationClassId, "Choose..", new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Designation for CC/Attachment etc.</label>
+                            @Html.DropDownList("CrntDesgId", (SelectList)ViewBag.PostingRecordsCrntDesgId, "Choose..", new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Posting Type for CC/Attachment etc.</label>
+                            @Html.DropDownList("DeppostingTypeId", (SelectList)ViewBag.PostingRecordsDeppostingTypeId, "Choose..", new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Posting for CC/Attachment etc.</label>
+                            @Html.DropDownList("DepPostingId", (SelectList)ViewBag.PostingRecordsDepPostingId, "Choose..", new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Attach. Section </label>
+                            <input typeof="text" class="form-control" id="AttachSection" name="AttachSection" value="@Model.AttachSection" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Download Original Transfer Order </label>
+                            @if (!string.IsNullOrEmpty(Model.UploadFiles) && !string.IsNullOrWhiteSpace(Model.UploadFiles))
+                            {
+                                <a href="~/Content/UploadTransferDocument/@Model.UploadFiles" class="btn btn-success pull-right"> Download</a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Memo No</label>
+                            <input typeof="text" class="form-control" id="MemoNo" name="MemoNo" value="@Model.MemoNo" disabled>
+                        </div>
+
+                    </div>
+                </div>
+                @*<div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover transferDatatable" id="tableExport2" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th style="text-align:center">Rank/Salary Grade</th>
+                                    <th style="text-align:center">Designation</th>
+                                    <th style="text-align:center">Post Responsibility</th>
+                                    <th style="text-align:center">Posting Place</th>
+                                    <th style="text-align:center">Action</th>
+                                </tr>
+                            </thead>
+                            @{
+                                int i = 1;
+                            }
+                            <tbody id="PostingRecordsList"></tbody>
+
+                        </table>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Transfer/TransferList" class="btn btn-warning">Return to List</a>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+       // LoadPostingRecordsData();
+        function LoadPostingRecordsData() {
+                $(".loader").show();
+                var employeeid = $("#txtEmplyeeID").val();
+                $.ajax({
+                    url: "@Url.Content("~/PostingRecords/GetFilterData")",
+                    type: 'POST',
+                    data:
+                    {
+                        EmployeeInformationId: employeeid
+                    },
+                    success: function (response) {
+                        $("#PostingRecordsList").replaceWith(response);
+                        LoadTransferDatatable();
+                        $(".loader").hide();
+                    },
+
+                    error: function (xhr) {
+                        $(".loader").hide();
+                        alert("Something went wrong, please try again");
+                    }
+                });
+        }
+    });
+</script>

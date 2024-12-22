@@ -1,0 +1,176 @@
+﻿@model PTSL.DgFood.Web.Model.EmployeeInformationCountVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+@{
+    var RankList = ViewBag.RankId;
+    var DesignationClassList = ViewBag.DesignationClassId;
+    var DesignationList = ViewBag.DesignationID;
+}
+
+    <div class="card">
+        <div class="card-header">
+            <h4>Update Information</h4>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Edit", "EmployeeInformationCount", FormMethod.Post, new { id = "EmployeeInformationCountForm" }))
+            {
+                <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+                @*<input type="hidden" name="CreatedAt" id="CreatedAt" value="@Model.CreatedAt" />
+                <input type="hidden" name="CreatedBy" id="CreatedBy" value="@Model.CreatedBy" />
+                <input type="hidden" name="IsActive" id="IsActive" value="@Model.IsActive" />
+                <input type="hidden" name="IsDeleted" id="IsDeleted" value="@Model.IsDeleted" />
+                <input type="hidden" name="DeletedAt" id="DeletedAt" value="@Model.DeletedAt" />
+                <input type="hidden" name="DeletedBy" id="DeletedBy" value="@Model.DeletedBy" />*@
+                <div class="form-horizontal">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Rank/Salary Grade <span style="color:red;">*</span></label>
+                            <select name="RankId" id="RankId" class="form-control" required>
+                                <option value="">Select</option>
+                                @if (RankList != null)
+                                {
+                                    foreach (var item in RankList)
+                                    {
+                                        if (item.Selected)
+                                        {
+                                            <option selected="selected" value="@item.Value">@item.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+
+                                    }
+                                }
+                            </select>
+                           @* @Html.DropDownList("RankId", (SelectList)ViewBag.RankId, "Choose..", new { @class = "form-control", @required = "required" })*@
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputDistrictName">Designation Class <span style="color:red;">*</span></label>
+                            <select name="DesignationClassId" id="DesignationClassId" class="form-control" required>
+                                <option value="">Select</option>
+                                @if (DesignationClassList != null)
+                                {
+                                    foreach (var item in DesignationClassList)
+                                    {
+                                        if (item.Selected)
+                                        {
+                                            <option selected="selected" value="@item.Value">@item.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+
+                                    }
+                                }
+                            </select>
+
+                            @*@Html.DropDownList("DesignationClassId", (SelectList)ViewBag.DesignationClassId, "Choose..", new { @class = "form-control", @required = "required" })*@
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputMaritalStatus">Designation <span style="color:red;">*</span></label>
+                            <select name="DesignationID" id="DesignationID" class="form-control" required>
+                                <option value="">Select</option>
+                                @if (DesignationList != null)
+                                {
+                                    foreach (var item in DesignationList)
+                                    {
+                                        if (item.Selected)
+                                        {
+                                            <option selected="selected" value="@item.Value">@item.Text</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+
+                                    }
+                                }
+                            </select>
+                            @*@Html.DropDownList("DesignationID", (SelectList)ViewBag.DesignationID, "Choose..", new { @class = "form-control", @required = "required" })*@
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCategory">Approved Total Post <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="ApprovedTotalPost" name="ApprovedTotalPost" value="@Model.ApprovedTotalPost" placeholder="Total approved post" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Current Total Active Post</label>
+                            <input type="text" class="form-control" id="CurrentTotalActivePost" name="CurrentTotalActivePost" value="@Model.CurrentTotalActivePost" placeholder="Current Total ActivePost">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Current Total Inactive Post</label>
+                            <input type="text" class="form-control" id="CurrentTotalInactivePost" name="CurrentTotalInactivePost" value="@Model.CurrentTotalInactivePost" placeholder="Current Total ActivePost">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputRank">Remarks</label>
+                            <input type="text" class="form-control" id="Remarks" name="Remarks" value="@Model.Remarks" placeholder="Remarks">
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                    </div>
+                </div>
+            }
+        </div>
+        <hr />
+        <div class="card-header pull-left">
+            <a href="/EmployeeInformationCount/Index" class="btn btn-warning">Return to Index</a>
+        </div>
+    </div>
+
+    <script>
+        $("#DesignationClassId").change(function () {
+            var selectedItem = $(this).val();
+            var ddlDesignation = $("#DesignationID");
+            if (selectedItem == "" || selectedItem == null) {
+                return true;
+            }
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: "/Dropdown/GetDesignationDropdownByDesignationClassId",
+                data: { "id": selectedItem },
+                success: function (data) {
+                    console.log(data);
+                    ddlDesignation.html('<option value="">Choose..</option>');
+                    $.each(data, function (id, option) {
+                        ddlDesignation.append($('<option></option>').val(option.Id).html(option.DesignationName));
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to retrieve states.');
+                }
+            });
+        });
+
+        $(".submit-btn").on("click", function () {
+            if ($("#EmployeeInformationCountForm").valid()) {
+                //Do something here
+                $(".loader").fadeIn("slow");
+            }
+        });
+
+        $("#EmployeeInformationCountForm").validate({
+            // Specify validation rules
+            rules: {
+                CurrentTotalActivePost: "required",
+                CurrentTotalInactivePost: "required",
+                ApprovedTotalPost: "required",
+
+                DesignationID: "required",
+                RankId: "required",
+                DesignationClassId: "required"
+            },
+
+        });
+
+    </script>

@@ -1,0 +1,36 @@
+﻿@model PTSL.DgFood.Web.Model.LeaveTypeInformationVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Leave Type Information Details</h4>
+    </div>
+    <div class="card-body">
+        <div class="form-horizontal">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:33px;">Name In English: <b>@Model.NameInEnglish</b></td>
+                    <td style="width:33px;">Name In Bangla: <b>@Model.NameInBangla</b></td>
+                    <td style="width:34px;">Eligible For: <b>@Model.EligibleFor</b></td>
+                </tr>
+                <tr>
+                    <td style="width:33px;">Calculation Method: <b>@Model.CalculationMethodDTO.CalculationMethodName</b></td>
+                    <td style="width:33px;">Max Days Per Year: <b>@Model.MaxDaysPerYear</b></td>
+                    <td style="width:34px;">Leave Restriction: <b>@Model.LeaveRestriction</b></td>
+                </tr>
+                <tr>
+                    <td style="width:33px;">Leave Limit: <b>@Model.LeaveLimit</b></td>
+                    <td style="width:34px;">Application Within: <b>@Model.ApplicationWithIn</b></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/LeaveTypeInformation/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>

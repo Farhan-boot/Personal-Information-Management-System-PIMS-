@@ -1,0 +1,25 @@
+﻿@model PTSL.DgFood.Web.Model.PmsGroupVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Group Details</h4>
+    </div>
+
+    <div class="card-body">
+        <table style="width:100%">
+            <tr>
+                <td style="width:50px;">Group Name: <b>@Model.GroupName</b></td>
+                <td style="width:50px;">Group Description: <b>@Model.GroupDescription</b></td>
+            </tr>
+        </table>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/PmsGroup/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

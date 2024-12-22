@@ -1,0 +1,340 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.OfficialInformationVM>
+@{
+    ViewBag.Title = "Index";
+    var RoleName = Session["RoleName"].ToString();
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-12">
+                    <h4>PRL Activities</h4>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <label class="pull-right">
+                        <input type="checkbox" id="checkAll" /> Select all
+                        <button type="submit" id="emailALl" class="emailBtnAll btn btn-primary" onclick="sendNotify('E-Mail')" data-toggle="modal" data-target="#prl-notice-email-modal">Email Selected</button>
+                        <button type="submit" id="" class="smsBtnAll btn btn-info" onclick="sendNotify('SMS')" data-toggle="modal" data-target="#prl-notice-sms-modal">SMS Selected</button>
+                    </label>
+                    <table class="table table-striped table-bordered table-hover" id="EmployeeTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th style="width:1%">SL</th>
+                                <th style="width:7%">Employee Id</th>
+                                <th style="width:15%">Name</th>
+                                <th style="width:10%">First Joining Date</th>
+                                <th style="width:10%">PRL Date</th>
+                                <th style="width:14%;">Action</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var data in Model)
+                                {
+                                    <tr id="tr-@data.Id">
+                                        <td>@i</td>
+                                        <td>@data.EmployeeInformationId</td>
+                                        <td>@data.EmployeeInformationDTO.NameEnglish</td>
+                                        <td>@(data.FirstJoiningDate?.ToString("M/d/yyyy"))</td>
+                                        <td>@(data.PRLDate?.ToString("M/d/yyyy"))</td>
+
+                                        <td id="td-@data.EmployeeInformationId" class="not-export-col">
+                                            <input type="hidden" class="EmployeeInformationId" name="EmployeeInformationId" value="@Model.Select(x=>x.EmployeeInformationDTO.Id)" />
+                                            <input type="hidden" name="Email" value="@data.EmployeeInformationDTO.Email" class="emailHidden" />
+                                            <input type="hidden" name="Mobile" value="@data.EmployeeInformationDTO.MobileNumber" class="mobileHidden" />
+                                            <span class="pull-right"><input type="checkbox" class="single-chk"/>Check</span>
+                                            <button type="submit" id="emailBtn" class="emailBtn btn btn-primary" data-toggle="modal" data-target="#prl-notice-email-modal" onclick="javascript: sendEmail(@data.EmployeeInformationId, 'E-Mail')">Email </button>
+                                            <button type="submit" id="smsBtn" class="smsBtn btn btn-info" data-toggle="modal" data-target="#prl-notice-sms-modal" onclick="javascript: sendSMS(@data.EmployeeInformationId, 'SMS')">SMS</button>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>               
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Create", "PRL", FormMethod.Post, new { id = "PRLNoticeForm", enctype = "multipart/form-data" }))
+{
+    <div class="main-content">
+        <input type="hidden" name="employeeInformationId" value="@Model.Select(x=>x.EmployeeInformationDTO.Id)" id="dId" />
+
+        <!-- Modal Email -->
+        <div class="modal fade " id="prl-notice-email-modal" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg" width="20%" height="70px" >
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title" id="myLargeModalLabel" style="color:white;">PRL Notice By E-Mail</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="form-horizontal">
+
+                                <form class="email-form">
+                                    <div class="email-form-header">To Email</div>
+                                    <div class="form-group">
+                                        <span  id="prlEmail" class="form-control email-form-input" ></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="email-form-label" for="subject">Subject</label>
+                                        <input type="text" class="form-control email-form-input" id="subject" name="Subject" placeholder="Enter email subject" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="email-form-label" for="body">Message</label>
+                                        <textarea type="text" class="form-control form-control-lg" id="messageBody" name="MessageBody" required></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary pull-left">Send</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Modal SMS-->
+<div class="modal fade " id="prl-notice-sms-modal" tabindex="-1" role="document" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="myLargeModalLabel" style="color:white;">PRL Notice By SMS</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="form-horizontal">
+                        <table id="tbl1" style="width:100%" border="1">
+                            <tr>
+                                <td style="width:10%;"><b>Receiver :</b></td>
+                                <td style="width:95%;"><span id="prlMobile"></span></td>
+                            <tr>
+                                <td style="width:10%;"><b>Message :</b></td>
+                                <td colspan="3">
+                                    <textarea type="text" class="form-control form-control-lg" id="smsBody" name="MessageBody" required></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" onclick="NoticeBYSMS()" class="btn btn-primary pull-left">Send</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //var EmployeeIds = [];
+    //var selectData = [];
+    var selectedIds = [];
+    var subject = "";
+    var body = "";
+    var email = "";
+    var mobile = "";
+    var noticeType = ""
+    var selectedEmails = [];
+
+    if (selectedIds.length == 0) {
+        $('.table .emailBtn, .table .smsBtn').prop('disabled', true);
+        $('.pull-right .emailBtnAll, .pull-right .smsBtnAll').prop('disabled', true);
+
+    }
+    if (selectedIds.length == 1) {
+        $('.pull-right .emailBtnAll, .pull-right .smsBtnAll').prop('disabled', true);
+    }
+
+    function sendNotify(buttonId) {
+        debugger;
+        noticeType = buttonId;
+        selectedIds = $.unique(selectedIds);
+        var numSelected = selectedIds.length;
+
+        if (numSelected != 1) {
+            if (numSelected > 0) {
+                $("#prlEmail").text("You have selected multiple e-mails.")
+                $("#prlMobile").text("You have selected multiple mobile numbers.")
+            }
+            else {
+                $("#prlEmail, #prlMobile").text("Yoy can not send E-Mail or SMS. Plsease 'Check' first.")
+            }
+        } else {
+            email = $("#tr-" + selectedIds[0]).find(".email").val();
+            mobile = $("#tr-" + selectedIds[0]).find(".mobile").val();
+        }
+    }
+
+
+    function NoticeBYSMS() {
+        debugger;
+        var smsbody = $('#smsBody').val();
+
+        $.ajax({
+            url: '/PRL/Create',
+            method: 'POST',
+            data: {
+                selectedIds: selectedIds,
+                Subject: 'PRL Notice By SMS',
+                MessageBody: smsbody,
+                NoticeType: 'SMS'
+            },
+            success: function (response) {
+                //alert(response.SessionMessage);
+                $('#prl-notice-sms-modal').modal('hide'); // hide the modal dialog box
+                location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Error sending sms: ' + errorThrown);
+            }
+        });
+    }
+
+    $('#PRLNoticeForm').submit(function (event) {
+      
+        debugger;
+        event.preventDefault();
+        var formData = $(this).serialize();
+        var subject = $('input[name="Subject"]').val();
+        var mailbody = $('textarea[name="MessageBody"]').val();
+
+        $.ajax({
+            url: '/PRL/Create',
+            method: 'POST',
+            data: {
+                selectedIds: selectedIds,
+                Subject: subject,
+                MessageBody: mailbody,
+                NoticeType: noticeType
+            },
+            success: function (response) {
+                //alert(response.SessionMessage);
+                $('#prl-notice-email-modal').modal('hide');
+                location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Error sending email: ' + errorThrown);
+            }
+        });
+    });
+
+    function getPrlModalData(id) {
+        debugger
+        var email = $('#td-' + id).find('.emailHidden').val();
+        var mobile = $("#td-" + id).find(".mobileHidden").val();
+        $("#prlEmail").text(email)
+        $("#prlMobile").text(mobile)
+        //selectedIds.push(id);
+    }
+
+    function sendEmail(employeeId, buttonId) {
+        debugger;
+        noticeType = buttonId;
+        getPrlModalData(employeeId);
+    }
+
+    function sendSMS(employeeId, buttonId) {
+        debugger;
+        noticeType = buttonId;
+        getPrlModalData(employeeId);
+    }
+
+    $(document).ready(function () {
+        debugger;
+        $("#checkAll").change(function () {
+            debugger;
+
+          
+            if ($(this).prop('checked') == true) {
+                selectedIds = [];
+                var terf = document.getElementById('EmployeeTable');
+                var secondChild = terf.querySelectorAll("td:nth-child(2)");
+                for (i = 0; i < secondChild.length; ++i) {
+                    selectedIds.push(secondChild[i].innerHTML);
+                }
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+                $('.table .emailBtn, .table .smsBtn').prop('disabled', true);
+                $('.pull-right .emailBtnAll, .pull-right .smsBtnAll').prop('disabled', false);
+            }
+            else {
+                selectedIds.splice(0, selectedIds.length)
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+                $('.table .emailBtn, .table .smsBtn').prop('disabled', true);
+                $('.pull-right .emailBtnAll, .pull-right .smsBtnAll').prop('disabled', true);
+
+            }
+        });
+
+        $("input.single-chk").change(function () {
+            debugger;
+            var isChecked = $(this).prop("checked");
+            var id = $(this).closest('tr').find('td:nth-child(2)').html();
+
+            if (isChecked){
+                selectedIds.push(id);
+                $('.emailBtn, .smsBtn').prop('disabled', true);
+
+                if (selectedIds.length > 1){
+                    $('.pull-right .emailBtnAll, .pull-right .smsBtnAll').prop('disabled', false);
+                }
+                else{
+                    $(this).closest('tr').find('.emailBtn, .smsBtn').prop('disabled', false);
+                }
+
+            }
+            else{
+                var index = selectedIds.indexOf(id);
+                if (index !== -1) {
+                    selectedIds.splice(index, 1);
+                }
+                else if (selectedIds.length == 1){
+                    $('input[type=checkbox]').prop('disabled', false);
+                    $('.emailBtn, .smsBtn').prop('disabled', true);
+                }
+            }
+            if (selectedIds.length == 0){
+                $('.table .emailBtn, .table .smsBtn').prop('disabled', true);
+                $('.pull-right .emailBtnAll, .pull-right .smsBtnAll').prop('disabled', true);
+
+            }
+            if (selectedIds.length == 1) {
+                $('.pull-right .emailBtnAll, .pull-right .smsBtnAll').prop('disabled', true);
+                if ($("#checkAll").is(':checked')) {
+                    $("#checkAll").prop("checked", false);
+                }
+
+                $('input[type=checkbox]:checked').first().parent().parent().find(".emailBtn, .smsBtn").prop("disabled", false)
+            
+            }
+            var terf = document.getElementById('EmployeeTable');
+            var alldata = terf.querySelectorAll("td:nth-child(2)");
+            if (alldata.length == selectedIds.length) {
+                $("#checkAll").prop("checked", true);
+            }
+        });
+    });
+   </script>

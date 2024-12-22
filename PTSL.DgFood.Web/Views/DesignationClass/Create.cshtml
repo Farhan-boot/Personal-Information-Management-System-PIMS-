@@ -1,0 +1,55 @@
+﻿@model PTSL.DgFood.Web.Model.DesignationClassVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New DesignationClass</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "DesignationClass", FormMethod.Post, new { id = "DesignationClassForm" }))
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputDesignationClass">DesignationClass Name <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control col-md-6" id="DesignationClassName" name="DesignationClassName" value="@Model.DesignationClassName" placeholder="Enter DesignationClass Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputDesignationClass">Designation Class Name Bangla<span style="color:red;"></span></label>
+                    <input type="text" class="form-control col-md-6" id="DesignationClassNameBn" name="DesignationClassNameBn" value="@Model.DesignationClassNameBn" placeholder="Enter DesignationClass Name Bangla">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/DesignationClass/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $(".submit-btn").on("click", function () {
+        if ($("#DesignationClassForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#DesignationClassForm").validate({
+        // Specify validation rules
+        rules: {
+            DesignationClassName: "required"
+        },
+
+    });
+
+
+</script>

@@ -1,0 +1,105 @@
+﻿@model PTSL.DgFood.Web.Model.UserVM
+@{
+    ViewBag.Title = "Register";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Edit User</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("UserEdit", "Account", FormMethod.Post, new { id = "AccountForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+            <input type="hidden" id="EmployeeInformationId" name="EmployeeInformationId" value="@Model.EmployeeInformationId" />
+            <input type="hidden" id="CreatedAt" name="CreatedAt" value="@Model.CreatedAt" />
+            <div class="form-horizontal">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">User Group <span style="color:red;">*</span></label>
+                        @Html.DropDownList("PmsGroupId", (SelectList)ViewBag.GroupList, "Choose..", new { @class = "form-control", @required = "required" })
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">Password <span style="color:red;">*</span></label>
+                        <input type="password" class="form-control" id="UserPassword" name="UserPassword" value="@Model.UserPassword" placeholder="Enter User Password" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">User Name <span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" placeholder="Enter User Name" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">Confirm Password <span style="color:red;">*</span></label>
+                        <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" value="@Model.UserPassword" placeholder="Enter Confirm Password" required>
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputRank">Email  <span style="color:red;">*</span></label>
+                        <input type="email" class="form-control" id="UserEmail" name="UserEmail" value="@Model.UserEmail" placeholder="Enter User Email" required>
+                    </div>
+
+                </div>
+
+                <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right" id="userRegister">Submit</button>
+                </div>
+            </div>
+        }
+
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Account/UserLists" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+
+
+<script>
+
+
+
+    $("#userRegister").on("click", function () {
+        var email = $('#UserEmail').val();
+
+        var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (email == null || email == "" || !emailReg.test(email)) {
+            sweetAlert("Error", "Please Input a valid Email !!!", "warning");
+            return false;
+        }
+
+        if ($('#UserPassword').val() != $('#ConfirmPassword').val()) {
+            sweetAlert("Password Not Mathced...", "password not matched !!!", "warning");
+            return false;
+        }
+        if ($("#AccountForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#AccountForm").validate({
+        // Specify validation rules
+        rules: {
+
+            GroupId: "required",
+            UserPassword: "required",
+            UserName: "required",
+            ConfirmPassword: "required",
+            UserEmail: "required"
+        },
+
+    });
+
+
+
+</script>

@@ -1,0 +1,18 @@
+insert into PaymentDetails 
+SELECT [PackageDetailId]
+      ,[TotalCost]
+	  ,case when PackageDetails.ContractAmount is null then 0 else PackageDetails.contractamount end
+	  ,case when PackageDetails.PaymentMade is null then 0 else PackageDetails.PaymentMade end	  
+	  ,PackageDetails.CreateDate
+	  ,PackageDetails.PackageId
+	  ,Payments.PaymentId
+	  ,Payments.IsLive
+	  ,0
+	   ,'2021-08-29 17:29:01.597'
+	   ,'ccb2ce9a-c858-4a9d-8a9f-e183e9758504'
+	   ,'2021-08-29 17:29:01.597'
+	   ,'ccb2ce9a-c858-4a9d-8a9f-e183e9758504'
+        
+  FROM [IRIDP3LIVE].[dbo].[PackageDetails]
+  inner join Payments on PackageDetails.PackageId = payments.PackageId
+  where Payments.PaymentMade > 0

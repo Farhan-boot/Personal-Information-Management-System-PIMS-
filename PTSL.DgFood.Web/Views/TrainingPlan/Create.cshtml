@@ -1,0 +1,107 @@
+﻿@model PTSL.DgFood.Web.Model.TrainingPlanVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Training Plan</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "TrainingPlan", FormMethod.Post, new { id = "TrainingPlanForm" }))
+        {
+            <div class="form-horizontal row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputPossibleTrainingWorkshopTopics">Possible Training/Workshop Topics<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="PossibleTrainingWorkshopTopics" name="PossibleTrainingWorkshopTopics" value="@Model.PossibleTrainingWorkshopTopics" placeholder="Enter Possible Training/Workshop Topics" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTrainingHours">Training Hours<span style="color:red;">*</span></label>
+                        <input type="number" class="form-control" id="TrainingHours" name="TrainingHours" value="@Model.TrainingHours" placeholder="Enter Training Hours" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputGradeId">Grade<span style="color:red;">*</span></label>
+                        @Html.DropDownList("GradeId", null, "Choose Grade", htmlAttributes: new { @class = "form-control col-md-12", @required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTotalTrainingHours">Total Training Hours<span style="color:red;">*</span></label>
+                        <input type="number" class="form-control" id="TotalTrainingHours" name="TotalTrainingHours" value="@Model.TotalTrainingHours" placeholder="Enter Total Training Hours" readonly>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="inputNumberOfParticipants">Number Of Participants<span style="color:red;">*</span></label>
+                        <input type="number" class="form-control" id="NumberOfParticipants" name="NumberOfParticipants" value="@Model.NumberOfParticipants" placeholder="Enter Number Of Participants" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputInstructorOrConsultant">Instructor Or Consultant<span style="color:red;">*</span></label>
+                        <input type="text" class="form-control" id="InstructorOrConsultant" name="InstructorOrConsultant" value="@Model.InstructorOrConsultant" placeholder="Enter Instruct Or Consultant" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProbableStartDate">Probable Start Date<span style="color:red;">*</span></label>
+                        <input type="date" class="form-control" id="ProbableStartDate" name="ProbableStartDate" value="@Model.ProbableStartDate" placeholder="Enter Probable Start Date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputProbableEndDate">Probable End Date<span style="color:red;">*</span></label>
+                        <input type="date" class="form-control" id="ProbableEndDate" name="ProbableEndDate" value="@Model.ProbableEndDate" placeholder="Enter Probable End Date" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/TrainingPlan/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $(".submit-btn").on("click", function () {
+        if ($("#TrainingPlanForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#TrainingPlanForm").validate({
+        // Specify validation rules
+        rules: {
+            TrainingPlanName: "required"
+        },
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#NumberOfParticipants").val(0);
+        $("#TrainingHours").val(0);
+
+        $('#NumberOfParticipants').on('click', function () {
+            var numberOfParticipants =  $("#NumberOfParticipants").val();
+            var trainingHours = $("#TrainingHours").val();
+            var total = Number(numberOfParticipants) * Number(trainingHours);
+            $("#TotalTrainingHours").val(total);
+        });
+
+        $('#TrainingHours').on('click', function () {
+            var numberOfParticipants = $("#NumberOfParticipants").val();
+            var trainingHours = $("#TrainingHours").val();
+            var total = Number(numberOfParticipants) * Number(trainingHours);
+            $("#TotalTrainingHours").val(total);
+        });
+
+        $('#GradeId').on('click', function () {
+            var numberOfParticipants = $("#NumberOfParticipants").val();
+            var trainingHours = $("#TrainingHours").val();
+            var total = Number(numberOfParticipants) * Number(trainingHours);
+            $("#TotalTrainingHours").val(total);
+        });
+    });
+</script>

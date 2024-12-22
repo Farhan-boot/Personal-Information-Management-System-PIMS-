@@ -1,0 +1,28 @@
+﻿@model PTSL.DgFood.Web.Model.DesignationClassVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>DesignationClass Details</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="inputDesignationClass" style="font-size:15px;">DesignationClass Name: <b>@Model.DesignationClassName</b></label>
+                @*<input type="text" class="form-control col-md-6" id="DesignationClassName" name="DesignationClassName" value="@Model.DesignationClassName" placeholder="Enter DesignationClass Name">*@
+            </div>
+            <div class="form-group">
+                <label for="inputDesignationClassBn" style="font-size:15px;">Designation Class Name Bangla: <b>@Model.DesignationClassNameBn</b></label>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/DesignationClass/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

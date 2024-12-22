@@ -1,0 +1,27 @@
+﻿@model PTSL.DgFood.Web.Model.EntityViewModels.EmployeeManagementEntity.UniversityInformationVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>University Information Details</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="inputUniversityName" style="font-size:15px;">University Name English : <b>@Model.UniversityName</b></label><br/>
+                <label for="inputUniversityNameBn" style="font-size:15px;">University Name Bangla: <b>@Model.UniversityNameBn</b></label> <br />
+                @*<label for="inputEstablishedYear" style="font-size:15px;">Established Year: <b>@Model.EstablishedYear</b></label> <br />
+                <label for="inputLocation" style="font-size:15px;">Location: <b>@Model.Location</b></label>*@
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/UniversityInformation/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

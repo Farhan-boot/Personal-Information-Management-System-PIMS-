@@ -1,0 +1,126 @@
+﻿@model PTSL.DgFood.Web.Model.SpouseInformationVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Edit Spouse Information</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "SpouseInformation", FormMethod.Post, new { id = "spouceInformationform" }))
+        {
+            <input type="hidden" id="EmployeeInformationId" name="EmployeeInformationId" value="@Model.EmployeeInformationId" />
+            <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+            <input type="hidden" name="CreatedAt" id="CreatedAt" value="@Model.CreatedAt" />
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputRank">Name in Bangla <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control col-md-6" id="NameInBangla" name="NameInBangla" value="@Model.NameInBangla" placeholder="Enter Name In Bangla" required>
+
+                </div>
+                <div class="form-group">
+                    <label for="inputRank">Name in English <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control col-md-6" id="NameInEnglish" name="NameInEnglish" value="@Model.NameInEnglish" placeholder="Enter Name In English" required>
+
+                </div>
+                <div class="form-group">
+                    <label for="inputDistrictName">Division <span style="color:red;">*</span></label>
+                    @Html.DropDownList("DivisionId", null, "Choose..", htmlAttributes: new { @class = "form-control col-md-6", @required = "required" })
+
+                </div>
+                <div class="form-group">
+                    <label for="inputDistrictName">District <span style="color:red;">*</span></label>
+                    @Html.DropDownList("DistrictId", null, "Choose..", htmlAttributes: new { @class = "form-control col-md-6", @required = "required" })
+
+                </div>
+                <div class="form-group">
+                    <label for="inputRank">Occupation <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control col-md-6" id="Occupation" name="Occupation" value="@Model.Occupation" placeholder="Enter Occupation" required>
+
+                </div>
+                <div class="form-group">
+                    <label for="inputRank">Designation</label>
+                    <input type="text" class="form-control col-md-6" id="Designation" name="Designation" value="@Model.Designation" placeholder="Enter Designation">
+
+                </div>
+                <div class="form-group">
+                    <label for="inputRank">Location</label>
+                    <input type="text" class="form-control col-md-6" id="Location" name="Location" value="@Model.Location" placeholder="Enter Location">
+
+                </div>
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/SpouceInformation/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $("#DivisionId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDistrict = $("#DistrictId");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/EmployeeInformation/GetDistrictByDivisionId",
+            data: { "divisionId": selectedItem },
+            success: function (data) {
+                ddlDistrict.html('');
+                $.each(data, function (id, option) {
+                    ddlDistrict.append($('<option></option>').val(option.Id).html(option.DistrictName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+
+    //$("#submitBtn").click(function () {
+    //    var selectedItem = $(this).val();
+    //    var ddlDistrict = $("#DistrictId");
+    //    var data = $("#spouceInformationform").serialize();
+    //    $.ajax({
+    //        cache: false,
+    //        type: "Post",
+    //        url: "/SpouceInformation/Create",
+    //        data: data,
+    //        success: function (data) {
+    //            alert(data.message);
+    //        },
+    //        error: function (xhr, ajaxOptions, thrownError) {
+    //            alert('Failed to retrieve states.');
+    //        }
+    //    });
+    //});
+
+    $(".submit-btn").on("click", function () {
+        if ($("#spouseInformationForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#spouseInformationForm").validate({
+        // Specify validation rules
+        rules: {
+            NameInBangla: "required",
+            NameInEnglish: "required",
+            DivisionId: "required",
+            DistrictId: "required",
+            Occupation: "required"
+        },
+
+    });
+
+
+</script>

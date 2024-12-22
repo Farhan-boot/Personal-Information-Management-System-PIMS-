@@ -1,0 +1,137 @@
+﻿@model PTSL.DgFood.Web.Model.EntityViewModels.EmployeeManagementEntity.EmployeeViewModel
+
+@using (Html.BeginForm("Create", "PostingRecords", FormMethod.Post, new { id = "PostingRecordsForm", enctype = "multipart/form-data" }))
+{
+    @*<input type="hidden" name="id" id="id" value="@Model.PresentAddressVM.Id" />*@
+    <input type="hidden" id="PostingRecordsVM_EmployeeInformationId" name="PostingRecordsVM.EmployeeInformationId" value="" />
+    @*<input type="hidden" id="PostingRecordsVM_Id" name="PostingRecordsVM.Id" value="@Model.PostingRecordsVM.Id" />*@
+    @*<input type="hidden" id="PostingRecordsVM_CreatedAt" name="PostingRecordsVM.CreatedAt" value="@Model.PostingRecordsVM.CreatedAt" />*@
+    <div class="form-horizontal">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Transfer From Division  <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.TransferFromDivisionId", (SelectList)ViewBag.PostingRecordsFromDivisionId, "Choose..", new { @class = "form-control" })*@
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Transfer From District  <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.TransferFromDistrictId", (SelectList)ViewBag.PostingRecordsFromDistrictId, "Choose..", new { @class = "form-control" })*@
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Rank/Salary Grade <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.RankId", (SelectList)ViewBag.PostingRecordsRankId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Post Responsibility <span style="color:red;">*</span> (<span style="color:red;">Input</span> OTHERS <span style="color:red;">if not</span> CSD MANAGER/SMO/OCLSD)</label>
+                @*@Html.DropDownList("PostingRecordsVM.PostResponsibilityId", (SelectList)ViewBag.PostingRecordsPostResponsibilityId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Designation Class <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.DesignationClassId", (SelectList)ViewBag.PostingRecordsDesignationClassId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Designation <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.DesignationId", (SelectList)ViewBag.PostingRecordsDesignationId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Posting Type <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.MainPostingTypeId", (SelectList)ViewBag.PostingRecordsPostingTypeId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Posting Place <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.PostingId", (SelectList)ViewBag.PostingRecordsPostingId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputRank">Section (<span style="color:red;">Fill up if working in a Section</span><span style="color:blue;"> Example.</span> Section: PPT)</label>
+                <input typeof="text" class="form-control" id="PostingRecordsVM_Section" name="PostingRecordsVM.Section" value="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Working As <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.WorkingAsId", (SelectList)ViewBag.PostingRecordsWorkingAsId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputRank">Period From <span style="color:red;">*</span></label>
+                <input typeof="text" class="form-control datepicker" id="PostingRecordsVM_PeriodFrom" name="PostingRecordsVM.PeriodFrom" value="" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputRank">Period To <span style="color:red;">*</span></label>
+                <input typeof="text" class="form-control datepicker" id="PostingRecordsVM_PeriodTo" name="PostingRecordsVM.PeriodTo" value="" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="inputRank"><span style="color:black;">When select</span><span style="color: black;"> Working</span><span style="color: black;"> As</span><span style="color: black;"> Current Charge(CC)/Attachment/Interim with self pay/Deputation</span><span style="color: black;"> etc. FILL UP the following data BUT in case of</span><span style="color: black;"> Others</span><span style="color: black;"> NO NEED to fill up it</span></label>
+            </div>
+
+        </div>
+        @*<hr style="border-top: 2px dashed red">*@
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Transfer To Division  <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.TransferToDivisionId", (SelectList)ViewBag.PostingRecordsToDivisionId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Transfer To District  <span style="color:red;">*</span></label>
+                @*@Html.DropDownList("PostingRecordsVM.TransferToDistrictId", (SelectList)ViewBag.PostingRecordsToDistrictId, "Choose..", new { @class = "form-control", @required = "required" })*@
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Designation Class for CC/Attachment etc.</label>
+                @*@Html.DropDownList("PostingRecordsVM.CurrDesignationClassId", (SelectList)ViewBag.PostingRecordsCurrDesignationClassId, "Choose..", new { @class = "form-control" })*@
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Designation for CC/Attachment etc.</label>
+                @*@Html.DropDownList("PostingRecordsVM.CrntDesgId", (SelectList)ViewBag.PostingRecordsCrntDesgId, "Choose..", new { @class = "form-control" })*@
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Posting Type for CC/Attachment etc.</label>
+                @*@Html.DropDownList("PostingRecordsVM.DeppostingTypeId", (SelectList)ViewBag.PostingRecordsDeppostingTypeId, "Choose..", new { @class = "form-control" })*@
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Posting for CC/Attachment etc.</label>
+                @*@Html.DropDownList("PostingRecordsVM.DepPostingId", (SelectList)ViewBag.PostingRecordsDepPostingId, "Choose..", new { @class = "form-control" })*@
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputRank">Attach. Section (if any) (<span style="color:black;">Fill up if working in a Section</span><span style="color: black;"> Example.</span> Section: PPT)</label>
+                <input typeof="text" class="form-control" id="PostingRecordsVM_AttachSection" name="PostingRecordsVM.AttachSection" value="">
+            </div>
+            <div class="form-group col-md-6">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputRank">Memo No</label>
+                <input typeof="text" class="form-control" id="PostingRecordsVM_MemoNo" name="PostingRecordsVM.MemoNo" value="">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputRank">Upload Original Transfer Order </label>
+                <input type="file" class="form-control" id="PostingRecordsVM_UploadFiles" name="PostingRecordsVM.UploadFiles" value="" onchange="return postingfileValidation()">
+            </div>
+        </div>
+
+        <div class="form-group col-md-12">
+            <button type="submit" class="btn btn-primary submit-btn pull-right" id="PostingRecordsBtn">Submit</button>
+        </div>
+    </div>
+}

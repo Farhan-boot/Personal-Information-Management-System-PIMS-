@@ -1,0 +1,350 @@
+﻿@model PTSL.DgFood.Web.Model.EmployeeTransferVM
+
+<div class="card-body">
+    <div class="form-horizontal">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: #4d626f; color:white">
+            </div>
+                    @*@using (Html.BeginForm("Transfer", "Transfer", FormMethod.Post, new { id = "TransferForm", enctype = "multipart/form-data" }))
+                    {*@
+                        @*<input type="hidden" name="id" id="id" value="@Model.PresentAddressVM.Id" />*@
+                        <input type="hidden" id="EmployeeInformationId" name="EmployeeInformationId" value="@Model.EmployeeInformationId" />
+                        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                        <input type="hidden" id="CreatedAt" name="CreatedAt" value="@Model.CreatedAt" />
+                        <div class="form-horizontal">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Transfer From Division  <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("TransferFromDivisionId", (SelectList)ViewBag.PostingRecordsFromDivisionId, "Choose..", new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Transfer From District  <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("TransferFromDistrictId", (SelectList)ViewBag.PostingRecordsFromDistrictId, "Choose..", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Rank/Salary Grade <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("RankId", (SelectList)ViewBag.PostingRecordsRankId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Post Responsibility <span style="color:red;">*</span> (<span style="color:red;">Input</span> OTHERS <span style="color:red;">if not</span> CSD MANAGER/SMO/OCLSD)</label>
+                                    @Html.DropDownList("PostResponsibilityId", (SelectList)ViewBag.PostingRecordsPostResponsibilityId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Designation Class <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("DesignationClassId", (SelectList)ViewBag.PostingRecordsDesignationClassId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Designation <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("DesignationId", (SelectList)ViewBag.PostingRecordsDesignationId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Posting Type <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("MainPostingTypeId", (SelectList)ViewBag.PostingRecordsPostingTypeId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Posting Place <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("PostingId", (SelectList)ViewBag.PostingRecordsPostingId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputRank">Section (<span style="color:black;">Fill up if working in a Section</span><span style="color:black;"> Example.</span> Section: PPT)</label>
+                                    <input typeof="text" class="form-control" id="Section" name="Section" value="@Model.Section">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Working As <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("WorkingAsId", (SelectList)ViewBag.PostingRecordsWorkingAsId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputRank">Period From <span style="color:red;">*</span></label>
+                                    <input type="date" class="form-control" id="PeriodFrom" name="PeriodFrom" value="@(Model.PeriodFrom != null ? Convert.ToDateTime(Model.PeriodFrom).ToString("MM-dd-yyyy") : "")" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputRank">Period To <span style="color:red;"></span></label>
+                                    <input type="date" class="form-control" id="PeriodTo" name="PeriodTo" value="@(Model.PeriodTo != null ? Convert.ToDateTime(Model.PeriodTo).ToString(" MM-dd-yyyy") : "" )">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="inputRank"><span style="color:black;">When select</span><span style="color: black;"> Working</span><span style="color: black;"> As</span><span style="color: black;"> Current Charge(CC)/Attachment/Interim with self pay/Deputation</span><span style="color: black;"> etc. FILL UP the following data BUT in case of</span><span style="color: black;"> Others</span><span style="color: black;"> NO NEED to fill up it</span></label>
+                                </div>
+
+                            </div>
+                            @*<hr style="border-top: 2px dashed black">*@
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Transfer To Division  <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("TransferToDivisionId", (SelectList)ViewBag.PostingRecordsToDivisionId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Transfer To District  <span style="color:red;">*</span></label>
+                                    @Html.DropDownList("TransferToDistrictId", (SelectList)ViewBag.PostingRecordsToDistrictId, "Choose..", new { @class = "form-control", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Designation Class for CC/Attachment etc.</label>
+                                    @Html.DropDownList("CurrDesignationClassId", (SelectList)ViewBag.PostingRecordsCurrDesignationClassId, "Choose..", new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Designation for CC/Attachment etc.</label>
+                                    @Html.DropDownList("CrntDesgId", (SelectList)ViewBag.PostingRecordsCrntDesgId, "Choose..", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Posting Type for CC/Attachment etc.</label>
+                                    @Html.DropDownList("DeppostingTypeId", (SelectList)ViewBag.PostingRecordsDeppostingTypeId, "Choose..", new { @class = "form-control" })
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputDistrictName">Posting for CC/Attachment etc.</label>
+                                    @Html.DropDownList("DepPostingId", (SelectList)ViewBag.PostingRecordsDepPostingId, "Choose..", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputRank">Attach. Section (if any) (<span style="color:black;">Fill up if working in a Section</span><span style="color: black;"> Example.</span> Section: PPT)</label>
+                                    <input typeof="text" class="form-control" id="AttachSection" name="AttachSection" value="@Model.AttachSection">
+                                </div>
+                                <div class="form-group col-md-6">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="inputRank">Memo No</label>
+                                    <input typeof="text" class="form-control" id="MemoNo" name="MemoNo" value="@Model.MemoNo">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputRank">Upload Original Transfer Order </label>
+                                    <input type="file" class="form-control" id="UploadFiles" name="UploadFiles" value="@Model.UploadFiles" onchange="return postingfileValidation()">
+                                </div>
+                            </div>
+                        </div>
+                    @* } *@
+                    @*<div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover transferDatatable" id="tableExport2" style="width:100%;">
+                                <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th style="text-align:center">Rank/Salary Grade</th>
+                                        <th style="text-align:center">Designation</th>
+                                        <th style="text-align:center">Post Responsibility</th>
+                                        <th style="text-align:center">Posting Place</th>
+                                    </tr>
+                                </thead>
+                                @{
+                                    int i = 1;
+                                }
+                                <tbody id="PostingRecordsList"></tbody>
+
+                            </table>
+                        </div>
+                    </div>*@
+        </div>
+    </div>
+</div>
+
+<script>
+    function postingfileValidation() {
+        var fileInput =
+            document.getElementById('UploadFiles');
+
+        var filePath = fileInput.value;
+
+        // Allowing file type
+        var allowedExtensions =
+            /(\.jpg|\.jpeg|\.png|\.gif|\.pdf)$/i;
+
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Invalid file type');
+            fileInput.value = '';
+            return false;
+        }
+
+    }
+</script>
+
+<script>
+    $("#DesignationClassId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDesignation = $("#DesignationId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetDesignationDropdownByDesignationClassId",
+            data: { "id": selectedItem },
+            success: function (data) {
+                console.log(data);
+                ddlDesignation.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDesignation.append($('<option></option>').val(option.Id).html(option.DesignationName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+    $("#CurrDesignationClassId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDesignation = $("#CrntDesgId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetDesignationDropdownByDesignationClassId",
+            data: { "id": selectedItem },
+            success: function (data) {
+                console.log(data);
+                ddlDesignation.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDesignation.append($('<option></option>').val(option.Id).html(option.DesignationName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+    $("#MainPostingTypeId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDesignation = $("#PostingId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetPostingDropdownByPostingTypesId",
+            data: { "id": selectedItem },
+            success: function (data) {
+                console.log(data);
+                ddlDesignation.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDesignation.append($('<option></option>').val(option.Id).html(option.PostingName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+    $("#DeppostingTypeId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDesignation = $("#DepPostingId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetPostingDropdownByPostingTypesId",
+            data: { "id": selectedItem },
+            success: function (data) {
+                console.log(data);
+                ddlDesignation.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDesignation.append($('<option></option>').val(option.Id).html(option.PostingName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+
+
+    $("#TransferFromDivisionId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDistrict = $("#TransferFromDistrictId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetDistrictDropdownByDivisionId",
+            data: { "divisionId": selectedItem },
+            success: function (data) {
+                ddlDistrict.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDistrict.append($('<option></option>').val(option.Id).html(option.DistrictName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+    $("#TransferToDivisionId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDistrict = $("#TransferToDistrictId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetDistrictDropdownByDivisionId",
+            data: { "divisionId": selectedItem },
+            success: function (data) {
+                ddlDistrict.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDistrict.append($('<option></option>').val(option.Id).html(option.DistrictName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+
+
+    $("#PostingRecordsBtn").on("click", function () {
+        if ($("#TransferForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#TransferForm").validate({
+        // Specify validation rules
+        rules: {
+            TransferFromDivisionId: "required",
+            TransferFromDistrictId: "required",
+            RankId: "required",
+            PostResponsibilityId: "required",
+            DesignationClassId: "required",
+            DesignationId: "required",
+            PostingTypeId: "required",
+            PostingId: "required",
+            PeriodFrom: "required",
+            //PeriodTo: "required",
+            WorkingAsId: "required",
+            TransferToDistrictId: "required",
+            TransferToDivisionId: "required"
+        },
+    });
+
+</script>

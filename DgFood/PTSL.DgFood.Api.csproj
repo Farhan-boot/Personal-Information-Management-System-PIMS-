@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\DgFoodReadOnlyCtxMigrations\**" />
+    <Content Remove="Migrations\DgFoodReadOnlyCtxMigrations\**" />
+    <EmbeddedResource Remove="Migrations\DgFoodReadOnlyCtxMigrations\**" />
+    <None Remove="Migrations\DgFoodReadOnlyCtxMigrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20211018135846_NationalId-Modified.cs" />
+    <Compile Remove="Migrations\20211018135846_NationalId-Modified.Designer.cs" />
+    <Compile Remove="Migrations\20221025135356_EmployeeBugFixed.cs" />
+    <Compile Remove="Migrations\20221025135356_EmployeeBugFixed.Designer.cs" />
+    <Compile Remove="Migrations\20230216071154_PRLUpdate.cs" />
+    <Compile Remove="Migrations\20230216071154_PRLUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20230216071934_PRL.cs" />
+    <Compile Remove="Migrations\20230216071934_PRL.Designer.cs" />
+    <Compile Remove="Migrations\20230216072052_PRL.cs" />
+    <Compile Remove="Migrations\20230216072052_PRL.Designer.cs" />
+    <Compile Remove="Migrations\20230216073429_PRLNoticeTable.cs" />
+    <Compile Remove="Migrations\20230216073429_PRLNoticeTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PTSL.DgFood.Service\PTSL.DgFood.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="jsons\RoutesDetailsLineStringJsonURL\" />
+    <Folder Include="jsons\RoutesMasterfilesLineString\" />
+  </ItemGroup>
+
+
+</Project>

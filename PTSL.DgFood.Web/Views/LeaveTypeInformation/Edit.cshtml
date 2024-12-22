@@ -1,0 +1,120 @@
+﻿@model PTSL.DgFood.Web.Model.LeaveTypeInformationVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Edit Leave Type Information</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "LeaveTypeInformation", FormMethod.Post, new { id = "LeaveTypeInformationForm" }))
+        {
+            <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+            <input type="hidden" name="CreatedAt" id="CreatedAt" value="@Model.CreatedAt" />
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="inputLeaveTypeInformation">Name In Bangla <span style="color:red;">*</span></label>
+                        <input type="text" class="form-control col-md-12" id="NameInBangla" name="NameInBangla" value="@Model.NameInBangla" placeholder="Enter Name In Bangla" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLeaveTypeInformation">Name In English <span style="color:red;">*</span></label>
+                        <input type="text" class="form-control col-md-12" id="NameInEnglish" name="NameInEnglish" value="@Model.NameInEnglish" placeholder="Enter Name In English" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLeaveTypeInformation">Eligible For <span style="color:red;">*</span></label>
+                        @Html.DropDownList("EligibleFor", null, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLeaveTypeInformation">Calculation Method <span style="color:red;">*</span></label>
+                        @Html.DropDownList("CalculationMethodId", null, "Choose..", htmlAttributes: new { @class = "form-control", @required = "required" })
+
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLeaveTypeInformation">Max Days Per Year <span style="color:red;">*</span> (days)</label>
+                        <input type="number" class="form-control col-md-12" id="MaxDaysPerYear" name="MaxDaysPerYear" value="@Model.MaxDaysPerYear" placeholder="Enter Max Days Per Year" required>
+
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="inputLeaveTypeInformation">Leave Restriction <span style="color:red;">*</span> (at a time)</label>
+                        <input type="number" class="form-control col-md-12" id="LeaveRestriction" name="LeaveRestriction" value="@Model.LeaveRestriction" placeholder="Enter Leave Restriction" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLeaveTypeInformation">Leave Limit <span style="color:red;">*</span> (days without medical certificate)</label>
+                        <input type="number" class="form-control col-md-12" id="LeaveLimit" name="LeaveLimit" value="@Model.LeaveLimit" placeholder="Enter Leave Limit" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="inputLeaveTypeInformation">Application Within <span style="color:red;">*</span> (days at post emergency)</label>
+                        <input type="number" class="form-control col-md-12" id="ApplicationWithIn" name="ApplicationWithIn" value="@Model.ApplicationWithIn" placeholder="Enter Application Within" required>
+
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/LeaveTypeInformation/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $(".submit-btn").on("click", function () {
+        if ($("#LeaveTypeInformationForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#LeaveTypeInformationForm").validate({
+        // Specify validation rules
+        rules: {
+            NameInBangla: "required",
+            NameInEnglish: "required",
+            EligibleFor: "required",
+            CalculationMethodId: "required",
+            MaxDaysPerYear: "required",
+            LeaveRestriction: "required",
+            LeaveLimit: "required",
+            ApplicationWithIn: "required",
+        },
+
+    });
+
+    $(function () {
+        if ($("#StartDate").val() == "01-01-0001") {
+
+            $("#StartDate").datepicker({
+                format: 'MM/dd/yyyy',
+            }).datepicker("setDate", 'now');
+        }
+        else {
+            $(".datepicker").datepicker();
+        }
+
+        if ($("#EndDate").val() == "01-01-0001") {
+
+            $("#EndDate").datepicker({
+                format: 'MM/dd/yyyy',
+            }).datepicker("setDate", 'now');
+        }
+        else {
+            $(".datepicker").datepicker();
+        }
+    });
+</script>

@@ -1,0 +1,102 @@
+﻿@model PTSL.DgFood.Web.Model.OrganogramVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Information</h4>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "Organogram", FormMethod.Post, new { id = "OrganogramForm" }))
+        {
+        <div class="form-horizontal">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputDistrictName">Office Type <span style="color:red;">*</span></label>
+                    @Html.DropDownList("PostingTypeId", (SelectList)ViewBag.PostingTypeId, "Choose..", new { @class = "form-control", @required = "required" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputDistrictName">Office <span style="color:red;">*</span></label>
+                    @Html.DropDownList("PostingId", (SelectList)ViewBag.PostingId, "Choose..", new { @class = "form-control", @required = "required" })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputMaritalStatus">Parent Office <span style="color:red;">*</span></label>
+                    @Html.DropDownList("ParentPostingId", (SelectList)ViewBag.ParentPostingId, "Choose..", new { @class = "form-control", @required = "required" })
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputMaritalStatus">Designation <span style="color:red;">*</span></label>
+                    @Html.DropDownList("DesignationID", (SelectList)ViewBag.DesignationID, "Choose..", new { @class = "form-control", @required = "required" })
+                </div>
+                
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCategory">Total Post <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" id="TotalPost" name="TotalPost" value="@Model.TotalPost" placeholder="Total Post" required>
+                </div>
+                <div class="form-group col-md-6">
+                     
+                </div>
+            </div> 
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+            </div>
+        </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Organogram/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $("#DesignationClassId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDesignation = $("#DesignationID");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetDesignationDropdownByDesignationClassId",
+            data: { "id": selectedItem },
+            success: function (data) {
+                console.log(data);
+                ddlDesignation.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDesignation.append($('<option></option>').val(option.Id).html(option.DesignationName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+
+    $(".submit-btn").on("click", function () {
+        if ($("#OrganogramForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#OrganogramForm").validate({
+        // Specify validation rules
+        rules: {
+            PostingTypeId: "required",
+            PostingId: "required",
+            ParentPostingId: "required",
+            DesignationID: "required",
+            TotalPost: "required"
+        },
+
+    });
+
+</script>

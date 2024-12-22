@@ -1,0 +1,283 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.EmployeeInformationVM>
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-12">
+                    <h4>Reports</h4>
+                </div>
+
+            </div>
+            @using (Html.BeginForm())
+            {
+                <div class="card-header">
+                    <div class="col-md-6">
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" id="statusWiseRptRadio" name="radio" onclick="ShowReport('statusWiseRpt')" /> Report-1: Employee Status Wise Employee List</label></div>
+
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="NotActiveEmployeeRpt" value="NotActiveEmployeeRpt" name="action:NotActiveEmployeeRpt" /> Report-2: Retired/Self Resigned/Death/Dismissed etc. List</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" id="statusWiseRptRadio" name="radio" onclick="ShowReport('designationWiseRpt')" /> Report-3: Designation wise Employee List</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" id="statusWiseRptRadio" name="radio" onclick="ShowReport('dateWiseTransferReport')" /> Report-4: Date wise Transfer reports</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" id="statusWiseRptRadio" name="radio" onclick="ShowReport('dateWisePromotionReport')" /> Report-5: Date wise Promotion reports</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" id="statusWiseRptRadio" name="radio" onclick="ShowReport('locationWiseEmployeeReport')" /> Report-6: Division/District/Upazila wise Employee List</label></div>
+
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="ShowReport('firstJoiningDateWiseEmployeeReport')" /> Report-7: 1st Joining Date wise Employee List</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="ShowReport('dateWisePRLReport')" /> Report-8: PRL Report (Date Range Wise)</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="ShowReport('gradationListWiseReport')" /> Report-9: Gradation List Wise Report</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="ShowReport('bloodGroupWiseReport')" /> Report-10: Blood Group Wise Report</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="ShowReport('trainingReport')" /> Report-11: Training Report</label></div>
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="ShowReport('trainingCompletionReport')" /> Report-12: Training Completion Report</label></div>
+
+                        <!--
+    <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="" /> Report-12: Fit List Wise Report</label></div>
+    <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="" /> Report-13: Recruitment Management Report</label></div>
+    -->
+
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" name="radio" onclick="ShowReport('employeeByDisciplinary')" /> Report-13: List Employee by Disciplinary Actions</label></div>
+
+
+
+                        <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" id="statusWiseRptRadio" name="radio" onclick="ShowReport('allEmployee')" /> Report-14: All Employee List</label></div>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <div id="statusWiseRpt" class="searchDiv" style="display:none">
+                            <label for="inputRank">Employee Status <span style="color:red;">*</span></label>
+                            @Html.DropDownList("EmployeeStatusId", (SelectList)ViewBag.EmployeeStatusId, "Choose..", new { @class = "form-control" })
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="StatusWiseEmployeeRpt" value="StatusWiseEmployeeRpt" name="action:StatusWiseEmployeeRpt" /> Search</label></div>
+                        </div>
+                        <div id="designationWiseRpt" class="searchDiv" style="display:none">
+                            <label for="inputRank">Designation <span style="color:red;">*</span></label>
+                            @Html.DropDownList("DesignationId", (SelectList)ViewBag.DesignationId, "Choose..", new { @class = "form-control" })
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="DesignationWiseEmployeeRpt" value="DesignationWiseEmployeeRpt" name="action:DesignationWiseEmployeeRpt" /> Search</label></div>
+                        </div>
+                        <div id="dateWiseTransferReport" class="searchDiv" style="display:none">
+                            <label for="inputRank">From Date <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control datepicker" id="TransferFromDate" name="TransferFromDate">
+                            <label for="inputRank">To Date <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control datepicker" id="TransferToDate" name="TransferToDate">
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="DateWiseTransferRpt" value="DateWiseTransferRpt" name="action:DateWiseTransferRpt" /> Search</label></div>
+                        </div>
+                        <div id="dateWisePromotionReport" class="searchDiv" style="display:none">
+                            <label for="inputRank">From Date <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control datepicker" id="PromotionFromDate" name="PromotionFromDate">
+                            <label for="inputRank">To Date <span style="color:red;">*</span></label>
+                            <input type="text" class="form-control datepicker" id="PromotionToDate" name="PromotionToDate">
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="DateWisePromotionRpt" value="DateWisePromotionRpt" name="action:DateWisePromotionRpt" /> Search</label></div>
+                        </div>
+
+                        <!-- PRL Report (Date Wise) -->
+                        <div id="dateWisePRLReport" class="searchDiv" style="display:none">
+                            <label>PRL From Date <span style="color:red;">*</span></label>
+                            <input type="date" class="form-control datepicker" id="PRLFromDate" name="PRLFromDate">
+                            <label>PRL To Date <span style="color:red;">*</span></label>
+                            <input type="date" class="form-control datepicker" id="PRLToDate" name="PRLToDate">
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="PRLReportDateWiseRpt" value="PRLReportDateWiseRpt" name="action:PRLReportDateWiseRpt" /> Search</label></div>
+                        </div>
+
+                        <div id="locationWiseEmployeeReport" class="searchDiv" style="display:none">
+                            <label for="inputRank">Division <span style="color:red;">*</span></label>
+                            @Html.DropDownList("DivisionId", (SelectList)ViewBag.DivisionId, "Choose..", new { @class = "form-control" })
+
+                            <label for="inputRank">District <span style="color:red;">*</span></label>
+                            @Html.DropDownList("DistrictId", (SelectList)ViewBag.DistrictId, "Choose..", new { @class = "form-control" })
+
+                            <label for="inputRank">Police Station <span style="color:red;">*</span></label>
+                            @Html.DropDownList("PoliceStationId", (SelectList)ViewBag.PoliceStationId, "Choose..", new { @class = "form-control" })
+
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="LocationWiseEmployeeReport" value="LocationWiseEmployeeReport" name="action:LocationWiseEmployeeReport" /> Search</label></div>
+                        </div>
+                        <div id="firstJoiningDateWiseEmployeeReport" class="searchDiv" style="display:none">
+                            <label>First joining date <span style="color:red;">*</span></label>
+                            <input type="date" class="form-control datepicker" id="FirstJoiningDate" name="FirstJoiningDate">
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="FirstJoiningDateWiseEmployeeRpt" value="FirstJoiningDateWiseEmployeeRpt" name="action:FirstJoiningDateWiseEmployeeRpt" /> Search</label></div>
+                        </div>
+
+                        <div id="gradationListWiseReport" class="searchDiv" style="display:none">
+                            <label for="inputRank">Gradation Type List <span style="color:red;">*</span></label>
+                            @Html.DropDownList("GradationTypeId", (SelectList)ViewBag.GradationTypeId, "Choose..", new { @class = "form-control" })
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="GradationListWiseReport" value="GradationListWiseReport" name="action:GradationListWiseReport" /> Search</label></div>
+                        </div>
+
+                        <div id="bloodGroupWiseReport" class="searchDiv" style="display:none">
+                            <label>Blood Groups <span style="color:red;">*</span></label>
+                            @Html.DropDownList("BloodGroup", (SelectList)ViewBag.BloodGroupId, "Choose..", new { @class = "form-control" })
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="BloodGroupWiseReport" value="BloodGroupWiseReport" name="action:BloodGroupWiseReport" /> Search</label></div>
+                        </div>
+                        <div id="trainingReport" class="searchDiv" style="display:none">
+                            <label>Training Management Types <span style="color:red;">*</span></label>
+                            @Html.DropDownList("TrainingManagementMasterId", (SelectList)ViewBag.TrainingManagementMasterId, "Choose..", new { @class = "form-control" })
+
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="TrainingReport" value="TrainingReport" name="action:TrainingReport" /> Search</label></div>
+                        </div>
+                        <div id="trainingCompletionReport" class="searchDiv" style="display:none">
+                            <label>Training From Date <span style="color:red;">*</span></label>
+                            <input class="form-control" type="date" name="TrainingFromDate" placeholder="Training from date" />
+                            <label>Training To Date <span style="color:red;">*</span></label>
+                            <input class="form-control" type="date" name="TrainingToDate" placeholder="Training to date" />
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="TrainingCompletionReport" value="TrainingCompletionReport" name="action:TrainingCompletionReport" /> Search</label></div>
+                        </div>
+                        <div id="employeeByDisciplinary" class="searchDiv" style="display:none">
+                            <label>Disciplinary Category <span style="color:red;">*</span></label>
+                            @Html.DropDownList("CategoryId", (SelectList)ViewBag.CategoryId, "Choose..", new { @class = "form-control" })
+                            <label>Disciplinary Present Status</label>
+                            @Html.DropDownList("PresentStatusId", (SelectList)ViewBag.PresentStatusId, "Choose..", new { @class = "form-control" })
+                            <div class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="TrainingReport" value="GetEmployeeByDisciplinaryAction" name="action:GetEmployeeByDisciplinaryAction" /> Search</label></div>
+                        </div>
+
+                        <div id="allEmployee" class="searchDiv" style="display:none">
+                            <!--Dami filter start-->
+                            <label>Training Management Types <span style="color:red;">*</span></label>
+                            @Html.DropDownList("TrainingManagementMasterId", (SelectList)ViewBag.TrainingManagementMasterId, "Choose..", new { @class = "form-control" })
+
+                            <label>Training From Date <span style="color:red;">*</span></label>
+                            <input class="form-control" type="date" name="TrainingFromDate" placeholder="Training from date" />
+                            <label>Training To Date <span style="color:red;">*</span></label>
+                            <input class="form-control" type="date" name="TrainingToDate" placeholder="Training to date" />
+
+                            <label>Disciplinary Category <span style="color:red;">*</span></label>
+                            @Html.DropDownList("CategoryId", (SelectList)ViewBag.CategoryId, "Choose..", new { @class = "form-control" })
+                            <label>Disciplinary Present Status</label>
+                            @Html.DropDownList("PresentStatusId", (SelectList)ViewBag.PresentStatusId, "Choose..", new { @class = "form-control" })
+                            <!--Dami Filter end-->
+
+                            <div id="dvAllStatusRpt" class="pull-li-left" style="margin-left:41px;"> <label><input type="radio" onclick="javascript: submit()" id="DesignationWiseEmployeeRpt" value="DesignationWiseEmployeeRpt" name="action:AllEmployeeRpt" /> Search</label></div>
+                        </div>
+
+
+                    </div>
+                </div>
+                 
+            }
+            <div class="card-body">
+                <div class="table-responsive">
+
+                    <div class="col-md-12">
+                        @*<button type="submit" class="btn btn-primary submit-btn pull-right" style="margin-top:35px">Search</button>*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+   
+        <script>
+            function ShowReport(val) {
+                debugger;
+                $(".searchDiv").hide();
+                if (val == "statusWiseRpt") {
+                    $("#statusWiseRpt").show();
+                }
+                else if (val == "designationWiseRpt") {
+                    $("#designationWiseRpt").show();
+                }
+                else if (val == "dateWiseTransferReport") {
+                    $("#dateWiseTransferReport").show();
+                }
+                else if (val == "dateWisePromotionReport") {
+                    $("#dateWisePromotionReport").show();
+                }
+                else if (val == "locationWiseEmployeeReport") {
+                    $("#locationWiseEmployeeReport").show();
+                }
+                else if (val == "firstJoiningDateWiseEmployeeReport") {
+                    $("#firstJoiningDateWiseEmployeeReport").show();
+                }
+                else if (val == "dateWisePRLReport") {
+                    $("#dateWisePRLReport").show();
+                }
+                else if (val == "gradationListWiseReport") {
+                    $("#gradationListWiseReport").show();
+                }
+                else if (val === "bloodGroupWiseReport") {
+                    $("#bloodGroupWiseReport").show();
+                }
+                else if (val === "trainingReport") {
+                    $("#trainingReport").show();
+                }
+                else if (val === "trainingCompletionReport") {
+                    $("#trainingCompletionReport").show();
+                }
+                else if (val === "employeeByDisciplinary") {
+                    $("#employeeByDisciplinary").show();
+                }
+                else if (val == "allEmployee") {
+                    $("#allEmployee").show();
+                }
+
+
+            }
+
+            $(function () {
+                $("#TransferFromDate").datepicker({
+                    format: 'MM/dd/yyyy',
+                }).datepicker("setDate", 'now');
+                $("#TransferToDate").datepicker({
+                    format: 'MM/dd/yyyy',
+                }).datepicker("setDate", 'now');
+
+                $("#PromotionFromDate").datepicker({
+                    format: 'MM/dd/yyyy',
+                }).datepicker("setDate", 'now');
+                $("#PromotionToDate").datepicker({
+                    format: 'MM/dd/yyyy',
+                }).datepicker("setDate", 'now');
+                /*
+                $("#FirstJoiningDate").datepicker({
+                    format: 'MM/dd/yyyy',
+                }).datepicker("setDate", 'now');
+                */
+
+            });
+
+            $("#DivisionId").change(function () {
+                var selectedItem = $(this).val();
+                var ddlDistrict = $("#DistrictId");
+                if (selectedItem == "" || selectedItem == null) {
+                    return true;
+                }
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/dropdown/GetDistrictDropdownByDivisionId",
+                    data: { "divisionId": selectedItem },
+                    success: function (data) {
+                        ddlDistrict.html('<option>Choose..</option>');
+                        $.each(data, function (id, option) {
+                            ddlDistrict.append($('<option></option>').val(option.Id).html(option.DistrictName));
+                        });
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                    }
+                });
+            });
+
+            $("#DistrictId").change(function () {
+                var selectedItem = $(this).val();
+                var ddlDistrict = $("#PoliceStationId");
+                if (selectedItem == "" || selectedItem == null) {
+                    return true;
+                }
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "/Dropdown/GetPoliceStationDropdownByDistrictId",
+                    data: { "districtId": selectedItem },
+                    success: function (data) {
+                        ddlDistrict.html('<option>Choose..</option>');
+                        $.each(data, function (id, option) {
+                            ddlDistrict.append($('<option></option>').val(option.Id).html(option.PoliceStationName));
+                        });
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                    }
+                });
+            });
+</script>

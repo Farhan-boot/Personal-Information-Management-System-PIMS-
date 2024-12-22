@@ -1,0 +1,64 @@
+﻿@model PTSL.DgFood.Web.Model.WeeklyHolydaySetupVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Edit Weekly Holiday Setup</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "WeeklyHolydaySetup", FormMethod.Post, new { id = "WeeklyHolydaySetupForm" }))
+        {
+            <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+            <input type="hidden" name="CreatedAt" id="CreatedAt" value="@Model.CreatedAt" />
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputWeeklyHolydaySetup">Day <span style="color:red;">*</span></label>
+                    @Html.DropDownList("Day", null, "Choose..", htmlAttributes: new { @class = "form-control col-md-6", @required = "required" })
+
+                </div>
+                <div class="form-group">
+                    <label for="inputWeeklyHolydaySetup">Year <span style="color:red;">*</span></label>
+                    @Html.DropDownList("YearsId", null, "Choose..", htmlAttributes: new { @class = "form-control col-md-6", @required = "required" })
+
+                </div>
+                <div class="form-group">
+                    <label for="inputWeeklyHolydaySetup">Date <span style="color:red;">*</span></label>
+                    <input type="date" class="form-control col-md-6 datepicker" id="HolidayDate" name="HolidayDate" value="@Model.HolidayDate.ToString("yyyy-MM-dd")" placeholder="Enter Holiday Date" required>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/WeeklyHolydaySetup/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $(".submit-btn").on("click", function () {
+        if ($("#WeeklyHolydaySetupForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#WeeklyHolydaySetupForm").validate({
+        // Specify validation rules
+        rules: {
+            HolidayDate: "required",
+            Day: "required",
+            YearId: "required"
+        },
+
+    });
+
+</script>

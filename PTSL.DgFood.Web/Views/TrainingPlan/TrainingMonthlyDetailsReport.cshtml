@@ -1,0 +1,166 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.CustomModal.TrainingMonthlyDetailsReportVM>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-10">
+                    <h4>Training Monthly Details Report</h4>
+                    <h5>Training Plan, @DateTime.Now.Year</h5>
+                </div>
+                @*<div class="col-md-2">
+                    <a href="/TrainingPlan/Create" class="badge badge-success badge-shadow pull-left">Create New</a>
+                </div>*@
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="tableExport" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Grade</th>
+                                <th>Employees Number</th>
+                                <th>Employees Wise Training(Hours)</th>
+                                <th>Total Training Hours</th>
+                                <th>January</th>
+                                <th>February</th>
+                                <th>March</th>
+                                <th>April</th>
+                                <th>May</th>
+                                <th>June</th>
+                                <th>July</th>
+                                <th>August</th>
+                                <th>September</th>
+                                <th>October</th>
+                                <th>November</th>
+                                <th>December </th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            foreach (var data in Model)
+                            {
+                                <tr>
+                                    <td>@data.Grade</td>
+                                    <td>@data.EmployeesNumber</td>
+                                    <td>@data.EmployeesWiseTrainingHours</td>
+                                    <td>@data.TotalTrainingHours</td>
+                                    <td>@data.January</td>
+                                    <td>@data.February</td>
+                                    <td>@data.March</td>
+                                    <td>@data.April</td>
+                                    <td>@data.May</td>
+                                    <td>@data.June</td>
+                                    <td>@data.July</td>
+                                    <td>@data.August</td>
+                                    <td>@data.September</td>
+                                    <td>@data.October</td>
+                                    <td>@data.November</td>
+                                    <td>@data.December</td>
+                                </tr>
+                                i++;
+                            }
+                        }
+                    </tbody>
+
+                    <tbody>
+                        <tr style="font-weight:bold">
+                            <td>Total</td>
+                            <td>@Model.Select(x => x.EmployeesNumber).Sum()</td>
+                            <td>@Model.Select(x => x.EmployeesWiseTrainingHours).Sum()</td>
+                            <td>@Model.Select(x => x.TotalTrainingHours).Sum()</td>
+                            <td>@Model.Select(x => x.January).Sum()</td>
+                            <td>@Model.Select(x => x.February).Sum()</td>
+                            <td>@Model.Select(x => x.March).Sum()</td>
+                            <td>@Model.Select(x => x.April).Sum()</td>
+                            <td>@Model.Select(x => x.May).Sum()</td>
+                            <td>@Model.Select(x => x.June).Sum()</td>
+                            <td>@Model.Select(x => x.July).Sum()</td>
+                            <td>@Model.Select(x => x.August).Sum()</td>
+                            <td>@Model.Select(x => x.September).Sum()</td>
+                            <td>@Model.Select(x => x.October).Sum()</td>
+                            <td>@Model.Select(x => x.November).Sum()</td>
+                            <td>@Model.Select(x => x.December).Sum()</td>
+                        </tr>
+                    </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteConfirmMessage(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            var data = { 'id': id };
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: "/TrainingPlan/Delete",
+                data: data,
+                datatype: "json",
+                success: function (result) {
+                    console.log(result);
+                    var message = result.Message;
+                    var executionState = result.executionState;
+                    if (executionState != null) {
+                        if (executionState != 10) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        }
+                        else {
+                            swal("Deleted Faild!", message, "success");
+                        }
+
+                        $(".confirm").on('click', function () {
+                            window.location.reload();
+                        });
+                    }
+                },
+                error: function (xmlhttprequest, textstatus, errorthrown) {
+                    swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+                }
+            });
+        });
+    }
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#tableExport').DataTable({
+            stateSave: true,
+            "bDestroy": true,
+            "bFilter": false,
+            pageLength: 5,
+            dom: 'lBfrtip',
+            buttons: [
+               
+                {
+                    extend: 'print',
+                    title: '<div style="text-align:center">Training Monthly Details Report<br/><h5>Training Plan, @DateTime.Now.Year</h5></div>',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
+

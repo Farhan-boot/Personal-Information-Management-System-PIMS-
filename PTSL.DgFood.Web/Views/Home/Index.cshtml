@@ -1,0 +1,441 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+    var dashboard = ViewBag.Dashboard as PTSL.DgFood.Web.Model.EntityViewModels.DashboardVM;
+    var trainingManagementTypes = ViewBag.TrainingManagementTypes as List<PTSL.DgFood.Web.Model.TrainingManagementTypeVM>;
+
+    var TotalEmployee = dashboard.TotalEmployeeOfficeWise?.TotalEmployee ?? 0;
+    var DirectEmployee = dashboard.DirectAndPromotionalEmployee?.DirectEmployee ?? 0;
+    var PromotionalEmployee = dashboard.DirectAndPromotionalEmployee?.PromotionalEmployee ?? 0;
+
+    double directPercentage = Math.Round((double)DirectEmployee / TotalEmployee * 100);
+    double promotionalPercentage = Math.Round((double)PromotionalEmployee / TotalEmployee * 100);
+}
+@using PTSL.DgFood.Web.Helper;
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css" rel="stylesheet" />
+</head>
+
+<style>
+    #dashboard {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+    }
+
+    .box {
+        height: 150px;
+        border-radius: 10px;
+        color: white;
+        padding: 18px;
+        position: relative;
+        overflow: hidden;
+    }
+    .box::after {
+        content: "";
+        width: 30px;
+        height: 30px;
+        background: red;
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        border-radius: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .greenish {
+        background-image: url(/Content/wave-greenish.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: hsl(155 66% 70% / 1);
+    }
+    .yellow {
+        background-image: url(/Content/wave-yellow.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: hsl(27.23deg 96.75% 75.88%);
+    }
+    .blue {
+        background-image: url(/Content/wave-blue.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: hsl(208 99% 71% / 1);
+    }
+    .p-font-bold {
+        font-size: 27px;
+        font-weight: 600;
+    }
+</style>
+
+<!-- Visual -->
+<div class="row mb-4" style="row-gap: 10px;">
+    <div class="col-md-3 col-lg-12 col-xl-3">
+        <div class="box greenish">
+            <p class="p-font-bold">@(TotalEmployee)</p>
+            <p style="font-size: 18px;">Total Employees</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-lg-12 col-xl-3">
+        <div class="box yellow">
+            <p class="p-font-bold">@(DirectEmployee)</p>
+            <p style="font-size: 18px;">Direct Recruited Employees</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-lg-12 col-xl-3">
+        <div class="box blue">
+            <p class="p-font-bold">@(PromotionalEmployee)</p>
+            <p style="font-size: 18px;">Promotional Recruited Employees</p>
+        </div>
+    </div>
+    <div class="col-md-3 col-lg-12 col-xl-3">
+        <div class="card" style="height: 150px;">
+            <div class="card-header" style="padding-bottom: 0 !important;">
+                <h6 style="line-height: 0.6;">Direct & Promotional</h6>
+            </div>
+            <div class="card-body" style="padding: 0 !important;">
+                <div id="pie_chart" style="width: 100%; height: 120px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pie Chart -->
+<script>
+    $(document).ready(function () {
+        var chartDom = document.getElementById('pie_chart');
+        var myChart = echarts.init(chartDom);
+        var option = {
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                top: '5%',
+                left: 'center',
+                show: false,
+            },
+            series: [
+                {
+                    name: 'Details',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    itemStyle: {
+                        borderRadius: 10,
+                        borderColor: '#fff',
+                        borderWidth: 2
+                    },
+                    label: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        label: {
+                            show: false,
+                            fontSize: 20,
+                            fontWeight: 'bold'
+                        }
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: [
+                        { value: @DirectEmployee, name: 'Direct Employee' },
+                        { value: @PromotionalEmployee, name: 'Promotional Employee' },
+                    ]
+                }
+            ]
+        };
+
+        option && myChart.setOption(option);
+    })
+</script>
+
+<!--
+<div class="row mb-4" style="row-gap: 10px;">
+    <div class="col-md-4 col-lg-12 col-xl-4">
+        <div class="card">
+            <div class="card-body">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-12 col-xl-4">
+    </div>
+    <div class="col-md-4 col-lg-12 col-xl-4">
+    </div>
+</div>
+-->
+
+<div class="row" style="min-height:450px;">
+    <div class="col-md-4 col-lg-12 col-xl-4">
+        <div class="card">
+            <div class="card-header" style="padding-bottom: 0 !important;">
+                <h4>Employee (Office wise)</h4>
+            </div>
+            <div class="card-body" style="padding-top: 0 !important;">
+                @*@foreach (var officeWise in dashboard.TotalEmployeeOfficeWise.OfficeWiseEmployees.Take(8))
+                {
+                    <div style="margin-bottom: 5px;">
+                        <input type="text" value="@officeWise.PostingName.Trim()" readonly style="width:220px;" /><input type="text" value="@officeWise.EmployeeCount" readonly style="width:60px; background:lightgreen;" />
+                    </div>
+                }*@
+                <div>
+                    <div id="total_employee" style="width: 100%; height: 350px;"></div>
+                </div>
+
+                <script type="module">
+                    var chartDom = document.getElementById('total_employee');
+                    var myChart = echarts.init(chartDom);
+                    var xDataLabel = [];
+                    var seriesData = [];
+
+                    @foreach (var item in dashboard.TotalEmployeeOfficeWise.OfficeWiseEmployees.Take(5))
+                    {
+                        @:xDataLabel.push("@item.PostingName");
+                        @:seriesData.push(@item.EmployeeCount);
+                    }
+
+                    var option = {
+                        grid: { containLabel: true },
+                        xAxis: {
+                            type: 'category',
+                            data: xDataLabel,
+                            z: 5,
+                            axisLabel: {
+                                inside: true,
+                                interval: 0,
+                                rotate: 90,
+                                color: "black",
+                                show: true,
+                                z: 10
+                            },
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                                data: seriesData,
+                                type: 'bar',
+                            }
+                        ]
+                    };
+
+                    option && myChart.setOption(option);
+                </script>
+
+                <!-- Modal for office wise employees -->
+                <div class="modal fade" id="officeWiseModal" tabindex="-1" aria-labelledby="officeWiseModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="officeWiseModalLabel">Office wise employee</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var officeWise in dashboard.TotalEmployeeOfficeWise.OfficeWiseEmployees)
+                                {
+                                    <div style="margin-bottom: 5px;" class="d-flex">
+                                        <input type="text" value="@officeWise.PostingName.Trim()" readonly style="width:100%;" />
+                                        <input type="text" value="@officeWise.EmployeeCount" readonly style="width:60px; background:lightgreen;" />
+                                    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#officeWiseModal">View all</button>
+                </div>
+            </div>
+        </div>
+        <!-- Support tickets -->
+    </div>
+    <div class="col-md-4 col-lg-12 col-xl-4">
+        <!-- Support tickets -->
+        <div class="card">
+            <div class="card-header" style="padding-bottom: 0 !important;">
+                <h4>Direct Recruited Employees</h4>
+            </div>
+            <div class="card-body" style="padding-top: 0 !important;">
+                <div>
+                    <div id="direct_employee" style="width: 100%; height: 380px;"></div>
+                </div>
+
+                <script type="module">
+                    var chartDom = document.getElementById('direct_employee');
+                    var myChart = echarts.init(chartDom);
+
+                    var option = {
+                        grid: { containLabel: true },
+                        xAxis: {
+                            type: 'category',
+                            data: ['Barisal', 'Chittagong', 'Dhaka', 'Khulna', 'Mymensingh', 'Rajshahi', 'Rangpur', 'Sylhet'],
+                            z: 5,
+                            axisLabel: {
+                                inside: true,
+                                interval: 0,
+                                rotate: 90,
+                                color: "black",
+                                show: true,
+                                z: 10
+                            },
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                                data: [115, 285, 390, 110, 170, 200, 100, 120],
+                                type: 'bar',
+                            }
+                        ]
+                    };
+
+                    option && myChart.setOption(option);
+                </script>
+            </div>
+        </div>
+        <!-- Support tickets -->
+    </div>
+    <div class="col-md-4 col-lg-12 col-xl-4">
+        <!-- Support tickets -->
+        <div class="card">
+            <div class="card-header" style="padding-bottom: 0 !important;">
+                <h4>Promotional Recruited Employees</h4>
+            </div>
+            <div class="card-body" style="padding-top: 0 !important;">
+                <div>
+                    <div id="promotional_employee" style="width: 100%; height: 380px;"></div>
+                </div>
+
+                <script type="module">
+                    var chartDom = document.getElementById('promotional_employee');
+                    var myChart = echarts.init(chartDom);
+
+                    var option = {
+                        grid: { containLabel: true },
+                        xAxis: {
+                            type: 'category',
+                            data: ['Barisal', 'Chittagong', 'Dhaka', 'Khulna', 'Mymensingh', 'Rajshahi', 'Rangpur', 'Sylhet'],
+                            z: 5,
+                            axisLabel: {
+                                inside: true,
+                                interval: 0,
+                                rotate: 90,
+                                color: "black",
+                                show: true,
+                                z: 10
+                            },
+                        },
+                        yAxis: {
+                            type: 'value'
+                        },
+                        series: [
+                            {
+                                data: [140, 100, 300, 50, 10, 100, 120, 90],
+                                type: 'bar',
+                            }
+                        ]
+                    };
+
+                    option && myChart.setOption(option);
+                </script>
+            </div>
+        </div>
+        <!-- Support tickets -->
+    </div>
+</div>
+
+<div class="row" style="min-height:550px;">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>Training Notice</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    @foreach (var training in trainingManagementTypes)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>@training.TrainingTitle</span>
+                            <span class="badge badge-secondary badge-pill">@training.FromDate.ToUIDateString() - @training.ToDate.ToUIDateString() (@training.TrainingManagementTypeStatusEnum.ToString())</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4>PRL Notice</h4>
+                <h3 class="radio ml-auto" style="padding-top:10px;color:green;" id="prlCount">@ViewBag.PrlCount</h3>
+            </div>
+            <div class="card-body table-responsive">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="EmployeeTable" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%; height: 1%;">SL</th>
+                                <th style="width:15%">Name</th>
+                                <th style="width:10%">First Joining Date</th>
+                                <th style="width:10%">PRL Date</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                        <tbody>
+                            @foreach (var data in ViewBag.PrlList)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@data.EmployeeInformationDTO.NameEnglish</td>
+                                    <td>@(data.FirstJoiningDate is DateTime ? ((DateTime)data.FirstJoiningDate).ToUIDateString() : string.Empty)</td>
+                                    <td>@(data.PRLDate is DateTime ? ((DateTime)data.PRLDate).ToUIDateString() : string.Empty)</td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                    <a href="/PRL/Index/" class="btn btn-success ml-auto">More Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+        });
+        calendar.render();
+    });
+
+    $("#prlList").click(function () {
+        debugger;
+        $.ajax({
+            url: "/PRLController/Index",
+            type: "GET",
+            success: function (result) {
+                console.log(result);
+            }
+        });
+    });
+</script>
+

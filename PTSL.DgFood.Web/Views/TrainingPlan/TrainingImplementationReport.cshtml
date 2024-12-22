@@ -1,0 +1,143 @@
+﻿@model IEnumerable<PTSL.DgFood.Web.Model.CustomModal.TrainingImplementationReportVM>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="col-md-10">
+                    <h4>Training Implementation Report</h4>
+                    <h5>@ViewBag.monthNameText, @DateTime.Now.Year</h5>
+                </div>
+                @*<div class="col-md-2">
+                        <a href="/TrainingPlan/Create" class="badge badge-success badge-shadow pull-left">Create New</a>
+                    </div>*@
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" id="tableExport" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Grade</th>
+                                <th>Employees Number</th>
+                                <th>Total Training Hours</th>
+                                <th>Running Month Wise Value</th>
+                                <th>Running Achievement Hours</th>
+                                <th>Running Achievement Percentage</th>
+                                <th>Current Month Wise Value</th>
+                                <th>Current Achievement Hours</th>
+                                <th>Current Achievement Percentage</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var data in Model)
+                                {
+                                    <tr>
+                                        <td>@data.Grade</td>
+                                        <td>@data.EmployeesNumber</td>
+                                        <td>@data.TotalTrainingHours</td>
+                                        <td>@data.RunningMonthWiseValue</td>
+                                        <td>@data.RunningAchievementHours</td>
+                                        <td>@data.RunningAchievementPercentage%</td>
+                                        <td>@data.CurrentMonthWiseValue</td>
+                                        <td>@data.CurrentAchievementHours</td>
+                                        <td>@data.CurrentAchievementPercentage%</td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        </tbody>
+
+                        <tbody>
+                            <tr style="font-weight:bold">
+                                <td>Total</td>
+                                <td>@Model.Select(x => x.EmployeesNumber).Sum()</td>
+                                <td>@Model.Select(x => x.TotalTrainingHours).Sum()</td>
+                                <td>@Model.Select(x => x.RunningMonthWiseValue).Sum()</td>
+                                <td>@Model.Select(x => x.RunningAchievementHours).Sum()</td>
+                                <td>@Model.Select(x => x.RunningAchievementPercentage).Sum()%</td>
+                                <td>@Model.Select(x => x.CurrentMonthWiseValue).Sum()</td>
+                                <td>@Model.Select(x => x.CurrentAchievementHours).Sum()</td>
+                                <td>@Model.Select(x => x.CurrentAchievementPercentage).Sum()</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showDeleteConfirmMessage(id) {
+        swal({
+            title: "Are you sure?",
+            text: "You will not be able to recover this imaginary file!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false
+        }, function () {
+            var data = { 'id': id };
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: "/TrainingPlan/Delete",
+                data: data,
+                datatype: "json",
+                success: function (result) {
+                    console.log(result);
+                    var message = result.Message;
+                    var executionState = result.executionState;
+                    if (executionState != null) {
+                        if (executionState != 10) {
+                            swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                        }
+                        else {
+                            swal("Deleted Faild!", message, "success");
+                        }
+
+                        $(".confirm").on('click', function () {
+                            window.location.reload();
+                        });
+                    }
+                },
+                error: function (xmlhttprequest, textstatus, errorthrown) {
+                    swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+                }
+            });
+        });
+    }
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#tableExport').DataTable({
+            stateSave: true,
+            "bDestroy": true,
+            "bFilter": false,
+            pageLength: 5,
+            dom: 'lBfrtip',
+            buttons: [
+                {
+                    extend: 'print',
+                    title: '<div style="text-align:center">Training Implementation Report <br/> @ViewBag.monthNameText, @DateTime.Now.Year</div>',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+                    }
+                }
+            ]
+        });
+    });
+</script>
+
+

@@ -1,0 +1,32 @@
+﻿@model PTSL.BdArmy.Web.Model.AccesslistVM
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Accesslist Details</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="form-horizontal">
+            <table style="width:100%">
+                <tr>
+                    <td style="width:50px;">Accesslist Name: <b>@Model.Mask</b></td>
+                    <td style="width:50px;">Action Name: <b>@Model.ActionName</b></td>
+                    <td style="width:50px;">Controller Name: <b>@Model.ControllerName</b></td>
+                </tr>
+                <tr>
+                    <td style="width:50px;">Icon Class: <b>@Model.IconClass</b></td>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Accesslist/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+

@@ -1,0 +1,103 @@
+﻿@using PTSL.BdArmy.Web.Model
+@model LoginVM
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>BD Army - Admin Dashboard Template</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="~/Content/assets/css/app.min.css">
+    <link rel="stylesheet" href="~/Content/assets/bundles/bootstrap-social/bootstrap-social.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link rel="stylesheet" href="~/Content/assets/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="~/Content/assets/css/custom.css">
+    <link rel='~/Content/shortcut icon' type='image/x-icon' href='assets/img/favicon.ico' />
+</head>
+ 
+<body>
+    <div class="loader"></div>
+    <div class="col-md-12 bg-light pt-4 pb-4 bg-army" style="background: #006a50 url('/Content/assets/img/bg-Image-BdArmy.jpg') no-repeat center center; background-size: cover; height: 780px ">
+        <div id="app">
+            <section class="section">
+                <div class="container mt-5">
+                    <div class="row">
+                        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                            <div class="card card-primary">
+                                <center><img src="/Content/assets/img/logo.png" style="height:50px; width:50px;text-align:center"></center>
+                                <div class="card-header" >
+                                    <center><h4 style="text-align: right; margin-left: 90px"><span style="color:blue">BD Army </span>Login</h4></center>
+                                </div>
+                                <div class="card-body" style="background:white">
+                                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "LoginForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input id="UserEmail" type="email" class="form-control" name="UserEmail" value="@Model.UserEmail" tabindex="1" required autofocus>
+                                            <div class="invalid-feedback">
+                                                Please fill in your email
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="d-block">
+                                                <label for="password" class="control-label">Password</label>
+                                                @*<div class="float-right">
+                                                    <a href="#" class="text-small" style="color:black">
+                                                        Forgot Password?
+                                                    </a>
+                                                </div>*@
+                                            </div>
+                                            <input id="UserPassword" type="password" class="form-control" value="@Model.UserPassword" name="UserPassword" tabindex="2" required>
+                                            <div class="invalid-feedback">
+                                                please fill in your password
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                                                <label class="custom-control-label" for="remember-me">Remember Me</label>
+                                            </div>
+                                        </div>
+                                        <button id="submit" name="submit" type="submit" class="btn btn-primary btn-accent d-table mx-auto" style="background-color: #006a50">Login</button>
+                                        @*<div class="form-group col-md-4 col-md-offset-4">
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                                Login
+                                            </button>
+                                        </div>*@
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+         
+    </div>
+    <!-- General JS Scripts -->
+    <script src="~/Content/assets/js/app.min.js"></script>
+    <!-- JS Libraies -->
+    <!-- Page Specific JS File -->
+    <!-- Template JS File -->
+    <script src="~/Content/assets/js/scripts.js"></script>
+    <!-- Custom JS File -->
+    <script src="~/Content/assets/js/custom.js"></script>
+</body>
+
+
+<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+</html>

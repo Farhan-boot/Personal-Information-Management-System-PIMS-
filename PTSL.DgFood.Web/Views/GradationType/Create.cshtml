@@ -1,0 +1,54 @@
+﻿@model PTSL.DgFood.Web.Model.GradationTypeVM
+@{
+    ViewBag.Title = "Create";
+    var Message = ViewBag.Message;
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h4>Create New Gradation Type</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "GradationType", FormMethod.Post, new { id = "GradationTypeForm" }))
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputGradationType">Gradation Type Name <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control col-md-6" id="GradationTypeName" name="GradationTypeName" value="@Model.GradationTypeName" placeholder="Enter Gradation Type Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputGradationTypeBn">Gradation Type Name Bangla<span style="color:red;"></span></label>
+                    <input type="text" class="form-control col-md-6" id="GradationTypeNameBn" name="GradationTypeNameBn" value="@Model.GradationTypeNameBn" placeholder="Enter Gradation Type Name Bangla">
+                </div>
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/GradationType/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $(".submit-btn").on("click", function () {
+        if ($("#GradationTypeForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#GradationTypeForm").validate({
+        // Specify validation rules
+        rules: {
+            GradationTypeName: "required"
+        },
+
+    });
+
+
+</script>

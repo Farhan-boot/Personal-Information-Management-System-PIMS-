@@ -1,0 +1,55 @@
+﻿@model PTSL.DgFood.Web.Model.YearsVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Edit Year</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "Years", FormMethod.Post, new { id = "YearsForm" }))
+        {
+            <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+            <input type="hidden" name="CreatedAt" id="CreatedAt" value="@Model.CreatedAt" />
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputYears">Year <span style="color:red;">*</span></label>
+                    <input type="number" class="form-control col-md-6" id="YearsName" name="YearsName" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" value="@Model.YearsName" placeholder="Enter Year Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputYearsBn">Year Bangla<span style="color:red;"></span></label>
+                    <input type="number" class="form-control col-md-6" id="YearsNameBn" name="YearsNameBn" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="4" value="@Model.YearsNameBn" placeholder="Enter Year Name Bangla">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Years/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+    $(".submit-btn").on("click", function () {
+        if ($("#YearsForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#YearsForm").validate({
+        // Specify validation rules
+        rules: {
+            YearsName: "required"
+        },
+
+    });
+
+
+</script>

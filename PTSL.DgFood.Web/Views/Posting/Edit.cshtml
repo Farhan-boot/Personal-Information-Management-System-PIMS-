@@ -1,0 +1,62 @@
+﻿@model PTSL.DgFood.Web.Model.PostingVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Edit Posting</h4>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Edit", "Posting", FormMethod.Post, new { id = "PostingForm" }))
+        {
+            <input type="hidden" name="Id" id="Id" value="@Model.Id" />
+            <input type="hidden" name="CreatedAt" id="CreatedAt" value="@Model.CreatedAt" />
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputPosting">Posting Type Name <span style="color:red;">*</span></label>
+                    @Html.DropDownList("PostingTypeId", null, "Choose..", htmlAttributes: new { @class = "form-control col-md-6", @required = "required" })
+                </div>
+                <div class="form-group">
+                    <label for="inputPosting">Posting Name <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control col-md-6" id="PostingName" name="PostingName" value="@Model.PostingName" placeholder="Enter Posting Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="inputPostingBangla">Posting Name Bangla<span style="color:red;"></span></label>
+                    <input type="text" class="form-control col-md-6" id="PostingNameBangla" name="PostingNameBangla" value="@Model.PostingNameBangla" placeholder="Enter Posting Name Bangla">
+                </div>
+
+
+                <div class="form-group col-md-6">
+                    <button type="submit" class="btn btn-primary submit-btn pull-right">Submit</button>
+                </div>
+            </div>
+        }
+    </div>
+    <hr />
+    <div class="card-header pull-left">
+        <a href="/Posting/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+
+<script>
+    $(".submit-btn").on("click", function () {
+        if ($("#PostingForm").valid()) {
+            //Do something here
+            $(".loader").fadeIn("slow");
+        }
+    });
+
+    $("#PostingForm").validate({
+        // Specify validation rules
+        rules: {
+            PostingName: "required",
+            PostingTypeId: "required"
+        },
+
+    });
+
+
+</script>

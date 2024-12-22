@@ -1,0 +1,259 @@
+﻿@model PTSL.DgFood.Web.Model.EntityViewModels.EmployeeManagementEntity.PromotionManagementVM
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Promotion Management Update</h4>
+    </div>
+    <div style="padding:2%">
+        <div class="form-row">
+            <div class="form-group col-md-12" style="border:1px solid;border-radius:5px">
+                <p><strong>Epmloyee Information</strong></p>
+                <div class="form-row" style="margin-left:1%">
+                    <div class="col-md-4">
+                        <div class="form-row">
+                            <label class="form-group col-md-5">Employee ID : </label>
+                            <label class="form-group col-md-7" id="Emp_ID">@ViewBag.EmployeeInfo.Id</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-row">
+                            <label class="form-group col-md-5">Employee Name : </label>
+                            <label class="form-group col-md-7">@ViewBag.EmployeeInfo.NameEnglish</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-row">
+                            <label class="form-group col-md-5">Rank : </label>
+                            <label class="form-group col-md-7">@ViewBag.EmployeeInfo.RankName</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" style="margin-left:1%">
+                    <div class="col-md-4">
+                        <div class="form-row">
+                            <label class="form-group col-md-5">Govt ID : </label>
+                            <label class="form-group col-md-7">@ViewBag.EmployeeInfo.GovtID</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-row">
+                            <label class="form-group col-md-5">Designation : </label>
+                            <label class="form-group col-md-7">@ViewBag.EmployeeInfo.DesignationName</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-row">
+                            <label class="form-group col-md-5">Mobile : </label>
+                            <label class="form-group col-md-7">@ViewBag.EmployeeInfo.MobileNumber</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><br />
+        <div class="form-row">
+            <input type="text" id="PromotionManagementVM_id" value="@Model.Id" hidden>
+            <div class="form-group col-md-6">
+                <label for="inputRank">Rank <span style="color:red;">*</span></label>
+                @Html.DropDownList("PromotionManagementVM.RankId", (SelectList)ViewBag.PromotionManagementRankId, "Choose..", new { @class = "form-control", @required = "required" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputRank">Designation  <span style="color:red;">*</span></label>
+                @Html.DropDownList("PromotionManagementVM.DesignationId", (SelectList)ViewBag.PromotionManagementDesignationId, "Choose..", new { @class = "form-control", @required = "required" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Promotion Date  <span style="color:red;">*</span></label>
+                <input type="date" class="form-control datepicker" id="PromotionManagementVM_PromotionDate" name="PromotionManagementVM.PromotionDate" value="@(Convert.ToDateTime(Model.PromotionDate).ToString("yyyy-MM-dd"))" placeholder="Enter Promotion Date" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Nature of Promotion  <span style="color:red;">*</span></label>
+                @Html.DropDownList("PromotionManagementVM.PromtionNatureId", (SelectList)ViewBag.PromotionManagementNatureOfPromotionId, "Choose..", new { @class = "form-control", @required = "required" })
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">G.O. Number  <span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="PromotionManagementVM_GONumber" name="PromotionManagementVM.GONumber" value="@Model.GONumber" placeholder="Enter GO Number" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">G.O. Date  <span style="color:red;">*</span></label>
+                <input type="date" class="form-control datepicker" id="PromotionManagementVM_GODate" name="PromotionManagementVM.GODate" value="@(Convert.ToDateTime(Model.GODate).ToString("yyyy-MM-dd"))" placeholder="Enter GO Date" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Year of Pay Scale  <span style="color:red;">*</span></label>
+                @Html.DropDownList("PromotionManagementVM.PayScaleYearInfoId", (SelectList)ViewBag.PromotionManagementYearOfPayScaleId, "Choose..", new { @class = "form-control", @required = "required" })
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Pay Scale  <span style="color:red;">*</span></label>
+                <input type="text" class="form-control" id="PromotionManagementVM_PayScale" name="PromotionManagementVM.PayScale" value="@Model.PayScale" placeholder="Enter Pay Scale" required>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDistrictName">Present Posting </label>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="PromotionManagementVM_PresentPosting" name="PromotionManagementVM.PresentPosting" @{ string check = Model.PresentPosting == true ? "Checked" : null;} @check>
+                    <label class="custom-control-label" for="PromotionManagementVM_PresentPosting">Check if this posting is current posting</label>
+                </div>
+            </div>
+        </div>
+        <button id="btnSave" class="btn btn-primary pull-right">Update</button>
+    </div>
+    <div class="card-header pull-left">
+        <a href="/PromotionManagement/Index" class="btn btn-warning">Return to Index</a>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    $("#PromotionManagementVM_RankId").change(function () {
+        var selectedItem = $(this).val();
+        var ddlDesignation = $("#PromotionManagementVM_DesignationId");
+        if (selectedItem == "" || selectedItem == null) {
+            return true;
+        }
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: "/Dropdown/GetDesignationDropdownByRankId",
+            data: { "id": selectedItem },
+            success: function (data) {
+                console.log(data);
+                ddlDesignation.html('<option value="">Choose..</option>');
+                $.each(data, function (id, option) {
+                    ddlDesignation.append($('<option></option>').val(option.Id).html(option.DesignationName));
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to retrieve states.');
+            }
+        });
+    });
+
+    $("#btnSave").on("click", function () {
+        if (Validation() != true) {
+            return false;
+        }
+        var promotionManagement = new Object();
+        promotionManagement.Id = $("#PromotionManagementVM_id").val()
+        promotionManagement.EmployeeInformationId = document.getElementById("Emp_ID").innerHTML;
+        promotionManagement.RankId = $("#PromotionManagementVM_RankId").val();
+        promotionManagement.DesignationId = $("#PromotionManagementVM_DesignationId").val();
+        promotionManagement.PromotionDate = $("#PromotionManagementVM_PromotionDate").val();
+        promotionManagement.PromtionNatureId = $("#PromotionManagementVM_PromtionNatureId").val();
+        promotionManagement.GONumber = $("#PromotionManagementVM_GONumber").val();
+        promotionManagement.GODate = $("#PromotionManagementVM_GODate").val();
+        promotionManagement.PayScaleYearInfoId = $("#PromotionManagementVM_PayScaleYearInfoId").val();
+        promotionManagement.PayScale = $("#PromotionManagementVM_PayScale").val();
+        promotionManagement.RunningStatus = true;
+        if ($("#PromotionManagementVM_PresentPosting").prop('checked')) {
+            promotionManagement.PresentPosting = true;
+        }
+        else {
+            promotionManagement.PresentPosting = false;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '/PromotionManagement/Submit',
+            data: JSON.stringify(promotionManagement, "save"),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (result.success) {
+                    swal("Success", result.responseText, "success");
+                    $(".confirm").on('click', function () {
+                        window.location.href = '/PromotionManagement/Index/';
+                    });
+                } else {
+                    swal("Failed", result.responseText, "error");
+                }
+
+            },
+            error: function (xmlhttprequest, textstatus, errorthrown) {
+                swal("Failed", result.responseText, "error");
+            }
+        });
+    })
+});
+function Validation() {
+
+    if ($("#PromotionManagementVM_RankId").val() == "" || $("#PromotionManagementVM_RankId").val() == null) {
+        swal("Warning", "Please select Rank", "warning");
+        return false;
+    }
+
+    if ($("#PromotionManagementVM_DesignationId").val() == "" || $("#PromotionManagementVM_DesignationId").val() == null) {
+        swal("Warning", "Please select Designation", "warning");
+        return false;
+    }
+
+    if ($("#PromotionManagementVM_PromotionDate").val() == "" || $("#PromotionManagementVM_PromotionDate").val() == null) {
+        swal("Warning", "Please select Promotion Date", "warning");
+        return false;
+    }
+    if (($("#PromotionManagementVM_PromotionDate").val() != "" || $("#PromotionManagementVM_PromotionDate").val() != null) && Validdatechecking($("#PromotionManagementVM_PromotionDate").val()) == false) {
+        swal("Warning", "Promotion Date Invalid", "warning");
+        return false;
+    }
+
+    if ($("#PromotionManagementVM_PromtionNatureId").val() == "" || $("#PromotionManagementVM_PromtionNatureId").val() == null) {
+        swal("Warning", "Please select Promtion Nature", "warning");
+        return false;
+    }
+
+    if ($("#PromotionManagementVM_GONumber").val() == "" || $("#PromotionManagementVM_GONumber").val() == null) {
+        swal("Warning", "G.O.Number is required", "warning");
+        return false;
+    }
+
+    if ($("#PromotionManagementVM_GODate").val() == "" || $("#PromotionManagementVM_GODate").val() == null) {
+        swal("Warning", "Please select G.O.Date", "warning");
+        return false;
+    }
+    if (($("#PromotionManagementVM_GODate").val() != "" || $("#PromotionManagementVM_GODate").val() != null) && Validdatechecking($("#PromotionManagementVM_GODate").val()) == false) {
+        swal("Warning", "G.O.Date Invalid", "warning");
+        return false;
+    }
+
+    if ($("#PromotionManagementVM_PayScaleYearInfoId").val() == "" || $("#PromotionManagementVM_PayScaleYearInfoId").val() == null) {
+        swal("Warning", "Please select Pay Scale Year", "warning");
+        return false;
+    }
+
+    if ($("#PromotionManagementVM_PayScale").val() == "" || $("#PromotionManagementVM_PayScale").val() == null) {
+        swal("Warning", "Pay Scale is required", "warning");
+        return false;
+    }
+
+    return true;
+}
+
+function Validdatechecking(date) {
+
+    var year;
+    if (date.value == undefined) {
+        year = date.substring(0, 4);
+    }
+    else {
+
+        year = date.value.substring(0, 4);
+    }
+    if (year != "" && year != null) {
+        if (year < "1900") {
+            return false;
+        }
+    }
+}
+
+</script>

@@ -1,0 +1,28 @@
+﻿@model ICollection<PTSL.DgFood.Web.Model.DisciplinaryActionsAndCriminalProsecutionListVM>
+@{
+    Layout = null;
+}
+
+<tbody id="DiscipilinaryList">
+    @if (Model != null)
+    {
+        int i = 1;
+        foreach (var data in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@data.Category</td>
+                <td>@data.PresentStatus</td>
+                <td style="width:220px;float:left;">
+                    @*@data.Id&empid=?did=@data.EmpoloyeeInformationId*@
+                    @*<a href="/EmployeeInformation/EditDisciplinaryActions?did=@data.Id&empid=@data.EmpoloyeeInformationId" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>*@
+                    
+                    <a href="/DisciplinaryActionsAndCriminalProsecution/UpdateEmployeeHistory" class="btn updateSubmitBtn btn btn-primary icon-left btn-sm" data-toggle="modal" data-target=".DisciplinaryActions-status-update-modal" onclick="javascript: getUpdateStatusDisciplinaryActionsModalData(@data.Id)"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                    <a href="#" class="btn btn-info icon-left btn-sm" data-toggle="modal" data-target=".DisciplinaryActions-details-modal" onclick="javascript: getDetailsDisciplinaryActionsModalData(@data.Id)"><i class="fa fa-eye"></i></a>
+                    <button onclick="showDeleteConfirmDisciplinaryMessage(@data.Id)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                </td>
+            </tr>
+            i++;
+        }
+    }
+</tbody>

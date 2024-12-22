@@ -1,0 +1,147 @@
+﻿@*@model IEnumerable<PTSL.DgFood.Web.Model.EmployeeInformationListVM>*@
+
+@model IEnumerable<PTSL.DgFood.Web.Model.EntityViewModels.EmployeeManagementEntity.TrainingInformationManagementVM>
+@{
+    ViewBag.Title = "Index";
+    var RoleName = Session["RoleName"].ToString();
+
+}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+
+                <div class="card-header">
+                    <div class="col-md-10">
+                        <h4>Training Management</h4>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="/TrainingInformationManagement/Create" class="badge badge-success badge-shadow pull-right">Create New</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover tableExport" id="tableExport2" style="width:100%;">
+                        <thead>
+                            <tr>
+                                @*<th>SL</th>*@
+                                <th style="width:10%">Emp Id</th>
+                                <th style="width:20%">Name</th>
+                                <th style="width:10%">DOB</th>
+                                <th style="width:10%">Designation</th>
+                                <th style="width:10%">Govt ID</th>
+                                @*<th style="width:10%">By Prom/ Recruit</th>
+                                <th style="width:10%">Original Posting Place</th>
+                                <th style="width:10%">Mobile No.</th>*@
+                                <th style="width: 130px;">Action</th>
+                            </tr>
+                        </thead>
+                        @{
+                            int i = 1;
+                        }
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var data in Model)
+                                {
+                                    <tr>
+                                        @*<td>@i</td>*@
+                                        <td>@data.EmployeeInformationDto.Id</td>
+                                        <td>@data.EmployeeInformationDto.NameEnglish</td>
+                                        <td>@data.EmployeeInformationDto.DateOfBirth.ToString("dd-MM-yyyy")</td>
+                                        <td>@data.EmployeeInformationDto.PresentDesignation</td>
+                                        <td>@data.EmployeeInformationDto.GovtID</td>
+                                        @*<td>@data.EmployeeInformationDto.ByPromo</td>
+                                        <td>@data.EmployeeInformationDto.OriginalPosting</td>
+                                        <td>@data.EmployeeInformationDto.MobileNumber</td>*@
+                                        <td style="float:left;width: 130px;">
+                                            <button onclick="PromotionForm(@data.EmployeeInformationDto.Id)" id="P_@i" class="btn btn-primary">Promotion</button>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade modalC" id="PromotionformModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="min-width:980px;margin-left:-48%;border:1px solid white!important;border-radius:5px">
+            <div class="modal-header">
+                <h6 class="modal-title"><b>Employee Promotion Form</b></h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <input type="text" id="detaileID" hidden>
+            <div class="modal-body" id="ModalContent">
+
+            </div>
+            <div class="modal-footer">
+                <button onclick="showPromotionConfirmMessage()" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function PromotionForm(id) {
+        debugger
+        var options = { "backdrop": "static", keyboard: true };
+        $.ajax({
+            type: "GET",
+            url: '/PromotionManagement/PromotionFormPartial',
+            contentType: "application/json; charset=utf-8",
+            data: { "id": id },
+            datatype: "json",
+            success: function (data) {
+                $('#ModalContent').html(data);
+                $('#PromotionformModal').modal(options);
+                $('#PromotionformModal').modal('show');
+            },
+            error: function () {
+                alert("Dynamic content load failed.");
+            }
+        });
+    }
+    //function showDeleteConfirmMessage(id) {
+    //    swal({
+    //        title: "Are you sure?",
+    //        text: "You will not be able to recover this imaginary file!",
+    //        type: "warning",
+    //        showCancelButton: true,
+    //        confirmButtonColor: "#DD6B55",
+    //        confirmButtonText: "Yes, delete it!",
+    //        closeOnConfirm: false
+    //    }, function () {
+    //            var data = { 'id': id };
+    //            $.ajax({
+    //                type: "GET",
+    //                contentType: "application/json; charset=utf-8",
+    //                url: "/District/Delete",
+    //                data: data,
+    //                datatype: "json",
+    //                success: function (result) {
+    //                    console.log(result);
+    //                    var message = result.Message;
+    //                    var executionState = result.executionState;
+    //                    if (executionState != null) {
+    //                        swal("Deleted!", "Your imaginary file has been deleted.", "success");
+    //                        $(".confirm").on('click', function () {
+    //                            window.location.reload();
+    //                        });
+    //                    }
+    //                },
+    //                error: function (xmlhttprequest, textstatus, errorthrown) {
+    //                    swal("Not Deleted!", "Your imaginary file has not been deleted.", "error");
+    //                }
+    //            });
+    //    });
+    //}
+</script>
